@@ -1,0 +1,31 @@
+---
+version: '3.7'
+services:
+  discovery-server:
+    container_name: discovery-server
+    build: discovery-server/
+    #image: discovery-server
+
+  postgres-review:
+    container_name: postgres-review
+    image: postgres
+    environment:
+      POSTGRES_DB: review-service
+      POSTGRES_USER: ted
+      POSTGRES_PASSWORD: qazmlpD
+    volumes:
+      - ./review-db-data:/data/postgres
+    restart: unless-stopped
+
+  review-service:
+    container_name: review-service
+    build: review-service/
+    #image: review-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - discovery-server
+      - postgres-review
+
+volumes:
+  review-db-data:

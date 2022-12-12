@@ -1,10 +1,52 @@
 ---
 version: '3.7'
 services:
+
   discovery-server:
     container_name: discovery-server
     build: discovery-server/
-    #image: discovery-server
+    ports:
+      - "8761:8761"
+
+  postgres-user:
+    container_name: postgres-user
+    image: postgres
+    environment:
+      POSTGRES_DB: user-service
+      POSTGRES_USER: ted
+      POSTGRES_PASSWORD: qazmlpD
+    volumes:
+      - ./db-data/user:/data/postgres
+    restart: unless-stopped
+
+  user-service:
+    container_name: user-service
+    build: user-service/
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery-server
+      - postgres-user
+
+  postgres-shop:
+    container_name: postgres-shop
+    image: postgres
+    environment:
+      POSTGRES_DB: shop-service
+      POSTGRES_USER: ted
+      POSTGRES_PASSWORD: qazmlpD
+    volumes:
+      - ./db-data/shop:/data/postgres
+    restart: unless-stopped
+
+  shop-service:
+    container_name: shop-service
+    build: shop-service/
+    ports:
+      - "8082:8082"
+    depends_on:
+      - discovery-server
+      - postgres-shop
 
   postgres-review:
     container_name: postgres-review
@@ -14,18 +56,61 @@ services:
       POSTGRES_USER: ted
       POSTGRES_PASSWORD: qazmlpD
     volumes:
-      - ./review-db-data:/data/postgres
+      - ./db-data/review:/data/postgres
     restart: unless-stopped
 
   review-service:
     container_name: review-service
     build: review-service/
-    #image: review-service
     ports:
-      - "8082:8082"
+      - "8083:8083"
     depends_on:
       - discovery-server
       - postgres-review
 
+  postgres-reservation:
+    container_name: postgres-reservation
+    image: postgres
+    environment:
+      POSTGRES_DB: reservation-service
+      POSTGRES_USER: ted
+      POSTGRES_PASSWORD: qazmlpD
+    volumes:
+      - ./db-data/reservation:/data/postgres
+    restart: unless-stopped
+
+  reservation-service:
+    container_name: reservation-service
+    build: reservation-service/
+    ports:
+      - "8084:8084"
+    depends_on:
+      - discovery-server
+      - postgres-reservation
+
+  postgres-box:
+    container_name: postgres-box
+    image: postgres
+    environment:
+      POSTGRES_DB: box-service
+      POSTGRES_USER: ted
+      POSTGRES_PASSWORD: qazmlpD
+    volumes:
+      - ./db-data/box:/data/postgres
+    restart: unless-stopped
+
+  box-service:
+    container_name: box-service
+    build: box-service/
+    ports:
+      - "8085:8085"
+    depends_on:
+      - discovery-server
+      - postgres-box
+
 volumes:
+  user-db-data:
+  shop-db-data:
   review-db-data:
+  reservation-db-data:
+  box-db-data:

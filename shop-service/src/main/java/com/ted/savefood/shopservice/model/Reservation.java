@@ -1,6 +1,5 @@
 package com.ted.savefood.shopservice.model;
 
-import com.ted.savefood.shopservice.model.model.Box;
 import jakarta.persistence.*;
 
 import java.util.LinkedList;

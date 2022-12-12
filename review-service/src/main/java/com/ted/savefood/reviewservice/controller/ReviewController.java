@@ -1,8 +1,12 @@
 package com.ted.savefood.reviewservice.controller;
 
+import com.ted.savefood.reviewservice.model.Customer;
 import com.ted.savefood.reviewservice.model.Review;
+import com.ted.savefood.reviewservice.model.Shop;
 import com.ted.savefood.reviewservice.repository.ReviewRepository;
+import jakarta.persistence.criteria.Join;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,4 +70,51 @@ public class ReviewController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    //region CUSTOM CODE
+    public static Specification<Review> hasShopWithId(long id) {
+        return (root, query, criteriaBuilder) -> {
+            Join<Review, Shop> ShopReviews = root.join("reviews");
+            return criteriaBuilder.equal(ShopReviews.get("id"), id);
+        };
+    }
+
+    @GetMapping("/joinshop")
+    //restituisce una lista di reviews fatte al negozio con Id 1
+    public List<Review> SearchReviewByShopId() {
+
+        Specification<Review> specification = hasShopWithId('1');
+
+        List<Review> reviews = new LinkedList<>();
+        repository.findAll(specification).forEach(reviews::add);
+
+        return reviews;
+
+    }
+
+
+
+    public static Specification<Review> hasCustomerWithEmail(String email) {
+        return (root, query, criteriaBuilder) -> {
+            Join<Review, Customer> CustomerReviews = root.join("reviews");
+            return criteriaBuilder.equal(CustomerReviews.get("email"), "obelix@gmail.com");
+        };
+    }
+
+    @GetMapping("/joincustomer")
+    //restituisce una lista di reviews fatte al negozio con Id 1
+    public List<Review> SearchReserviewByCustomerEmail() {
+
+        Specification<Review> specification = hasCustomerWithEmail("obelix@gmail.com");
+
+        List<Review> reviews = new LinkedList<>();
+        repository.findAll(specification).forEach(reviews::add);
+
+        return reviews;
+
+    }
+
+    //endregion
+
+
 }

@@ -118,7 +118,8 @@ services:
     depends_on:
       - discovery-server
       - postgres-box
-   
+
+
 #  frontend:
 #    container_name: frontend
 #    build:

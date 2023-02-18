@@ -98,7 +98,18 @@ services:
     volumes:
       - ./db-data/box:/data/postgres
     restart: unless-stopped
-
+  
+  pgadmin:
+   container_name: pgadmin4_container
+   image: dpage/pgadmin4
+   restart: unless-stopped
+   environment:
+     PGADMIN_DEFAULT_EMAIL: admin@admin.com
+     PGADMIN_DEFAULT_PASSWORD: admin
+     PGADMIN_LISTEN_PORT: 80
+   ports:
+     - "8086:80"
+   
   box-service:
     container_name: box-service
     build: box-service/
@@ -107,6 +118,20 @@ services:
     depends_on:
       - discovery-server
       - postgres-box
+   
+#  frontend:
+#    container_name: frontend
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    volumes:
+#      - '.:/app'
+#      - '/app/node_modules'
+#    ports:
+#      - '3000:3000'
+#    environment:
+#      - NODE_ENV=development
+
 
 volumes:
   user-db-data:

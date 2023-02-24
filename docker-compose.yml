@@ -1,142 +1,195 @@
 ---
-version: '3.7'
+version: '3.3'
 services:
 
+  # Eureka Discovery Server
   discovery-server:
     container_name: discovery-server
-    build: discovery-server/
+    build: ./discovery-server/
     ports:
       - "8761:8761"
+    environment:
+      eureka.instance.hostname: discovery-server
+      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
 
+
+  # Api Gateway
+  api-gateway:
+    container_name: api-gateway
+    build: ./api-gateway/
+    ports:
+      - "8080:8080"
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
+    depends_on:
+      - discovery-server
+
+
+  # User service
+  user-service:
+    container_name: user-service
+    build: ./user-service/
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
+    depends_on:
+      - discovery-server
+      - axon-server
+      - postgres-user
+
+  # Postgres for user
   postgres-user:
     container_name: postgres-user
     image: postgres
     environment:
-      POSTGRES_DB: user-service
+      POSTGRES_DB: user-db
       POSTGRES_USER: ted
       POSTGRES_PASSWORD: qazmlpD
     volumes:
-      - ./db-data/user:/data/postgres
+      - user-db-data:/data/postgres
     restart: unless-stopped
 
-  user-service:
-    container_name: user-service
-    build: user-service/
-    ports:
-      - "8081:8081"
+
+  # Payment service
+  payment-service:
+    container_name: payment-service
+    build: ./payment-service/
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
     depends_on:
       - discovery-server
-      - postgres-user
+      - axon-server
+      - postgres-payment
 
+  # Postgres for payment
+  postgres-payment:
+    container_name: postgres-payment
+    image: postgres
+    environment:
+      POSTGRES_DB: payment-db
+      POSTGRES_USER: ted
+      POSTGRES_PASSWORD: qazmlpD
+    volumes:
+      - payment-db-data:/data/postgres
+    restart: unless-stopped
+
+
+  # Order service
+  order-service:
+    container_name: order-service
+    build: ./order-service/
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
+    depends_on:
+      - discovery-server
+      - axon-server
+      - postgres-order
+
+  # Postgres for order
+  postgres-order:
+    container_name: postgres-order
+    image: postgres
+    environment:
+      POSTGRES_DB: order-db
+      POSTGRES_USER: ted
+      POSTGRES_PASSWORD: qazmlpD
+    volumes:
+      - order-db-data:/data/postgres
+    restart: unless-stopped
+
+  # Shop service
+  shop-service:
+    container_name: shop-service
+    build: ./shop-service/
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
+    depends_on:
+      - discovery-server
+      - axon-server
+      - postgres-shop
+
+  # Postgres for shop
   postgres-shop:
     container_name: postgres-shop
     image: postgres
     environment:
-      POSTGRES_DB: shop-service
+      POSTGRES_DB: shop-db
       POSTGRES_USER: ted
       POSTGRES_PASSWORD: qazmlpD
     volumes:
-      - ./db-data/shop:/data/postgres
+      - shop-db-data:/data/postgres
     restart: unless-stopped
 
-  shop-service:
-    container_name: shop-service
-    build: shop-service/
-    ports:
-      - "8082:8082"
-    depends_on:
-      - discovery-server
-      - postgres-shop
 
-  postgres-review:
-    container_name: postgres-review
-    image: postgres
+  # Reservation service
+  reservation-service:
+    container_name: reservation-service
+    build: ./reservation-service/
     environment:
-      POSTGRES_DB: review-service
-      POSTGRES_USER: ted
-      POSTGRES_PASSWORD: qazmlpD
-    volumes:
-      - ./db-data/review:/data/postgres
-    restart: unless-stopped
-
-  review-service:
-    container_name: review-service
-    build: review-service/
-    ports:
-      - "8083:8083"
+      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
     depends_on:
       - discovery-server
-      - postgres-review
+      - axon-server
+      - postgres-reservation
 
+  # Postgres for reservation
   postgres-reservation:
     container_name: postgres-reservation
     image: postgres
     environment:
-      POSTGRES_DB: reservation-service
+      POSTGRES_DB: reservation-db
       POSTGRES_USER: ted
       POSTGRES_PASSWORD: qazmlpD
     volumes:
-      - ./db-data/reservation:/data/postgres
+      - reservation-db-data:/data/postgres
     restart: unless-stopped
 
-  reservation-service:
-    container_name: reservation-service
-    build: reservation-service/
-    ports:
-      - "8084:8084"
+
+  # Box service
+  box-service:
+    container_name: box-service
+    build: ./box-service/
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
     depends_on:
       - discovery-server
-      - postgres-reservation
+      - axon-server
+      - postgres-box
 
+  # Postgres for box
   postgres-box:
     container_name: postgres-box
     image: postgres
     environment:
-      POSTGRES_DB: box-service
+      POSTGRES_DB: box-db
       POSTGRES_USER: ted
       POSTGRES_PASSWORD: qazmlpD
     volumes:
-      - ./db-data/box:/data/postgres
+      - box-db-data:/data/postgres
     restart: unless-stopped
-  
-  pgadmin:
-   container_name: pgadmin4_container
-   image: dpage/pgadmin4
-   restart: unless-stopped
-   environment:
-     PGADMIN_DEFAULT_EMAIL: admin@admin.com
-     PGADMIN_DEFAULT_PASSWORD: admin
-     PGADMIN_LISTEN_PORT: 80
-   ports:
-     - "8086:80"
-   
-  box-service:
-    container_name: box-service
-    build: box-service/
+
+
+  # Axon Server for event store
+  axon-server:
+    image: axoniq/axonserver:latest-dev
+    hostname: axon-server
+    volumes:
+      - axonserver-data:/axonserver/data
+      - axonserver-events:/axonserver/eventdata
+      - axonserver-config:/axonserver/config:ro
     ports:
-      - "8085:8085"
-    depends_on:
-      - discovery-server
-      - postgres-box
+      - '8024:8024'
+      - '8124:8124'
 
 
-#  frontend:
-#    container_name: frontend
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    volumes:
-#      - '.:/app'
-#      - '/app/node_modules'
-#    ports:
-#      - '3000:3000'
-#    environment:
-#      - NODE_ENV=development
-
-
+# Volumes for Axon and Postgres
 volumes:
-  user-db-data:
-  shop-db-data:
-  review-db-data:
-  reservation-db-data:
-  box-db-data:
+    axonserver-data:
+    axonserver-events:
+    axonserver-config:
+    reservation-db-data:
+    user-db-data:
+    payment-db-data:
+    order-db-data:
+    shop-db-data:
+    box-db-data:
+

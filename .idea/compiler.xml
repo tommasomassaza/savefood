@@ -7,24 +7,32 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="box-service" />
+        <module name="common-functionality" />
         <module name="discovery-server" />
-        <module name="review-service" />
+        <module name="payment-service" />
         <module name="reservation-service" />
         <module name="api-gateway" />
         <module name="shop-service" />
         <module name="user-service" />
+        <module name="order-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="box-service.main" target="17" />
       <module name="box-service.test" target="17" />
+      <module name="query-service" target="17" />
+      <module name="review-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
       <module name="box-service" options="-parameters" />
+      <module name="common-functionality" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
+      <module name="order-service" options="-parameters" />
+      <module name="payment-service" options="-parameters" />
+      <module name="query-service" options="-parameters" />
       <module name="reservation-service" options="-parameters" />
       <module name="review-service" options="-parameters" />
       <module name="shop-service" options="-parameters" />

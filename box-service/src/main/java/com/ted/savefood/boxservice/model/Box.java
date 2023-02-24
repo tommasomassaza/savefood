@@ -4,11 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "boxes")
-public class Box {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
+public class Box extends HasId{
     private String name;
 
     private String description;
@@ -19,22 +15,22 @@ public class Box {
 
     private float price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Shop shop;
+    private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Reservation reservation;
+    private Shop shop;
 
 
     // Costruttori
     public Box(){}
 
-    public Box(String name, String description, int size, String pickUpTime, float price){
+    public Box(String name, String description, int size, String pickUpTime, float price, int quantity){
         this.name = name;
         this.description = description;
         this.size = size;
         this.pickUpTime = pickUpTime;
         this.price = price;
+        this.quantity = quantity;
     }
 
 
@@ -79,19 +75,19 @@ public class Box {
         this.price = price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public Shop getShop() {
         return shop;
     }
 
     public void setShop(Shop shop) {
         this.shop = shop;
-    }
-
-    public Reservation reservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
     }
 }

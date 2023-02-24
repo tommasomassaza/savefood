@@ -20,6 +20,9 @@ public class Shop {
 
     private int telephoneNumber;
 
+    private int numberOfReviews;
+    private int stars;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Seller seller;
 
@@ -46,6 +49,8 @@ public class Shop {
         this.address = address;
         this.description = description;
         this.telephoneNumber = telephoneNumber;
+        this.numberOfReviews = 0;
+        this.stars = 0;
     }
 
 
@@ -80,6 +85,22 @@ public class Shop {
 
     public void setTelephoneNumber(int telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public int getNumberOfReviews() {
+        return numberOfReviews;
+    }
+
+    public void setNumberOfReviews(int numberOfReviews) {
+        this.numberOfReviews = numberOfReviews;
+    }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public void setStars(int stars) {
+        this.stars = stars;
     }
 
     public Seller getSeller() {

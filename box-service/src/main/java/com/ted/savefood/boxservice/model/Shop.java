@@ -7,11 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "shops")
-public class Shop {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
+public class Shop extends HasId{
     private String name;
 
     private String address;
@@ -20,8 +16,8 @@ public class Shop {
 
     private int telephoneNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Seller seller;
+    private int numberOfReviews;
+    private int stars;
 
     @OneToMany(
             mappedBy = "shop",
@@ -29,13 +25,6 @@ public class Shop {
             orphanRemoval = true
     )
     private List<Box> boxes= new LinkedList<>();
-
-    @OneToMany(
-            mappedBy = "shop",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Review> reviews= new LinkedList<>();
 
 
     // Costruttori
@@ -46,6 +35,8 @@ public class Shop {
         this.address = address;
         this.description = description;
         this.telephoneNumber = telephoneNumber;
+        this.numberOfReviews = 0;
+        this.stars = 0;
     }
 
 
@@ -82,19 +73,23 @@ public class Shop {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public int getNumberOfReviews() {
+        return numberOfReviews;
     }
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public void setNumberOfReviews(int numberOfReviews) {
+        this.numberOfReviews = numberOfReviews;
+    }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public void setStars(int stars) {
+        this.stars = stars;
     }
 
     public List<Box> getBoxes() {
         return boxes;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
     }
 }

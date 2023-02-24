@@ -2,9 +2,6 @@ package com.ted.savefood.shopservice.model;
 
 import jakarta.persistence.*;
 
-import java.util.LinkedList;
-import java.util.List;
-
 @Entity
 @Table(name = "reservations")
 public class Reservation {
@@ -19,12 +16,8 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
-    @OneToMany(
-            mappedBy = "reservation",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Box> boxes= new LinkedList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Box box;
 
 
     // Costruttori
@@ -61,7 +54,11 @@ public class Reservation {
         this.customer = customer;
     }
 
-    public List<Box> getBoxes() {
-        return boxes;
+    public Box getBox() {
+        return box;
+    }
+
+    public void setBox(Box box) {
+        this.box = box;
     }
 }

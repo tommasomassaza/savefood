@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
-    private QueryGateway queryGateway;
+    private transient QueryGateway queryGateway;
 
     public CustomerController(QueryGateway queryGateway) {
         this.queryGateway = queryGateway;

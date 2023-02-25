@@ -1,5 +1,6 @@
 package com.ted.savefood.orderservice.eventhandler;
 
+import com.ted.savefood.commonfunctionality.events.CancelOrderEvent;
 import com.ted.savefood.commonfunctionality.events.CompleteOrderEvent;
 import com.ted.savefood.orderservice.events.CreateOrderEvent;
 import com.ted.savefood.orderservice.model.Order;
@@ -29,6 +30,15 @@ public class OrderEventHandler {
         Order order
                 = orderRepository.findById(completeOrderEvent.getOrderId()).get();
         order.setOrderStatus(completeOrderEvent.getOrderStatus());
+
+        orderRepository.save(order);
+    }
+
+    @EventHandler
+    public void on(CancelOrderEvent cancelOrderEvent){
+        Order order
+                = orderRepository.findById(cancelOrderEvent.getOrderId()).get();
+        order.setOrderStatus(cancelOrderEvent.getOrderStatus());
 
         orderRepository.save(order);
     }

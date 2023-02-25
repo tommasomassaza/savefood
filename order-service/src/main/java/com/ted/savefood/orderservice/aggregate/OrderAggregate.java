@@ -1,7 +1,9 @@
 package com.ted.savefood.orderservice.aggregate;
 
+import com.ted.savefood.commonfunctionality.commands.CancelOrderCommand;
 import com.ted.savefood.commonfunctionality.commands.CompleteOrderCommand;
 import com.ted.savefood.commonfunctionality.events.CompleteOrderEvent;
+import com.ted.savefood.commonfunctionality.events.CancelOrderEvent;
 import com.ted.savefood.orderservice.command.CreateOrderCommand;
 import com.ted.savefood.orderservice.events.CreateOrderEvent;
 import org.axonframework.commandhandling.CommandHandler;
@@ -55,5 +57,19 @@ public class OrderAggregate {
     @EventSourcingHandler
     public void on(CompleteOrderEvent completeOrderEvent){
         this.orderStatus=completeOrderEvent.getOrderStatus();
+    }
+
+    @CommandHandler
+    public void handle(CancelOrderCommand cancelOrderCommand){
+        CancelOrderEvent cancelOrderEvent
+                = new CancelOrderEvent();
+        BeanUtils.copyProperties(cancelOrderCommand, cancelOrderEvent);
+
+        AggregateLifecycle.apply(cancelOrderEvent);
+    }
+
+    @EventSourcingHandler
+    public void on(CancelOrderEvent cancelOrderEvent){
+        this.orderStatus = cancelOrderEvent.getOrderStatus();
     }
 }

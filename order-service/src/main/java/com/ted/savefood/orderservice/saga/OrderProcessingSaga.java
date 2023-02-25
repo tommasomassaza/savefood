@@ -1,8 +1,10 @@
 package com.ted.savefood.orderservice.saga;
 
+import com.ted.savefood.commonfunctionality.commands.CancelOrderCommand;
 import com.ted.savefood.commonfunctionality.commands.CompleteOrderCommand;
 import com.ted.savefood.commonfunctionality.commands.ReservationOrderCommand;
 import com.ted.savefood.commonfunctionality.commands.ValidatePaymentCommand;
+import com.ted.savefood.commonfunctionality.events.CancelOrderEvent;
 import com.ted.savefood.commonfunctionality.events.CompleteOrderEvent;
 import com.ted.savefood.commonfunctionality.events.PaymentProcessedEvent;
 import com.ted.savefood.commonfunctionality.events.ReservationOrderEvent;
@@ -29,6 +31,7 @@ public class OrderProcessingSaga {
     private transient CommandGateway commandGateway;
     @Autowired
     private transient QueryGateway queryGateway;
+
     public OrderProcessingSaga(){}
 
     @StartSaga
@@ -46,7 +49,10 @@ public class OrderProcessingSaga {
             ).join();
         } catch (Exception e){
             log.error(e.getMessage());
+
             // Start the compensatng transacton
+
+            cancelOrderCommand(createOrderEvent.getOrderId());
         }
 
         ValidatePaymentCommand validatePaymentCommand = ValidatePaymentCommand.builder()
@@ -56,6 +62,12 @@ public class OrderProcessingSaga {
                 .build();
 
         commandGateway.sendAndWait(validatePaymentCommand);
+    }
+
+    private void cancelOrderCommand(String orderId) {
+        CancelOrderCommand cancelOrderCommand
+                = new CancelOrderCommand(orderId);
+        commandGateway.send(cancelOrderCommand);
     }
 
     @SagaEventHandler(associationProperty = "orderId")
@@ -92,5 +104,11 @@ public class OrderProcessingSaga {
     @EndSaga
     public void handle(CompleteOrderEvent completeOrderEvent){
         log.info("CompleteOrderEvent in Saga for Order Id : {}", completeOrderEvent.getOrderId());
+    }
+
+    @SagaEventHandler(associationProperty = "orderId")
+    @EndSaga
+    public void handle(CancelOrderEvent cancelOrderEvent){
+        log.info("CancelOrderEvent in Saga for Order Id : {}", cancelOrderEvent.getOrderId());
     }
 }

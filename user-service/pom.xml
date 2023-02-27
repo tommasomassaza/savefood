@@ -65,7 +65,7 @@
         </dependency>
         <dependency>
             <groupId>com.ted.savefood.commonfunctionality</groupId>
-            <artifactId>common-functionality</artifactId>
+            <artifactId>common-utils</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

@@ -36,6 +36,19 @@ services:
       - axon-server
       - postgres-user
 
+  #Frontend with react
+  frontend:
+      container_name: fe
+      image: fe
+      build:
+        target: development
+      volumes:
+        - ./frontend:/frontend
+      ports:
+        - "3000:3000"
+      restart: unless-stopped
+      
+      
   # Postgres for user
   postgres-user:
     container_name: postgres-user
@@ -192,4 +205,5 @@ volumes:
     order-db-data:
     shop-db-data:
     box-db-data:
+    frontend:
 

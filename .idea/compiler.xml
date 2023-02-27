@@ -20,6 +20,7 @@
     <bytecodeTargetLevel>
       <module name="box-service.main" target="17" />
       <module name="box-service.test" target="17" />
+      <module name="common-functionality" target="17" />
       <module name="query-service" target="17" />
       <module name="review-service" target="17" />
     </bytecodeTargetLevel>

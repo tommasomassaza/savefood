@@ -1,5 +1,5 @@
 ---
-version: '3.3'
+version: '3.8'
 services:
 
   # Eureka Discovery Server
@@ -35,18 +35,6 @@ services:
       - discovery-server
       - axon-server
       - postgres-user
-
-  #Frontend with react
-  frontend:
-      container_name: fe
-      image: fe
-      build:
-        target: development
-      volumes:
-        - ./frontend:/frontend
-      ports:
-        - "3000:3000"
-      restart: unless-stopped
       
       
   # Postgres for user
@@ -192,6 +180,19 @@ services:
     ports:
       - '8024:8024'
       - '8124:8124'
+
+
+  #Frontend with react
+  #frontend:
+  #  container_name: frontend
+  #  build:
+  #    context: ./frontend/
+  #    target: production
+  #  volumes:
+  #    - ./frontend:/app/src
+  #  ports:
+  #    - "3000:3000"
+  #  restart: unless-stopped
 
 
 # Volumes for Axon and Postgres

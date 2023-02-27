@@ -1,7 +1,7 @@
 package com.ted.savefood.reservationservice.command.api.aggregate;
 
-import com.ted.savefood.commonfunctionality.commands.ReservationOrderCommand;
-import com.ted.savefood.commonfunctionality.events.ReservationOrderEvent;
+import com.ted.savefood.commonutils.commands.ReserveOrderCommand;
+import com.ted.savefood.commonutils.events.OrderReservedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -18,21 +18,21 @@ public class ReservationAggregate {
     public ReservationAggregate(){}
 
     @CommandHandler
-    public ReservationAggregate(ReservationOrderCommand reservationOrderCommand){
+    public ReservationAggregate(ReserveOrderCommand reservationOrderCommand){
         // Validate the command
         // Publish the order Reservation Event
-        ReservationOrderEvent reservationOrderEvent
-                = ReservationOrderEvent.builder()
+        OrderReservedEvent orderReservedEvent
+                = OrderReservedEvent.builder()
                 .reservationId(reservationOrderCommand.getReservationId())
                 .orderId(reservationOrderCommand.getOrderId())
                 .reservationStatus("COMPLETED")
                 .build();
 
-        AggregateLifecycle.apply(reservationOrderEvent);
+        AggregateLifecycle.apply(orderReservedEvent);
     }
 
     @EventSourcingHandler
-    public void on(ReservationOrderEvent reservationOrderEvent){
+    public void on(OrderReservedEvent reservationOrderEvent){
         this.reservationId=reservationOrderEvent.getReservationId();
         this.orderId=reservationOrderEvent.getOrderId();
         this.reservationStatus=reservationOrderEvent.getReservationStatus();

@@ -1,4 +1,4 @@
-package com.ted.savefood.commonfunctionality.events;
+package com.ted.savefood.commonutils.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

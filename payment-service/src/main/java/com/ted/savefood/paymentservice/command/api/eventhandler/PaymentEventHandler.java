@@ -1,7 +1,7 @@
 package com.ted.savefood.paymentservice.command.api.eventhandler;
 
-import com.ted.savefood.commonfunctionality.events.CancelPaymentEvent;
-import com.ted.savefood.commonfunctionality.events.PaymentProcessedEvent;
+import com.ted.savefood.commonutils.events.PaymentCancelledEvent;
+import com.ted.savefood.commonutils.events.PaymentProcessedEvent;
 import com.ted.savefood.paymentservice.common.model.Payment;
 import com.ted.savefood.paymentservice.common.repository.PaymentRepository;
 import org.axonframework.eventhandling.EventHandler;
@@ -33,10 +33,10 @@ public class PaymentEventHandler {
     }
 
     @EventHandler
-    public void on(CancelPaymentEvent cancelPaymentEvent){
-        Payment payment = paymentRepository.findById(cancelPaymentEvent.getPaymentId()).get();
+    public void on(PaymentCancelledEvent paymentCancelledEvent){
+        Payment payment = paymentRepository.findById(paymentCancelledEvent.getPaymentId()).get();
 
-        payment.setPaymentStatus(cancelPaymentEvent.getPaymentStatus());
+        payment.setPaymentStatus(paymentCancelledEvent.getPaymentStatus());
 
         paymentRepository.save(payment);
     }

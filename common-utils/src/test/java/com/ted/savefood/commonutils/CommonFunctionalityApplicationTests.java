@@ -1,4 +1,4 @@
-package com.ted.savefood.commonfunctionality;
+package com.ted.savefood.commonutils;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

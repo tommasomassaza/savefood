@@ -1,8 +1,8 @@
 package com.ted.savefood.orderservice.command.api.eventhandler;
 
-import com.ted.savefood.commonfunctionality.events.CancelOrderEvent;
-import com.ted.savefood.commonfunctionality.events.CompleteOrderEvent;
-import com.ted.savefood.orderservice.command.api.events.CreateOrderEvent;
+import com.ted.savefood.commonutils.events.OrderCancelledEvent;
+import com.ted.savefood.commonutils.events.OrderCompletedEvent;
+import com.ted.savefood.orderservice.command.api.events.OrderCreatedEvent;
 import com.ted.savefood.orderservice.common.model.Order;
 import com.ted.savefood.orderservice.common.repository.OrderRepository;
 import org.axonframework.eventhandling.EventHandler;
@@ -18,25 +18,25 @@ public class OrderEventHandler {
     }
 
     @EventHandler
-    public void on(CreateOrderEvent createOrderEvent){
+    public void on(OrderCreatedEvent orderCreatedEvent){
         Order order = new Order();
-        BeanUtils.copyProperties(createOrderEvent,order);
+        BeanUtils.copyProperties(orderCreatedEvent,order);
 
         orderRepository.save(order);
     }
 
     @EventHandler
-    public void on(CompleteOrderEvent completeOrderEvent){
-        Order order = orderRepository.findById(completeOrderEvent.getOrderId()).get();
-        order.setOrderStatus(completeOrderEvent.getOrderStatus());
+    public void on(OrderCompletedEvent orderCompletedEvent){
+        Order order = orderRepository.findById(orderCompletedEvent.getOrderId()).get();
+        order.setOrderStatus(orderCompletedEvent.getOrderStatus());
 
         orderRepository.save(order);
     }
 
     @EventHandler
-    public void on(CancelOrderEvent cancelOrderEvent){
-        Order order = orderRepository.findById(cancelOrderEvent.getOrderId()).get();
-        order.setOrderStatus(cancelOrderEvent.getOrderStatus());
+    public void on(OrderCancelledEvent orderCancelledEvent){
+        Order order = orderRepository.findById(orderCancelledEvent.getOrderId()).get();
+        order.setOrderStatus(orderCancelledEvent.getOrderStatus());
 
         orderRepository.save(order);
     }

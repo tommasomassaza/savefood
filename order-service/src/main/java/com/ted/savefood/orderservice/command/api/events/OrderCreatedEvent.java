@@ -3,7 +3,7 @@ package com.ted.savefood.orderservice.command.api.events;
 import lombok.Data;
 
 @Data
-public class CreateOrderEvent {
+public class OrderCreatedEvent {
     private String orderId;
     private String boxId;
     private String customerId;

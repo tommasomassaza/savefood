@@ -1,6 +1,6 @@
 package com.ted.savefood.userservice.common.model;
 
-import com.ted.savefood.commonfunctionality.model.CardDetails;
+import com.ted.savefood.commonutils.model.CardDetails;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 

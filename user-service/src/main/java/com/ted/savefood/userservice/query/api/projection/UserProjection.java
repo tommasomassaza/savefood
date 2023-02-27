@@ -1,7 +1,7 @@
 package com.ted.savefood.userservice.query.api.projection;
 
-import com.ted.savefood.commonfunctionality.model.CardDetails;
-import com.ted.savefood.commonfunctionality.query.GetUserPaymentDetailsQuery;
+import com.ted.savefood.commonutils.model.CardDetails;
+import com.ted.savefood.commonutils.query.GetUserPaymentDetailsQuery;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;
 

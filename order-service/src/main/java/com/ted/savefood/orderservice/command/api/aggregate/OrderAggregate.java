@@ -1,11 +1,11 @@
 package com.ted.savefood.orderservice.command.api.aggregate;
 
-import com.ted.savefood.commonfunctionality.commands.CancelOrderCommand;
-import com.ted.savefood.commonfunctionality.commands.CompleteOrderCommand;
-import com.ted.savefood.commonfunctionality.events.CompleteOrderEvent;
-import com.ted.savefood.commonfunctionality.events.CancelOrderEvent;
+import com.ted.savefood.commonutils.commands.CancelOrderCommand;
+import com.ted.savefood.commonutils.commands.CompleteOrderCommand;
+import com.ted.savefood.commonutils.events.OrderCompletedEvent;
+import com.ted.savefood.commonutils.events.OrderCancelledEvent;
 import com.ted.savefood.orderservice.command.api.commands.CreateOrderCommand;
-import com.ted.savefood.orderservice.command.api.events.CreateOrderEvent;
+import com.ted.savefood.orderservice.command.api.events.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -28,48 +28,48 @@ public class OrderAggregate {
     @CommandHandler
     public OrderAggregate(CreateOrderCommand createOrderCommand){
         //eventualmente validare il comando
-        CreateOrderEvent createOrderEvent = new CreateOrderEvent();
-        BeanUtils.copyProperties(createOrderCommand,createOrderEvent);
-        AggregateLifecycle.apply(createOrderEvent);
+        OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent();
+        BeanUtils.copyProperties(createOrderCommand,orderCreatedEvent);
+        AggregateLifecycle.apply(orderCreatedEvent);
     }
 
     @EventSourcingHandler
-    public void on(CreateOrderEvent createOrderEvent){
-        this.orderId=createOrderEvent.getOrderId();
-        this.boxId=createOrderEvent.getBoxId();
-        this.customerId=createOrderEvent.getCustomerId();
-        this.quantity=createOrderEvent.getQuantity();
-        this.orderStatus=createOrderEvent.getOrderStatus();
+    public void on(OrderCreatedEvent orderCreatedEvent){
+        this.orderId=orderCreatedEvent.getOrderId();
+        this.boxId=orderCreatedEvent.getBoxId();
+        this.customerId=orderCreatedEvent.getCustomerId();
+        this.quantity=orderCreatedEvent.getQuantity();
+        this.orderStatus=orderCreatedEvent.getOrderStatus();
     }
 
     @EventHandler
     public void handle(CompleteOrderCommand completeOrderCommand){
         // Validate the command
         // Publish order completed event
-        CompleteOrderEvent completeOrderEvent
-                = CompleteOrderEvent.builder()
+        OrderCompletedEvent orderCompletedEvent
+                = OrderCompletedEvent.builder()
                 .orderId(completeOrderCommand.getOrderId())
                 .orderStatus(completeOrderCommand.getOrderStatus())
                 .build();
-        AggregateLifecycle.apply(completeOrderEvent);
+        AggregateLifecycle.apply(orderCompletedEvent);
     }
 
     @EventSourcingHandler
-    public void on(CompleteOrderEvent completeOrderEvent){
-        this.orderStatus=completeOrderEvent.getOrderStatus();
+    public void on(OrderCompletedEvent orderCompletedEvent){
+        this.orderStatus=orderCompletedEvent.getOrderStatus();
     }
 
     @CommandHandler
     public void handle(CancelOrderCommand cancelOrderCommand){
-        CancelOrderEvent cancelOrderEvent
-                = new CancelOrderEvent();
-        BeanUtils.copyProperties(cancelOrderCommand, cancelOrderEvent);
+        OrderCancelledEvent orderCancelledEvent
+                = new OrderCancelledEvent();
+        BeanUtils.copyProperties(cancelOrderCommand, orderCancelledEvent);
 
-        AggregateLifecycle.apply(cancelOrderEvent);
+        AggregateLifecycle.apply(orderCancelledEvent);
     }
 
     @EventSourcingHandler
-    public void on(CancelOrderEvent cancelOrderEvent){
-        this.orderStatus = cancelOrderEvent.getOrderStatus();
+    public void on(OrderCancelledEvent orderCancelledEvent){
+        this.orderStatus = orderCancelledEvent.getOrderStatus();
     }
 }

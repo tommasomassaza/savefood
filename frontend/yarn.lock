@@ -10724,7 +10724,7 @@ stack-utils@^1.0.1:
 
 start@^5.1.0:
   version "5.1.0"
-  resolved "https://registry.npmjs.org/start/-/start-5.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/start/-/start-5.1.0.tgz#1c171f0ef9487f56d0ab9a755ace860169208763"
   integrity sha512-lirwWQmvBC65bnxU3HzKx5m7vfZJZTx/FrKyPWbtobcvujGbinQQRrNodtcgkp4mTZ00umzDeg7lraN351l0aA==
 
 static-extend@^0.1.1:
@@ -12118,7 +12118,7 @@ yarn-audit-fix@^9.3.7:
 
 yarn@^1.22.19:
   version "1.22.19"
-  resolved "https://registry.npmjs.org/yarn/-/yarn-1.22.19.tgz"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.19.tgz#4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
   integrity sha512-/0V5q0WbslqnwP91tirOvldvYISzaqhClxzyUKXYxs07yUILIs5jx/k6CFe8bvKSkds5w+eiOqta39Wk3WxdcQ==
 
 yocto-queue@^1.0.0:

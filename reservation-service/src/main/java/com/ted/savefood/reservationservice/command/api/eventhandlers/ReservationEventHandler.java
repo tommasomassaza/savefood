@@ -1,6 +1,6 @@
 package com.ted.savefood.reservationservice.command.api.eventhandlers;
 
-import com.ted.savefood.commonfunctionality.events.ReservationOrderEvent;
+import com.ted.savefood.commonutils.events.OrderReservedEvent;
 import com.ted.savefood.reservationservice.common.model.Reservation;
 import com.ted.savefood.reservationservice.common.repository.ReservationRepository;
 import org.axonframework.eventhandling.EventHandler;
@@ -17,9 +17,9 @@ public class ReservationEventHandler {
     }
 
     @EventHandler
-    public void on(ReservationOrderEvent reservationOrderEvent){
+    public void on(OrderReservedEvent orderReservedEvent){
         Reservation reservation = new Reservation();
-        BeanUtils.copyProperties(reservationOrderEvent,reservation);
+        BeanUtils.copyProperties(orderReservedEvent,reservation);
 
         reservationRepository.save(reservation);
     }

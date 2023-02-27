@@ -1,4 +1,4 @@
-package com.ted.savefood.commonfunctionality.query;
+package com.ted.savefood.commonutils.query;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

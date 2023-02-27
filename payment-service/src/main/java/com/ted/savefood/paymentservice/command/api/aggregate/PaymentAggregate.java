@@ -1,10 +1,9 @@
 package com.ted.savefood.paymentservice.command.api.aggregate;
 
-import com.ted.savefood.commonfunctionality.commands.CancelPaymentCommand;
-import com.ted.savefood.commonfunctionality.commands.ValidatePaymentCommand;
-import com.ted.savefood.commonfunctionality.events.CancelOrderEvent;
-import com.ted.savefood.commonfunctionality.events.CancelPaymentEvent;
-import com.ted.savefood.commonfunctionality.events.PaymentProcessedEvent;
+import com.ted.savefood.commonutils.commands.CancelPaymentCommand;
+import com.ted.savefood.commonutils.commands.ValidatePaymentCommand;
+import com.ted.savefood.commonutils.events.PaymentCancelledEvent;
+import com.ted.savefood.commonutils.events.PaymentProcessedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -47,16 +46,16 @@ public class PaymentAggregate {
 
     @CommandHandler
     public void handle(CancelPaymentCommand cancelPaymentCommand){
-        CancelPaymentEvent cancelPaymentEvent
-                = new CancelPaymentEvent();
+        PaymentCancelledEvent paymentCancelledEvent
+                = new PaymentCancelledEvent();
 
-        BeanUtils.copyProperties(cancelPaymentCommand,cancelPaymentEvent);
+        BeanUtils.copyProperties(cancelPaymentCommand,paymentCancelledEvent);
 
-        AggregateLifecycle.apply(cancelPaymentEvent);
+        AggregateLifecycle.apply(paymentCancelledEvent);
     }
 
     @EventSourcingHandler
-    public void on(CancelPaymentEvent cancelPaymentEvent){
-        this.paymentStatus=cancelPaymentEvent.getPaymentStatus();
+    public void on(PaymentCancelledEvent paymentCancelledEvent){
+        this.paymentStatus=paymentCancelledEvent.getPaymentStatus();
     }
 }

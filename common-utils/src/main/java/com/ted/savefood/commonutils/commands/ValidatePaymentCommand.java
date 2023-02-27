@@ -1,6 +1,6 @@
-package com.ted.savefood.commonfunctionality.commands;
+package com.ted.savefood.commonutils.commands;
 
-import com.ted.savefood.commonfunctionality.model.CardDetails;
+import com.ted.savefood.commonutils.model.CardDetails;
 import lombok.Builder;
 import lombok.Data;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;

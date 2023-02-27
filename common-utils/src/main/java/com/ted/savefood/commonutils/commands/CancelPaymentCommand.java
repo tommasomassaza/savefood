@@ -1,4 +1,4 @@
-package com.ted.savefood.commonfunctionality.commands;
+package com.ted.savefood.commonutils.commands;
 
 import lombok.Value;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;

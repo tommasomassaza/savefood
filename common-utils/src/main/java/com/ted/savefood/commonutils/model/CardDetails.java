@@ -1,4 +1,4 @@
-package com.ted.savefood.commonfunctionality.model;
+package com.ted.savefood.commonutils.model;
 
 import lombok.Builder;
 import lombok.Data;

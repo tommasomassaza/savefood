@@ -11,7 +11,7 @@ if [ $# -gt 0 ]; then
       cd ..
     done
   else
-    cd common-functionality
+    cd common-utils
     ./mvnw -DskipTests=true clean install
     cd ../api-gateway
     ./mvnw -DskipTests=true clean install

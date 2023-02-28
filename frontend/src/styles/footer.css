@@ -60,7 +60,7 @@
 }
 
 .newsletter span {
-  background: #df2020;
+  background: yellowgreen;
   padding: 5px 30px;
   border-radius: 5px;
 }
@@ -75,14 +75,14 @@
 
 .social__links span i {
   padding: 5px;
-  background: #df2020;
+  background: yellowgreen;
   color: #fff;
   border-radius: 50%;
 }
 
 .copyright__text {
   font-size: 0.8rem;
-  color: #df2020;
+  color: black;
 }
 
 @media only screen and (max-width: 992px) {

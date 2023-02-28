@@ -105,7 +105,7 @@ const Home = () => {
                 </h1>
 
                 <p>
-                  Su Save Food puoi saziare te e chi vuoi, risparmiando. Ti pasterà cercare il tuo negozio preferito, scegliere la box, pagare e il gioco è fatto. Potrai prelevare la box all'orario pattuito dal negoziante e gustarti poi tutte le prelibatezze della giornata comodamente a casa o dove vuoi tu.
+                  Su Save Food puoi saziare te e chi vuoi, risparmiando. Ti basterà cercare il tuo negozio preferito, scegliere la box, pagare e il gioco è fatto. Potrai prelevare la box all'orario pattuito dal negoziante e gustarti poi tutte le prelibatezze della giornata comodamente a casa o dove vuoi tu.
                 </p>
 
                 <div className="hero__btns d-flex align-items-center gap-5 mt-4">

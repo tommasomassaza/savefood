@@ -10,6 +10,7 @@ public class CreateBoxCommand {
     private String shopId;
     private String name;
     private String description;
+    private float price;
     private int size;
     private float price;
 }

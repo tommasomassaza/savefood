@@ -1,6 +1,8 @@
 package com.ted.savefood.boxservice.command.api.aggregate;
 
+import com.ted.savefood.boxservice.command.api.commands.CancelBoxCommand;
 import com.ted.savefood.boxservice.command.api.commands.CreateBoxCommand;
+import com.ted.savefood.boxservice.command.api.events.BoxCancelledEvent;
 import com.ted.savefood.boxservice.command.api.events.BoxCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -19,6 +21,9 @@ public class BoxAggregate {
     private int size;
     private float price;
 
+
+    public BoxAggregate() {}
+
     @CommandHandler
     public BoxAggregate(CreateBoxCommand createBoxCommand){
         BoxCreatedEvent boxCreatedEvent = new BoxCreatedEvent();
@@ -26,8 +31,6 @@ public class BoxAggregate {
 
         AggregateLifecycle.apply(boxCreatedEvent);
     }
-
-    public BoxAggregate() {}
 
     @EventSourcingHandler
     public void on(BoxCreatedEvent boxCreatedEvent){
@@ -37,5 +40,14 @@ public class BoxAggregate {
         this.description=boxCreatedEvent.getDescription();
         this.size=boxCreatedEvent.getSize();
         this.price= boxCreatedEvent.getPrice();
+    }
+
+    @CommandHandler
+    public void handle(CancelBoxCommand cancelBoxCommand){
+        BoxCancelledEvent boxCancelledEvent
+                = new BoxCancelledEvent();
+        BeanUtils.copyProperties(cancelBoxCommand, boxCancelledEvent);
+
+        AggregateLifecycle.apply(boxCancelledEvent);
     }
 }

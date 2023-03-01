@@ -65,7 +65,7 @@ const Header = () => {
 
           {/* ======= menu ======= */}
           <div className="navigation" ref={menuRef} onClick={toggleMenu}>
-            <div className="menu d-flex align-items-center gap-5">
+            <div className="menu d-flex align-items-center gap-4">
               {nav__links.map((item, index) => (
                 <NavLink
                   to={item.path}

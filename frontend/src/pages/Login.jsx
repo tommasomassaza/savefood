@@ -3,6 +3,12 @@ import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
+import { GoogleLogin } from '@react-oauth/google';
+
+import { GoogleLoginButton } from "react-social-login-buttons";
+import { LoginSocialGoogle } from "reactjs-social-login";
+
+/*const clientId =  "124254457715-gdko0camj6927rjp1m0m4treen83j1a7.apps.googleusercontent.com";*/
 
 const Login = () => {
   const loginNameRef = useRef();
@@ -10,6 +16,13 @@ const Login = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+  };
+
+  const responseMessage = (response) => {
+          console.log(response);
+      };
+      const errorMessage = (error) => {
+          console.log(error);
   };
 
   return (

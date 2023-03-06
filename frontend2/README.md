@@ -1,3 +1,16 @@
+To do:
+	-private and public page
+	-implement login with google and facebook
+	- seller and buyer login 
+	- seller registration
+	- "fetch" boxes
+	- implement a shopping card
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

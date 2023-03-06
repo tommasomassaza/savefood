@@ -2,7 +2,9 @@
 import './HomePage.scss';
 import './slider.js';
 import BoxItem from '../BoxItem/index.js';
+
 import boxes from "../../data/boxes.json";
+
 import {useNavigate} from "react-router-dom";
 
 import { FaArrowRight } from "react-icons/fa";
@@ -16,8 +18,50 @@ import Script from '../../scripts/main.js';
 import SearchBar from '../SearchBarItem';
 
 
-
 function HomePage (){
+   const url= "/api/boxes";
+  /* fetch data example
+
+  const [boxes, setPosts] = React.useState([]);
+
+  useEffect(() => {
+          fetch(url)
+              .then((response) => response.json())
+              .then((boxes) => setPosts(boxes))
+
+  }, []);
+
+
+  console.log(boxes);
+  */
+
+  /*
+  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
+
+      useEffect(() => {
+          const loadPost = async () => {
+
+              // Till the data is fetch using API
+              // the Loading page will show.
+              setLoading(true);
+
+              // Await make wait until that
+              // promise settles and return its result
+              const response = await axios.get(url);
+
+              // After fetching data stored it in posts state.
+              setPosts(response.data);
+
+              // Closed the loading page
+              setLoading(false);
+          }
+
+          // Call the function
+          loadPost();
+      }, []);
+   */
+   //console.log(posts);
 
 
   //barra di ricerca, non ancora implementata
@@ -83,8 +127,9 @@ function HomePage (){
             <span>I miei ordini</span>
           </div>
         </div>
-        
-  
+
+
+
         <div className="searchBar">
           <div className="header-option">
             <i data-feather="search"></i>

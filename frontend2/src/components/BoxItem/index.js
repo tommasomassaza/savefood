@@ -20,23 +20,23 @@ const BoxItem = ({ box }) => {
 
     return (
        
-        <div className="listings-grid-element" onClick={() => {navigate("/box"); setIdNew();}}>
-        <div className="image">
+        <div className="listings-grid-element1" onClick={() => {navigate("/box"); setIdNew();}}>
+        <div className="image1">
         <img src={box.image} alt="prova"/>
         </div>
-        <div className="text">
-          <div className="text-title">
+        <div className="text1">
+          <div className="text-title1">
             <h3>{box.name}</h3>
-            <div className="info">
+            <div className="info1">
               <span>{box.price} euro | ora ritiro: {box.pickuptime} | </span>
             </div>
           </div>
-          <div className="rating">
-            <span className="circle">4.2</span>
+          <div className="rating1">
+            <span className="circle1">4.2</span>
           </div>
         </div>
-        <div className="text-lower">
-          <span className="smallText">Info1 | Info2 | Info3 | Info4 | Info5</span>
+        <div className="text-lower1">
+          <span className="smallText1">Info1 | Info2 | Info3 | Info4 | Info5</span>
         </div>
       </div>
     

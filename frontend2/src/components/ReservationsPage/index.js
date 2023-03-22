@@ -1,10 +1,15 @@
 import React from "react"
 import {useNavigate} from "react-router-dom";
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+
+
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+
+
+
 
 import ReservationItem from '../ReservationItem/ReservationItem.js';
 import reservations from "../../data/reservations.json";
@@ -21,41 +26,41 @@ const ReservationsPage = () => {
         <body>
    
     <header>
-      <div className="container">
-        <div className="logo" onClick={() => {navigate("/");}} >
+      <div className="container1">
+        <div className="logo1" onClick={() => {navigate("/");navigate(0);}} >
           <h1>Save<span>Food</span></h1>
         </div>
-        <div className="currentDetails">
-          <div className="header-option">
-            <i data-feather="map-pin"></i>
+        <div className="currentDetails1">
+          <div className="header-option1">
+            <i data-feather="map-pin1"></i>
             <span>Google Maps</span>
           </div>
-          <div className="header-option" onClick={() => {navigate("/reservations");}}>
+          <div className="header-option1" onClick={() => {navigate("/reservations");}}>
             <i data-feather="clock"></i>
             <span>I miei ordini</span>
           </div>
         </div>
         
   
-        <div className="searchBar">
-          <div className="header-option">
+        <div className="searchBar1">
+          <div className="header-option1">
             <i data-feather="search"></i>
             <span>Cerca</span>
           </div>
-          <div className="header-option" onClick={() => {navigate("/login");}}>
+          <div className="header-option1" onClick={() => {navigate("/login");}}>
             <span>Log in</span>
           </div>
         </div>
       </div>
     </header>
 
-    <div className="options">
-      <div className="container">
-        <button className="options-btn selected">
+    <div className="options1">
+      <div className="container1">
+        <button className="options-btn1 selected1">
           <i data-feather="shopping-bag"></i>
           <span>Tutte</span>
         </button>
-        <button className="options-btn">
+        <button className="options-btn1">
           <i data-feather="watch"></i>
           <span>Filtra</span>
         </button>
@@ -68,7 +73,7 @@ const ReservationsPage = () => {
         <div className="App">  
         <Container>  
 <Row>  
-  <Col className=".bg-light.bg-gradient p-2 square border border-dark d-flex align-items-center justify-content-center">
+  <Col className=".bg-light.bg-gradient p-2 square border border-dark d-flex align-items-center justify-content-center text-primary">
      <h4>Prenotazioni</h4>
   </Col> 
   </Row> 

@@ -1,5 +1,6 @@
+
 window.onload = () => {
-    const listings = Array.from(document.getElementsByClassName('listings'))
+    const listings = Array.from(document.getElementsByClassName('listings1'))
   
     // loop through listings
     listings.forEach(listing => handleSlider(listing))
@@ -7,9 +8,9 @@ window.onload = () => {
   
   // define function to handle slider
   const handleSlider = listing => {
-    const listingsGrid = listing.getElementsByClassName('listings-grid')[0]
-    const arrowLeft = listing.getElementsByClassName('left')[0]
-    const arrowRight = listing.getElementsByClassName('right')[0]
+    const listingsGrid = listing.getElementsByClassName('listings-grid1')[0]
+    const arrowLeft = listing.getElementsByClassName('left1')[0]
+    const arrowRight = listing.getElementsByClassName('right1')[0]
   
     if (!listingsGrid || !arrowLeft || !arrowRight) {
       console.log(listing)
@@ -20,7 +21,7 @@ window.onload = () => {
       // prevent default button behaviour
       e.preventDefault()
   
-      handleClassChange('right')
+      handleClassChange('right1')
   
       listingsGrid.scrollTo({
         left: listingsGrid.offsetWidth,
@@ -31,7 +32,7 @@ window.onload = () => {
     arrowLeft.addEventListener('click', e => {
       e.preventDefault()
   
-      handleClassChange('left')
+      handleClassChange('left1')
   
       listingsGrid.scrollTo({
         left: 0,
@@ -40,13 +41,12 @@ window.onload = () => {
     })
   
     const handleClassChange = direction => {
-      if (direction === 'right') {
-        arrowRight.classList.remove('darker')
-        arrowLeft.classList.add('darker')
-      } else if (direction === 'left') {
-        arrowLeft.classList.remove('darker')
-        arrowRight.classList.add('darker')
+      if (direction === 'right1') {
+        arrowRight.classList.remove('darker1')
+        arrowLeft.classList.add('darker1')
+      } else if (direction === 'left1') {
+        arrowLeft.classList.remove('darker1')
+        arrowRight.classList.add('darker1')
       }
     }
   }
-  

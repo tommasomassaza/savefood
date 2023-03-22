@@ -7,16 +7,10 @@ import {
   MDBTabsContent,
   MDBTabsPane,
   MDBBtn,
-  MDBIcon,
   MDBInput,
-  MDBCheckbox
+  MDBCheckbox,
 }
 from 'mdb-react-ui-kit';
-
-
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
 
 
 import {useNavigate} from "react-router-dom";
@@ -42,38 +36,46 @@ function LoginPage() {
     <body>
    
     <header>
-      <div className="container">
-        <div className="logo" onClick={() => {navigate("/");}}>
+      <div className="container1">
+        <div className="logo1" onClick={() => {navigate("/");navigate(0);}}>
           <h1>Save<span>Food</span></h1>
         </div>
-        <div className="currentDetails">
-          <div className="header-option">
-            <i data-feather="map-pin"></i>
+        <div className="currentDetails1">
+          <div className="header-option1">
+            <i data-feather="map-pin1"></i>
             <span>Google Maps</span>
           </div>
-          <div className="header-option" onClick={() => {navigate("/reservations");}}>
+          <div className="header-option1" onClick={() => {navigate("/reservations");}}>
             <i data-feather="clock"></i>
             <span>I miei ordini</span>
           </div>
         </div>
         
   
-        <div className="searchBar">
-          <div className="header-option">
-            <i data-feather="search"></i>
+        <div className="searchBar1">
+          <div className="header-option1">
+            <i data-feather="search1"></i>
             <span>Cerca</span>
           </div>
-          <div className="header-option" onClick={() => {navigate("/login");}}>
+          <div className="header-option1" onClick={() => {navigate("/login");}}>
             <span>Log in</span>
           </div>
         </div>
       </div>
     </header>
+
+
+    <div className="options1">
+      <div className="container1">
+
+      <div className="header-title1">
+            <h2>Esegui il login:</h2>
+          </div>
     
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
 
       <MDBTabs pills justify className='mb-3 d-flex flex-row justify-content-between'>
-        <MDBTabsItem>
+        <MDBTabsItem >
           <MDBTabsLink onClick={() => handleJustifyClick('tab1')} active={justifyActive === 'tab1'}>
             Login
           </MDBTabsLink>
@@ -134,6 +136,9 @@ function LoginPage() {
       </MDBTabsContent>
 
     </MDBContainer>
+
+    </div>
+    </div>
     </body>
   );
 }

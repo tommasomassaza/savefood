@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import HomePage from './components/HomePage/index.js';
 import BoxPage from './components/BoxPage/index.js';
 import ReservationsPage from './components/ReservationsPage/index.js';
@@ -23,6 +23,9 @@ class App extends Component {
           </Route>
           <Route element={<HomePage/>} path="/" exact/>
           <Route element={<LoginPage/>} path="/login" exact/>
+
+          //Invece di far spuntare pagenotfound reindirizziamo l'user alla pagina iniziale
+          <Route path="*" element={<Navigate to="/" />} />
     
          
         </Routes>

@@ -17,12 +17,12 @@ class App extends Component {
       <Router>
         <Routes>
           <Route element={<PrivateRoutes />}>
-                <Route element={<BoxPage/>} path="/box" exact/>
                 <Route element={<ReservationsPage/>} path="/reservations" exact/>
                 <Route element={<NegozioPage/>} path="/negozio" exact/>
           </Route>
           <Route element={<HomePage/>} path="/" exact/>
           <Route element={<LoginPage/>} path="/login" exact/>
+          <Route element={<BoxPage/>} path="/box" exact/>
 
           //Invece di far spuntare pagenotfound reindirizziamo l'user alla pagina iniziale
           <Route path="*" element={<Navigate to="/" />} />

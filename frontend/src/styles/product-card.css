@@ -34,19 +34,22 @@
   padding: 7px 25px;
   background: yellowgreen;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 2px;
   font-size: 0.9rem;
 }
 
 @media only screen and (max-width: 992px) {
   .product__content h5 a {
-    font-size: 0.8rem;
+    font-size: 16px;
   }
   .product__item {
     padding: 20px;
   }
   .addTOCart__btn {
-    padding: 5px 15px;
-    font-size: 0.7rem;
+    padding: 3px 3px;
+    font-size: 0.75rem;
+  }
+  .product__price{
+    padding: 2px, 2px;
   }
 }

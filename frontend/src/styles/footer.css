@@ -5,15 +5,11 @@
 }
 
 .footer__logo img {
-  width: calc(100% - 80%);
-  margin-bottom: 5px;
-}
-
-.footer__logo h5 {
-  font-weight: 600;
-  font-size: 1rem;
+  max-width: 50%;
   margin-bottom: 15px;
 }
+
+
 
 .footer__logo p {
   font-size: 0.9rem;
@@ -98,16 +94,22 @@
 
 @media only screen and (max-width: 768px) {
   .footer__title {
-    font-size: 0.8rem;
+    font-size: 1.2rem;
   }
 
   .delivery__time-item span {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .delivery__time-item p {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     margin-bottom: 0;
+  }
+
+  .footer__logo img {
+    max-width: 70%;
+    min-width: 200px;
+    height: auto;
   }
 }
 
@@ -125,5 +127,11 @@
   }
   .social__links span a {
     font-size: 0.7rem;
+  }
+
+  .footer__logo img {
+    max-width: 50%;
+    min-width: 100px;
+    height: auto;
   }
 }

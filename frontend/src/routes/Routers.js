@@ -9,7 +9,7 @@ import Checkout from "../pages/Checkout";
 import Contact from "../pages/Contact";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import Orders from "../pages/Ordini";
+import Orders from "../pages/Orders";
 import PrivateRoutes from '../routes/PrivateRoutes.js';
 
 const Routers = () => {

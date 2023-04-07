@@ -63,7 +63,7 @@ const Header = () => {
     <header className="header" ref={headerRef}>
       <Container>
         <div className="nav__wrapper d-flex align-items-center justify-content-between">
-          <div className="logo">
+          <div className="logo" onClick={()=> window.location.href = "/home"}>
             <img src={logo} alt="logo"/>
           </div>
 

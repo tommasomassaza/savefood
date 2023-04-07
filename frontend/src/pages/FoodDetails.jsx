@@ -21,6 +21,18 @@ const FoodDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
+  //prodotti
+  /*
+  const url= "/api/boxes";
+  const [products, setPosts] = React.useState([]);
+  useEffect(() => {
+    fetch(url)
+        .then((response) => response.json())
+        .then((products) => setPosts(products))
+
+  }, []);
+
+  */
   const product = products.find((product) => product.id === id);
   const [previewImg, setPreviewImg] = useState(product.image01);
   const { title, price, category, desc, image01 } = product;

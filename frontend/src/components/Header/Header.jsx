@@ -19,6 +19,10 @@ const nav__links = [
     path: "/foods",
   },
   {
+    display: "Ordini",
+    path: "/orders",
+  },
+  {
     display: "Carrello",
     path: "/cart",
   },
@@ -63,6 +67,7 @@ const Header = () => {
             <img src={logo} alt="logo"/>
           </div>
 
+
           {/* ======= menu ======= */}
           <div className="navigation" ref={menuRef} onClick={toggleMenu}>
             <div className="menu d-flex align-items-center gap-4">
@@ -79,6 +84,10 @@ const Header = () => {
               ))}
             </div>
           </div>
+
+
+
+
 
           {/* ======== nav right icons ========= */}
           <div className="nav__right d-flex align-items-center gap-4">

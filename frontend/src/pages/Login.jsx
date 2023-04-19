@@ -1,26 +1,34 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 
 
-import { GoogleLogin } from 'react-google-login';
-import { setAuth } from '../routes/PrivateRoutes.js';
+import { GoogleLoginButton } from "react-social-login-buttons";
+import { LoginSocialGoogle } from "reactjs-social-login";
 
-/*const clientId =  "124254457715-gdko0camj6927rjp1m0m4treen83j1a7.apps.googleusercontent.com";*/
+import { useContext } from "react";
+
+const clientId =  "124254457715-gdko0camj6927rjp1m0m4treen83j1a7.apps.googleusercontent.com";
+
+//import { useAuth }  from "../routes/PrivateRoutes";
 
 const Login = () => {
+
+
   const loginNameRef = useRef();
   const loginPasswordRef = useRef();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState(null);
+  const [auth, setAuth] = useState({ token: false });
 
-    const handleLogin = (user) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const handleLogin = (user) => {
       setIsLoggedIn(true);
       setUser(user);
-    };
+  };
 
    const handleLogout = () => {
       setIsLoggedIn(false);
@@ -31,24 +39,6 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault();
   };
-
-  const responseMessage = (response) => {
-          console.log(response);
-      };
-      const errorMessage = (error) => {
-          console.log(error);
-  };
-
-
-
-
-    const handleGoogleLoginSuccess = (response) => {
-        //setAuth({ isAuthenticated: true });
-    };
-
-    const handleGoogleLoginFailure = (response) => {
-      // Your Google login failure logic goes here
-    };
 
 
   return (
@@ -79,13 +69,26 @@ const Login = () => {
                   Login
                 </button>
                 <Container className="mt-3">
-                                <GoogleLogin
-                                  clientId="124254457715-gdko0camj6927rjp1m0m4treen83j1a7.apps.googleusercontent.com"
-                                  buttonText="Login with Google"
-                                  onSuccess={handleGoogleLoginSuccess}
-                                  onFailure={handleGoogleLoginFailure}
-                                  cookiePolicy={'single_host_origin'}
-                                />
+                                <LoginSocialGoogle
+                                        client_id={"124254457715-gdko0camj6927rjp1m0m4treen83j1a7.apps.googleusercontent.com"}
+                                        scope="openid profile email"
+                                        discoveryDocs="claims_supported"
+                                        access_type="offline"
+                                        onResolve={({ provider, data }) => {
+                                          console.log(provider, data);
+                                          //setAuth(prevState => ({ ...prevState, token: true }));
+                                          console.log(isLoggedIn);
+                                          setAuth({ token: true });
+                                          console.log(auth.token);
+
+                                        }}
+                                        onReject={(err) => {
+                                          console.log(err);
+                                        }}
+                                      >
+                                        <GoogleLoginButton />
+                                      </LoginSocialGoogle>
+
                 </Container>
               </form>
               <Link to="/register">

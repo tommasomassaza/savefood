@@ -12,6 +12,7 @@ import Register from "../pages/Register";
 import Orders from "../pages/Orders";
 import PrivateRoutes from '../routes/PrivateRoutes.js';
 
+
 const Routers = () => {
   return (
     <Routes>
@@ -30,10 +31,10 @@ const Routers = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/contact" element={<Contact />} />
 
-      //Invece di far spuntare pagenotfound reindirizziamo l'user alla pagina iniziale
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };
+//Invece di far spuntare pagenotfound reindirizziamo l'user alla pagina iniziale
 
 export default Routers;

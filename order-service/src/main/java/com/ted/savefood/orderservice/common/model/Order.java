@@ -12,7 +12,7 @@ public class Order {
     @Id
     private String orderId;
     private String boxId;
-    private String customerId;
+    private String userId;
     private int quantity;
     private String orderStatus;
 }

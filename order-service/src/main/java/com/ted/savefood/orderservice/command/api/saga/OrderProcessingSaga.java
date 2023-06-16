@@ -33,7 +33,7 @@ public class OrderProcessingSaga {
     private void handle(OrderCreatedEvent orderCreatedEvent){
         log.info("CreateOrderEvent in Saga for Order Id : {}", orderCreatedEvent.getOrderId());
 
-        GetUserPaymentDetailsQuery getUserPaymentDetailsQuery = new GetUserPaymentDetailsQuery(orderCreatedEvent.getCustomerId());
+        GetUserPaymentDetailsQuery getUserPaymentDetailsQuery = new GetUserPaymentDetailsQuery(orderCreatedEvent.getUserId());
 
         CardDetails cardDetails = null;
         try {

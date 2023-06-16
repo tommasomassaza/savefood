@@ -8,7 +8,7 @@ public class CreateOrderCommand {
     @TargetAggregateIdentifier
     private String orderId;
     private String boxId;
-    private String customerId;
+    private String userId;
     private int quantity;
     private String orderStatus;
 }

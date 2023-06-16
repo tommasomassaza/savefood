@@ -10,5 +10,4 @@ public class BoxCreatedEvent {
     private String description;
     private float price;
     private int size;
-    private float price;
 }

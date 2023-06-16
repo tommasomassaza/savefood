@@ -35,8 +35,8 @@ services:
       - discovery-server
       - axon-server
       - postgres-user
-      
-      
+
+
   # Postgres for user
   postgres-user:
     container_name: postgres-user
@@ -181,8 +181,6 @@ services:
       - '8024:8024'
       - '8124:8124'
 
-
-  #Frontend with react
   #frontend:
   #  container_name: frontend
   #  build:
@@ -193,6 +191,7 @@ services:
   #  ports:
   #    - "3000:3000"
   #  restart: unless-stopped
+
 
 
 # Volumes for Axon and Postgres

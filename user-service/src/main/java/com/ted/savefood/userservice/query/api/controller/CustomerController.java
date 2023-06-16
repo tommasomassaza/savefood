@@ -19,9 +19,9 @@ public class CustomerController {
         this.queryGateway = queryGateway;
     }
 
-    @GetMapping("{customerId}")
-    public CardDetails getUserPaymentDetails(@PathVariable String customerId){
-        GetUserPaymentDetailsQuery getUserPaymentDetailsQuery = new GetUserPaymentDetailsQuery(customerId);
+    @GetMapping("{userId}")
+    public CardDetails getUserPaymentDetails(@PathVariable String userId){
+        GetUserPaymentDetailsQuery getUserPaymentDetailsQuery = new GetUserPaymentDetailsQuery(userId);
         CardDetails cardDetails = queryGateway.query(
                 getUserPaymentDetailsQuery,
                 ResponseTypes.instanceOf(CardDetails.class)

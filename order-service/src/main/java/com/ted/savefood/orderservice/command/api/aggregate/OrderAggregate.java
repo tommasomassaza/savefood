@@ -7,7 +7,6 @@ import com.ted.savefood.commonutils.events.OrderCancelledEvent;
 import com.ted.savefood.orderservice.command.api.commands.CreateOrderCommand;
 import com.ted.savefood.orderservice.command.api.events.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
-import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
@@ -37,12 +36,12 @@ public class OrderAggregate {
     public void on(OrderCreatedEvent orderCreatedEvent){
         this.orderId=orderCreatedEvent.getOrderId();
         this.boxId=orderCreatedEvent.getBoxId();
-        this.customerId=orderCreatedEvent.getCustomerId();
+        this.customerId=orderCreatedEvent.getUserId();
         this.quantity=orderCreatedEvent.getQuantity();
         this.orderStatus=orderCreatedEvent.getOrderStatus();
     }
 
-    @EventHandler
+    @CommandHandler
     public void handle(CompleteOrderCommand completeOrderCommand){
         // Validate the command
         // Publish order completed event

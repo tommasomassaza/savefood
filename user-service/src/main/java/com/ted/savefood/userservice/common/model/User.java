@@ -1,6 +1,7 @@
 package com.ted.savefood.userservice.common.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Data;
 
 @Entity
@@ -9,8 +10,5 @@ public class User {
     @Id
     private String userId;
     private String email;
-    @Column(length = 60)
-    private String password;
     private String role;
-    private boolean enabled;
 }

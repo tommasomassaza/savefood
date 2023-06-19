@@ -6,9 +6,5 @@ import lombok.Data;
 public class RegisterUserCommand {
     private String userId;
     private String email;
-    private String password;
     private String role;
-    private boolean enabled = false;
-
-    private String applicationUrl;
 }

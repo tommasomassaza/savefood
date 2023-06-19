@@ -3,16 +3,28 @@ import "./Sidebar.scss";
 import {UserButton} from "@clerk/clerk-react";
 
 import {FaAlignJustify} from "react-icons/fa";
+import {useNavigate} from "react-router-dom";
 
 const Sidebar = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
+    const navigate = useNavigate();
     const handleSidebarOpen = () => {
         setSidebarOpen(true);
     };
 
     const handleSidebarClose = () => {
         setSidebarOpen(false);
+    };
+
+    const handleSignOut = async () => {
+        // Puoi eseguire azioni specifiche prima del sign out, se necessario
+
+        await window.Clerk?.signOut();
+
+
+        // Puoi eseguire azioni specifiche dopo il sign out
+        navigate("/");
     };
 
     return (
@@ -37,7 +49,7 @@ const Sidebar = () => {
                         </div>
                         <div className="sidebar_item">
                             <i className="fas fa-envelope"></i>
-                            <UserButton></UserButton>
+                            <UserButton onClick={handleSignOut}></UserButton>
 
                         </div>
                     </div>

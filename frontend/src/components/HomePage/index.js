@@ -1,26 +1,15 @@
-import boxes from "../../data/boxes.json";
 import BoxItem from '../BoxItem/index.js';
 import {useNavigate} from "react-router-dom";
-import {FaArrowRight} from "react-icons/fa";
-import {
-    FaAlignJustify,
-    FaSearch,
-    FaMapMarkerAlt,
-    FaCalendarCheck,
-    FaUserAlt,
-    FaArrowUp,
-    FaArrowDown
-} from "react-icons/fa";
+import {FaCalendarCheck, FaMapMarkerAlt, FaSearch} from "react-icons/fa";
 import './slider.js';
 import './selection.js';
 import Greeting from "../Greeting";
 import Sidebar from "./sidebar";
 
 
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import './HomePage.scss';
-import {UserButton} from "@clerk/clerk-react";
-
+import {UserButton, useUser} from "@clerk/clerk-react";
 
 function HomePage() {
 
@@ -43,8 +32,9 @@ function HomePage() {
 
 
     //console.log(posts)
-    const [bociaoxes, setBoxes] = useState([]);
+    const [boxes, setBoxes] = useState([]);
 
+    const {user} = useUser();
     let getBoxes = () => {
         fetch('http://localhost:8080/api/boxes')
             .then(res => {
@@ -129,7 +119,7 @@ function HomePage() {
         <header>
 
             <div className="container1">
-
+                <Greeting></Greeting>
                 <div className="logo1">
                     <h1>Save<span>Food </span></h1>
                 </div>
@@ -157,7 +147,7 @@ function HomePage() {
                         }}/>
                     </div>
                     <div className="header-option1">
-                        <UserButton></UserButton>
+                        <UserButton show={true}></UserButton>
                     </div>
                 </div>
 
@@ -227,7 +217,6 @@ function HomePage() {
             </div>
 
         </div>
-
 
         </body>
 

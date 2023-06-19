@@ -1,20 +1,35 @@
-import {isLoaded, useUser, SignIn} from "@clerk/clerk-react";
+import {useUser} from "@clerk/clerk-react";
 
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 
 
 function Greeting() {
 
     // Use the useUser hook to get the Clerk.user object
     // This hook causes a re-render on user changes
-    const {isLoaded, isSignedIn, user} = useUser();
+    const {user} = useUser();
 
-    if (!isLoaded || !isSignedIn) {
-        // You can handle the loading or signed state separately
-        return null;
-    }
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const role = urlParams.get("role");
+        try {
+            user.update({
+                unsafeMetadata: {
+                    role: role
+                }
+            });
+            console.log("Ruolo impostato con successo:", role);
+        } catch (error) {
+            console.error("Errore nell'impostazione del ruolo:", error);
+        }
 
-    return <div>{user.id}</div>;
+        // Continua con le azioni necessarie utilizzando il valore del ruolo
+    }, []);
+
+
+    const getRole = () => {
+        return user?.unsafeMetadata?.role || "";
+    };
 }
 
 export default Greeting;

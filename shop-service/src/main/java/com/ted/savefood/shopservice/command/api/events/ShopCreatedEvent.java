@@ -1,15 +1,9 @@
-package com.ted.savefood.shopservice.common.model;
+package com.ted.savefood.shopservice.command.api.events;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
-@Entity
-@Table(name = "shops")
-public class Shop {
-    @Id
+public class ShopCreatedEvent {
     private String shopId;
     private String sellerId;
     private String name;

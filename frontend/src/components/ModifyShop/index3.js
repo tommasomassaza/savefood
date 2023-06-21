@@ -1,23 +1,10 @@
 import boxes from "../../data/boxes.json";
 import BoxItemOwner from '../BoxItem/indexowner.js';
 import {useNavigate} from "react-router-dom";
-import {FaArrowRight} from "react-icons/fa";
-import {
-    FaAlignJustify,
-    FaPlusCircle,
-    FaSearch,
-    FaMapMarkerAlt,
-    FaCalendarCheck,
-    FaUserAlt,
-    FaArrowUp,
-    FaArrowDown
-} from "react-icons/fa";
+import {FaAlignJustify, FaCalendarCheck, FaMapMarkerAlt, FaPlusCircle, FaSearch} from "react-icons/fa";
 
 
-import Greeting from "../Greeting";
-
-
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import '../HomePage/HomePage.scss';
 import {UserButton} from "@clerk/clerk-react";
 
@@ -35,10 +22,10 @@ function ModifyShop3() {
 
 
     //console.log(posts)
-    const [bociaoxes, setBoxes] = useState([]);
+    const [shops, setShops] = useState([]);
 
-    let getBoxes = () => {
-        fetch('http://localhost:8080/api/boxes')
+    let getShops = () => {
+        fetch('http://localhost:8080/api/shops')
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -47,7 +34,7 @@ function ModifyShop3() {
             })
             .then((result) => {
                     console.log(result);
-                    setBoxes(result);
+                    setShops(result);
                 },
                 (error) => {
                     console.log(error);
@@ -57,7 +44,7 @@ function ModifyShop3() {
 
 
     useEffect(() => {
-        getBoxes();
+        getShops();
     }, []);
 
 
@@ -70,46 +57,6 @@ function ModifyShop3() {
     const [allProducts, setAllProducts] = useState(boxes);
 
 
-    useEffect(() => {
-        if (category === "Tutti") {
-            setAllProducts(boxes);
-        }
-
-        if (category === "Piccole") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Pranzo") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Cena") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Searched") {
-            console.log(category);
-            if (searchTerm === "") {
-                setAllProducts(boxes);
-            } else {
-                const filteredProducts = boxes.filter(
-                    (item) => item.name.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-                setAllProducts(filteredProducts);
-            }
-
-        }
-
-    }, [category, searchTerm]);
 
 
     return (
@@ -196,7 +143,7 @@ function ModifyShop3() {
                 <div className="header1">
                     <div className="header-title1">
                         <h2>I miei locali <FaPlusCircle color="green" onClick={() => {
-                            navigate("/addbox");
+                            navigate("/negozio");
                         }}></FaPlusCircle></h2>
                         <span>Gestisci le box</span>
                     </div>
@@ -207,7 +154,7 @@ function ModifyShop3() {
 
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {boxes.map(item => (
+                        {shops.map(item => (
                             <BoxItemOwner box={item}></BoxItemOwner>
 
                         ))}

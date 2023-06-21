@@ -1,15 +1,11 @@
-package com.ted.savefood.shopservice.common.model;
+package com.ted.savefood.shopservice.command.api.commands;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Data;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Data
-@Entity
-@Table(name = "shops")
-public class Shop {
-    @Id
+public class CreateShopCommand {
+    @TargetAggregateIdentifier
     private String shopId;
     private String sellerId;
     private String name;

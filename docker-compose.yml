@@ -25,33 +25,6 @@ services:
       - discovery-server
 
 
-  # User service
-  user-service:
-    container_name: user-service
-    build: ./user-service/
-    ports:
-      - "8081:8081"
-    environment:
-      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
-    depends_on:
-      - discovery-server
-      - axon-server
-      - postgres-user
-
-
-  # Postgres for user
-  postgres-user:
-    container_name: postgres-user
-    image: postgres
-    environment:
-      POSTGRES_DB: user-db
-      POSTGRES_USER: ted
-      POSTGRES_PASSWORD: qazmlpD
-    volumes:
-      - user-db-data:/data/postgres
-    restart: unless-stopped
-
-
   # Payment service
   payment-service:
     container_name: payment-service
@@ -183,17 +156,6 @@ services:
       - '8024:8024'
       - '8124:8124'
 
-  #frontend:
-  #  container_name: frontend
-  #  build:
-  #    context: ./frontend/
-  #    target: production
-  #  volumes:
-  #    - ./frontend:/app/src
-  #  ports:
-  #    - "3000:3000"
-  #  restart: unless-stopped
-
 
 
 # Volumes for Axon and Postgres
@@ -202,7 +164,6 @@ volumes:
     axonserver-events:
     axonserver-config:
     reservation-db-data:
-    user-db-data:
     payment-db-data:
     order-db-data:
     shop-db-data:

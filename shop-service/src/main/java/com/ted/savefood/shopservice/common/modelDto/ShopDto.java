@@ -1,21 +1,20 @@
-package com.ted.savefood.shopservice.common.model;
+package com.ted.savefood.shopservice.common.modelDto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Data;
 
+import javax.annotation.Nullable;
+
 @Data
-@Entity
-@Table(name = "shops")
-public class Shop {
-    @Id
+public class ShopDto {
+    @Nullable
     private String shopId;
     private String sellerId;
     private String name;
     private String address;
     private String description;
     private int telephoneNumber;
+    @Nullable
     private int numberOfReviews;
+    @Nullable
     private int stars;
 }

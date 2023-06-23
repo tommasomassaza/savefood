@@ -71,7 +71,7 @@ function App() {
                     <Route path="/deletebox" element={<DeleteBox/>}/>
                     <Route path="/modifybox" element={<ModifyBox/>}/>
                     <Route path="/reviewsvendors" element={<ReviewsVendors/>}/>
-                    <Route path="/c" element={<OrdiniPage/>}/>
+                    <Route path="/ordini" element={<OrdiniPage/>}/>
 
                 </Routes>
 

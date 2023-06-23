@@ -35,7 +35,7 @@ function ModifyShop2() {
 
 
     //console.log(posts)
-    const [bociaoxes, setBoxes] = useState([]);
+    const [as, setBoxes] = useState([]);
 
     let getBoxes = () => {
         fetch('http://localhost:8080/api/boxes')
@@ -66,34 +66,13 @@ function ModifyShop2() {
 
 
     //gestione dei filtri
-    const [category, setCategory] = useState("Oggi");
+    const [category, setCategory] = useState("Tutti");
     const [allProducts, setAllProducts] = useState(boxes);
 
 
     useEffect(() => {
         if (category === "Tutti") {
             setAllProducts(boxes);
-        }
-
-        if (category === "Piccole") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Pranzo") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Cena") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
         }
 
         if (category === "Searched") {

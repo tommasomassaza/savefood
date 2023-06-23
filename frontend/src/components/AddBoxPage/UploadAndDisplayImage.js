@@ -1,9 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 const UploadAndDisplayImage = () => {
 
     const [image, setImage] = useState("");
     const [allImage, setAllImage] = useState([]);
+
+    useEffect(()=>{
+        getImage()
+    },[]
+    )
 
 
     function convertToBase64(e) {
@@ -66,11 +71,11 @@ const UploadAndDisplayImage = () => {
                 {image == "" || image == null ? "" : <img width={100} height={100} src={image}/>}
 
             </div>
+            <br></br>
             <button type="submit" class="btn btn-primary #198754 bg-primary border-primary"
-                    onClick={uploadImage}>Aggiungi box
-            </button>
+                    onClick={uploadImage}> Aggiungi box  </button>
 
-            {allImage.localeCompare(data => {
+            {allImage.map(data => {
 
                 return (
                     <img width={100} height={100} src={data.image}/>

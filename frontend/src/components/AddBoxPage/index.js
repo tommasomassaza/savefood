@@ -118,6 +118,7 @@ function AddBoxPage() {
                         </div>
                         <UploadAndDisplayImage></UploadAndDisplayImage>
                         <br></br>
+                        
 
 
                     </form>

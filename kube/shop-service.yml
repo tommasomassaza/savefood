@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop-service
+  template:
+    metadata:
+      labels:
+        app: shop-service
+    spec:
+      containers:
+        - name: shop-service
+          image: tommimassa98/savefood-shop-service:latest
+          ports:
+            - containerPort: 8085
+          env:
+            - name: eureka.instance.preferIpAddress
+              value: "true"
+            - name: eureka.client.serviceUrl.defaultZone
+              value: http://discovery-server:8761/eureka
+            - name: axon.axonserver.servers
+              value: axonserver-grpc:8124
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: shop-service
+spec:
+  selector:
+    app: shop-service
+  ports:
+    - port: 8085
+      targetPort: 8085

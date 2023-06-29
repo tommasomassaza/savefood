@@ -151,7 +151,7 @@ services:
     volumes:
       - axonserver-data:/axonserver/data
       - axonserver-events:/axonserver/eventdata
-      - axonserver-config:/axonserver/config:ro
+      - axonserver-config:/axonserver/config
     ports:
       - '8024:8024'
       - '8124:8124'
@@ -168,5 +168,4 @@ volumes:
     order-db-data:
     shop-db-data:
     box-db-data:
-    frontend:
 

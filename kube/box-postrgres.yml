@@ -1,0 +1,57 @@
+# Database
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-box-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 32Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-box
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-box
+  template:
+    metadata:
+      labels:
+        app: postgres-box
+    spec:
+      containers:
+        - name: postgres-box
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: box-db
+            - name: POSTGRES_USER
+              value: ted
+            - name: POSTGRES_PASSWORD
+              value: qazmlpD
+          volumeMounts:
+            - name: box-db-data
+              mountPath: /data/postgres
+      volumes:
+        - name: box-db-data
+          persistentVolumeClaim:
+            claimName: postgres-box-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-box
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres-box

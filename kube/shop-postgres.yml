@@ -1,0 +1,57 @@
+# Database
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-shop-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 32Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-shop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-shop
+  template:
+    metadata:
+      labels:
+        app: postgres-shop
+    spec:
+      containers:
+        - name: postgres-shop
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: shop-db
+            - name: POSTGRES_USER
+              value: ted
+            - name: POSTGRES_PASSWORD
+              value: qazmlpD
+          volumeMounts:
+            - name: shop-db-data
+              mountPath: /data/postgres
+      volumes:
+        - name: shop-db-data
+          persistentVolumeClaim:
+            claimName: postgres-shop-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-shop
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres-shop

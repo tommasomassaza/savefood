@@ -71,13 +71,13 @@ const OrdiniPage = () => {
         <div className="options2">
             <div className="container1">
                 <button className="options-btn2 uno" onClick={() => {
-                    navigate("/modifyshop2");
+                    navigate("/modifyshop3");
                 }}>
                     <i data-feather="shopping-bag"></i>
                     <span>Le mie box </span>
                 </button>
                 <button className="options-btn2 due" onClick={() => {
-                    navigate("/modifyshop3");
+                    navigate("/modifyshop2");
                 }}>
                     <i data-feather="watch"></i>
                     <span>I miei locali</span>

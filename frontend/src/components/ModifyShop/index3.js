@@ -117,11 +117,11 @@ function ModifyShop3() {
                     navigate("/modifyshop2")
                 }}>
                     <i data-feather="shopping-bag"></i>
-                    <span>Le mie Box</span>
+                    <span>I miei locali</span>
                 </button>
                 <button className="options-btn1 selected1 due">
                     <i data-feather="watch"></i>
-                    <span>I miei locali</span>
+                    <span>Le mie box</span>
                 </button>
                 <div className="searchBar2">
                     <FaSearch></FaSearch>
@@ -142,8 +142,8 @@ function ModifyShop3() {
             <div className="container1">
                 <div className="header1">
                     <div className="header-title1">
-                        <h2>I miei locali <FaPlusCircle color="green" onClick={() => {
-                            navigate("/negozio");
+                        <h2>Le mie Box <FaPlusCircle color="green" onClick={() => {
+                            navigate("/addbox");
                         }}></FaPlusCircle></h2>
                         <span>Gestisci le box</span>
                     </div>

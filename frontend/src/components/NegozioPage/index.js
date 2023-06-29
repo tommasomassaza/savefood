@@ -10,6 +10,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import UploadAndDisplayImage from './UploadAndDisplayImage.js';
 
 
 function NegozioPage() {
@@ -40,7 +41,7 @@ function NegozioPage() {
         <header>
             <div className="container1">
                 <div className="logo1" onClick={() => {
-                    navigate("/");
+                    navigate("/modifyshop2");
                     navigate(0);
                 }}>
                     <h1>Save<span>Food </span></h1>
@@ -126,9 +127,8 @@ function NegozioPage() {
                             </div>
                         </div>
                         <br></br>
-                        <button type="submit" class="btn btn-primary #198754 bg-primary border-primary">Aggiungi
-                            negozio
-                        </button>
+                        <UploadAndDisplayImage></UploadAndDisplayImage>
+                       
                     </form>
                 </div>
 

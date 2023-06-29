@@ -86,32 +86,32 @@ function AddBoxPage() {
 
                 <div className="listings-grid-element1">
                     <form className="form">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
                                 <label for="inputEmail4">Nome</label>
-                                <input type="text" class="form-control" id="inputEmail4" placeholder="Nome..."></input>
+                                <input type="text" className="form-control" id="inputEmail4" placeholder="Nome..."></input>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div className="form-group col-md-6">
                                 <label for="inputPassword4">Prezzo</label>
-                                <input type="text" class="form-control" id="inputPassword4"
+                                <input type="text" className="form-control" id="inputPassword4"
                                        placeholder="Prezzo..."></input>
                             </div>
 
                         </div>
-                        <div class="form-group col-md-6">
+                        <div className="form-group col-md-6">
                             <label for="inputAddress">Orario di ritiro</label>
-                            <input type="text" class="form-control" id="inputAddress"
+                            <input type="text" className="form-control" id="inputAddress"
                                    placeholder="A che ora vuoi che sia ritirata?"></input>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div className="form-group col-md-6">
                             <label for="inputAddress2">Taglia</label>
-                            <input type="text" class="form-control" id="inputAddress2"
+                            <input type="text" className="form-control" id="inputAddress2"
                                    placeholder="Grandezza della box da 1 a 3..."></input>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
                                 <label for="inputCity">Negozio</label>
-                                <input type="text" class="form-control" id="inputCity"
+                                <input type="text" className="form-control" id="inputCity"
                                        placeholder="Il nome del negozio a cui è associata la box..."></input>
                             </div>
 

@@ -3,17 +3,16 @@ import React, {useEffect, useState} from "react";
 const UploadAndDisplayImage = () => {
 
 
-    let postBox = () => {
-        fetch(`http://localhost:8080/api/boxes`, {
+    let postNegozio = () => {
+        fetch(`http://localhost:8080/api/shops`, {
             method: "POST",
             body: JSON.stringify({
-                 "boxId": "sjdkjs",
-                 "shopId": "sjdkjs",
-                 "name": "Nome Box 1",
-                 "description": "jskjsk",
-                 "price": 4.99,
-                 "size": 1,
-                 "pickUpTime": "20:00"
+                 "name": "Nome Negozio 1",
+                 "addess": "jskjsk",
+                 "description": "asdasas",
+                 "telephoneNumber": 3389842823,
+                 "numberOfReviews": 0,
+                 "stars": 0
             }),
             headers: {
                 "content-type": "application/json"
@@ -31,7 +30,7 @@ const UploadAndDisplayImage = () => {
                 });
             })
 
-    }
+    };
 
 
 
@@ -107,7 +106,9 @@ const UploadAndDisplayImage = () => {
 
             </div>
             <br></br>
-            <button type="submit" className="btn btn-primary #198754 bg-primary border-primary" onClick={postBox()}> Aggiungi box  </button>
+            <button type="submit" class="btn btn-primary #198754 bg-primary border-primary"onClick={() => {/*uploadImage();*/ postNegozio()}}>Aggiungi
+                            negozio
+                        </button>
 
             {allImage.map(data => {
 

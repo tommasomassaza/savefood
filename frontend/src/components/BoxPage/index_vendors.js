@@ -82,7 +82,7 @@ function BoxPageVendor() {
                         </div>
                         <div className="header-viewOptions1">
                             <div className="viewAll1" onClick={() => {
-                                navigate("/");
+                                navigate("/modifyshop2");
                                 navigate(0);
                             }}>
                                 <span> <FaArrowLeft/> Torna alla Home</span>

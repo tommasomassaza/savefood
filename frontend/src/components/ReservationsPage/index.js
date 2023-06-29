@@ -83,8 +83,8 @@ const ReservationsPage = () => {
                                 navigate(0);
                             }}>
                                 <span> <FaArrowLeft/> Torna alla Home</span>
+                                <br></br>
                             </div>
-
 
                         </div>
                     </div>

@@ -1,5 +1,5 @@
-import boxes from "../../data/boxes.json";
-import BoxItemOwner from '../BoxItem/indexowner.js';
+import shops from "../../data/shops.json";
+import ShopItemOwner from '../ShopItem/index.js';
 import {useNavigate} from "react-router-dom";
 import {FaArrowRight} from "react-icons/fa";
 import {
@@ -35,10 +35,10 @@ function ModifyShop2() {
 
 
     //console.log(posts)
-    const [bociaoxes, setBoxes] = useState([]);
+    const [shops, setShops] = useState([]);
 
-    let getBoxes = () => {
-        fetch('http://localhost:8080/api/boxes')
+    let getShops = () => {
+        fetch('http://localhost:8080/api/shops')
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -47,7 +47,7 @@ function ModifyShop2() {
             })
             .then((result) => {
                     console.log(result);
-                    setBoxes(result);
+                    setShops(result);
                 },
                 (error) => {
                     console.log(error);
@@ -57,7 +57,7 @@ function ModifyShop2() {
 
 
     useEffect(() => {
-        getBoxes();
+        getShops();
     }, []);
 
 
@@ -66,42 +66,21 @@ function ModifyShop2() {
 
 
     //gestione dei filtri
-    const [category, setCategory] = useState("Oggi");
-    const [allProducts, setAllProducts] = useState(boxes);
+    const [category, setCategory] = useState("Tutti");
+    const [allProducts, setAllProducts] = useState(shops);
 
 
     useEffect(() => {
         if (category === "Tutti") {
-            setAllProducts(boxes);
-        }
-
-        if (category === "Piccole") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Pranzo") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Cena") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
+            setAllProducts(shops);
         }
 
         if (category === "Searched") {
             console.log(category);
             if (searchTerm === "") {
-                setAllProducts(boxes);
+                setAllProducts(shops);
             } else {
-                const filteredProducts = boxes.filter(
+                const filteredProducts = shops.filter(
                     (item) => item.name.toLowerCase().includes(searchTerm.toLowerCase())
                 );
                 setAllProducts(filteredProducts);
@@ -168,12 +147,6 @@ function ModifyShop2() {
 
                 <button className="options-btn1 selected1 uno">
                     <i data-feather="shopping-bag"></i>
-                    <span>Le mie Box</span>
-                </button>
-                <button className="options-btn1 due" onClick={() => {
-                    navigate("/modifyshop3")
-                }}>
-                    <i data-feather="watch"></i>
                     <span>I miei locali</span>
                 </button>
                 <div className="searchBar2">
@@ -195,10 +168,10 @@ function ModifyShop2() {
             <div className="container1">
                 <div className="header1">
                     <div className="header-title1">
-                        <h2>Le mie Box <FaPlusCircle color="green" onClick={() => {
+                        <h2>I miei Locali <FaPlusCircle color="green" onClick={() => {
                             navigate("/addbox");
                         }}></FaPlusCircle></h2>
-                        <span>Gestisci le box</span>
+                        <span>Gestisci i locali</span>
                     </div>
                     <div className="header-viewOptions1">
 
@@ -207,8 +180,8 @@ function ModifyShop2() {
 
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {boxes.map(item => (
-                            <BoxItemOwner box={item}></BoxItemOwner>
+                        {shops.map(item => (
+                            <ShopItemOwner shop={item}></ShopItemOwner>
 
                         ))}
                     </div>

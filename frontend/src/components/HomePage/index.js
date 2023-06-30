@@ -9,7 +9,7 @@ import Sidebar from "./sidebar";
 
 import React, {useEffect, useState} from "react";
 import './HomePage.scss';
-import {UserButton, useUser} from "@clerk/clerk-react";
+import {UserButton, useUser,SignInButton, SignedOut, SignOutButton, SignedIn} from "@clerk/clerk-react";
 
 function HomePage() {
 
@@ -149,7 +149,23 @@ function HomePage() {
                     <div className="header-option1">
                         <UserButton show={true}></UserButton>
                     </div>
+
+                    <SignedOut><SignInButton mode="modal">
+                        <button className="btn">
+                            Sign in
+                        </button>
+                    </SignInButton>
+                    </SignedOut>
+
+                    <SignedIn><SignOutButton mode="modal">
+                        <button className="btn">
+                            Sign out
+                        </button>
+                    </SignOutButton>
+                    </SignedIn>
+
                 </div>
+
 
             </div>
 

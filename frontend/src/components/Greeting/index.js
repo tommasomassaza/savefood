@@ -24,6 +24,8 @@ function Greeting() {
         }
 
         // Continua con le azioni necessarie utilizzando il valore del ruolo
+
+
     }, []);
 
 

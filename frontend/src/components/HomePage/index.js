@@ -146,9 +146,15 @@ function HomePage() {
                             setCategory("Searched");
                         }}/>
                     </div>
-                    <div className="header-option1">
-                        <UserButton show={true}></UserButton>
-                    </div>
+
+
+                </div>
+                <div className="header-clerk">
+
+                    <SignedIn>
+                        {/* Mount the UserButton component */}
+                        <UserButton afterSignOutUrl="/"/>
+                    </SignedIn>
 
                     <SignedOut><SignInButton mode="modal">
                         <button className="btn">
@@ -157,15 +163,7 @@ function HomePage() {
                     </SignInButton>
                     </SignedOut>
 
-                    <SignedIn><SignOutButton mode="modal">
-                        <button className="btn">
-                            Sign out
-                        </button>
-                    </SignOutButton>
-                    </SignedIn>
-
                 </div>
-
 
             </div>
 

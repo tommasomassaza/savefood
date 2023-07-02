@@ -293,7 +293,7 @@ html {
         display: inline-flex;
       }
 
-      display: none !important;
+      display:  none !important;
     }
 
     .header-option2 {
@@ -332,7 +332,10 @@ html {
           color: var(--color-green);
         }
       }
+
     }
+
+
 
     .container1 {
       display: flex;
@@ -373,6 +376,12 @@ html {
         margin-right: 1rem;
         display: inline-flex;
       }
+    }
+
+    .header-clerk {
+      display: flex;
+      justify-content: flex-end;
+
     }
 
     .header-option2 {
@@ -738,6 +747,7 @@ html {
           }
         }
 
+
         /*.image1:hover {
          opacity:0.9;
         }*/
@@ -839,6 +849,8 @@ html {
             object-fit: cover;
           }
         }
+
+
 
         /*.image1:hover {
          opacity:0.9;
@@ -1263,11 +1275,7 @@ html {
 
     }
 
-    .btn {
-      margin-top: 7px;
-      margin-bottom: 20px;
-      margin-left: 10px;
-    }
+
 
     .form-control {
 

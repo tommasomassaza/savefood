@@ -9,7 +9,7 @@ import Sidebar from "./sidebar";
 
 import React, {useEffect, useState} from "react";
 import './HomePage.scss';
-import {UserButton, useUser,SignInButton, SignedOut, SignOutButton, SignedIn} from "@clerk/clerk-react";
+import {SignedIn, SignedOut, SignInButton, UserButton, useUser} from "@clerk/clerk-react";
 
 function HomePage() {
 
@@ -146,24 +146,22 @@ function HomePage() {
                             setCategory("Searched");
                         }}/>
                     </div>
+                    <div className="header-option1">
+                        <SignedIn>
+                            {/* Mount the UserButton component */}
+                            <UserButton afterSignOutUrl="/"/>
+                        </SignedIn>
+                        <SignedOut><SignInButton mode="modal">
+                            <button className="btn">
+                                Sign in
+                            </button>
+                        </SignInButton>
+                        </SignedOut>
 
-
-                </div>
-                <div className="header-clerk">
-
-                    <SignedIn>
-                        {/* Mount the UserButton component */}
-                        <UserButton afterSignOutUrl="/"/>
-                    </SignedIn>
-
-                    <SignedOut><SignInButton mode="modal">
-                        <button className="btn">
-                            Sign in
-                        </button>
-                    </SignInButton>
-                    </SignedOut>
+                    </div>
 
                 </div>
+
 
             </div>
 

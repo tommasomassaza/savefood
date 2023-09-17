@@ -31,7 +31,7 @@ function AccessPage() {
                         navigate("/greeting");
                     }}>
                         <i data-feather="clock"></i>
-                        <span>Torna indeitro <FaArrowLeft></FaArrowLeft></span>
+                        <span>Torna indietro <FaArrowLeft></FaArrowLeft></span>
                     </div>
                 </div>
 

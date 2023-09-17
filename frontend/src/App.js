@@ -49,6 +49,8 @@ function App() {
             </SignedOut>
 
             <SignedIn>
+
+                {/* Reindirizza a /signin */}
                 <Routes>
 
                     <Route path="/" element={<HomePage/>}/>
@@ -60,11 +62,12 @@ function App() {
                     <Route path="/greeting" element={<GreetingPage/>}/>
                     <Route path="/negozio" element={<NegozioPage/>}/>
                     <Route path="/2" element={<HomePage2/>}/>
-                <Route path="/3" element={<HomePage3/>}/>
-                <Route path="/payment" element={<PaymentPage/>}/>
-                <Route path="/modifyshop2" element={!cliente ? <ModifyShop2/> : <Navigate replace to={"/access"}/>}/>
-                <Route path="/modifyshop3" element={<ModifyShop3/>}/>
-                <Route path="/reviews" element={<ReviewsPage/>}/>
+                    <Route path="/3" element={<HomePage3/>}/>
+                    <Route path="/payment" element={<PaymentPage/>}/>
+                    <Route path="/modifyshop2"
+                           element={!cliente ? <ModifyShop2/> : <Navigate replace to={"/access"}/>}/>
+                    <Route path="/modifyshop3" element={<ModifyShop3/>}/>
+                    <Route path="/reviews" element={<ReviewsPage/>}/>
                     <Route path="/addbox" element={<AddBoxPage/>}/>
                     <Route path="/deleteshop" element={<DeleteShop/>}/>
                     <Route path="/modifynegozio" element={<ModifyNegozio/>}/>

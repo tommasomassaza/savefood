@@ -1,15 +1,6 @@
-import React from 'react';
-
-import NegozioItem from '../NegozioItem/index.js';
+import React, {useState} from 'react';
 import boxes from "../../data/boxes.json";
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {FaArrowLeft} from "react-icons/fa";
-
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 
 import UploadAndDisplayImage from "./UploadAndDisplayImage.js"
 
@@ -128,8 +119,6 @@ function AddBoxPage() {
 
             </div>
         </div>
-
-
         </body>
 
 

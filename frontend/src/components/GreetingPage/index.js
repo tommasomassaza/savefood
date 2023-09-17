@@ -10,7 +10,7 @@ const GreetingPage = () => {
         try {
 
             const redirectURL = `/?role=${role}`; // Costruisci l'URL di redirect con il parametro del ruolo
-            await window.Clerk?.openSignUp({
+            await window.Clerk?.openSignIn({
                 redirectUrl: redirectURL
             });
         } catch (error) {

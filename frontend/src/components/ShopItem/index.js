@@ -46,7 +46,7 @@ const ShoptItemOwner = ({shop}) => {
 
         <div className="listings-grid-element1">
             <div className="image1" onClick={() => {
-                navigate("/modifyshop3");
+                navigate("/vendors/homepage2");
             }}>
                 <img src={shop.image} alt="prova"/>
             </div>

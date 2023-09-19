@@ -22,7 +22,7 @@ function ModifyShop3() {
 
 
     //console.log(posts)
-    const [shops, setShops] = useState([]);
+    const [shopsas, setShops] = useState([]);
 
     let getShops = () => {
         fetch('http://localhost:8080/api/shops')
@@ -74,10 +74,6 @@ function ModifyShop3() {
                 </div>
 
                 <div className="currentDetails1">
-                    <div className="header-option1">
-                        <i data-feather="map-pin"></i>
-                        <span>Google Maps <FaMapMarkerAlt></FaMapMarkerAlt></span>
-                    </div>
                     <div className="header-option1" onClick={() => {
                         navigate("/ordini");
                     }}>
@@ -114,7 +110,7 @@ function ModifyShop3() {
 
 
                 <button className="options-btn1 uno" onClick={() => {
-                    navigate("/modifyshop2")
+                    navigate("/vendors/homepage")
                 }}>
                     <i data-feather="shopping-bag"></i>
                     <span>I miei locali</span>
@@ -143,7 +139,7 @@ function ModifyShop3() {
                 <div className="header1">
                     <div className="header-title1">
                         <h2>Le mie Box <FaPlusCircle color="green" onClick={() => {
-                            navigate("/addbox");
+                            navigate("/vendors/addbox");
                         }}></FaPlusCircle></h2>
                         <span>Gestisci le box</span>
                     </div>
@@ -154,7 +150,7 @@ function ModifyShop3() {
 
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {shops.map(item => (
+                        {boxes.map(item => (
                             <BoxItemOwner box={item}></BoxItemOwner>
 
                         ))}

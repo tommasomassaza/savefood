@@ -1,37 +1,113 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-import NegozioItem from '../NegozioItem/index.js';
 import boxes from "../../data/boxes.json";
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {FaArrowLeft} from "react-icons/fa";
-
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 import UploadAndDisplayImage from './UploadAndDisplayImage.js';
 
 
 function NegozioPage() {
 
+    const [image, setImage] = useState("");
+    const [allImage, setAllImage] = useState([]);
 
     const box = boxes[window.id]; /*window.id è una variabile globale definita in BoxItem, usata per caricare la box dall'id corretto nella BoxPage*/
 
     const navigate = useNavigate();
 
 
-    const [quantity, setQuantity] = useState(1);
+    const [formData, setFormData] = useState({
+        nome: "",
+        descrizione: "",
+        prezzo: "",
+        taglia: "",
+        orarioRitiro: "",
+        città: "Città",
+        base64: image,
+        negozioId: "",
+        // Aggiungi altri campi del form qui se necessario
+    });
 
-    const onMinus = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    };
 
-    const onPlus = () => {
-        setQuantity(quantity + 1);
-    };
+
+
+
+
+
+
+    let postBox = () => {
+        fetch(`http://localhost:8080/api/boxes`, {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+            .then(res => {
+                console.log(res.status)
+                console.log(res.headers)
+
+
+            })
+            .catch(error => {
+                console.error({
+                    error
+                });
+            })
+
+    }
+
+
+
+
+    function convertToBase64(e) {
+        console.log(e);
+        var reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+            console.log(reader.result);
+            setImage(reader.result);
+        };
+
+        reader.onerror = error => {
+            console.log("Error: ", error);
+        };
+    }
+
+
+    function uploadImage() {
+        fetch('http://localhost:8080/upload-image', {
+            method: "POST",
+            crossDomain: true,
+            haders: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify({
+                base64: image
+            })
+        })
+            .then(res =>
+                res.json()
+            )
+            .then((data) =>
+                console.log(data))
+    }
+
+    function getImage() {
+        fetch('http://localhost:8080/upload-image', {
+            method: "GET",
+
+        })
+            .then((res) => res.json()).then((data) => {
+            console.log(data)
+            setAllImage(data.data)
+        })
+    }
+
+
+
+
 
     return (
 
@@ -41,7 +117,7 @@ function NegozioPage() {
         <header>
             <div className="container1">
                 <div className="logo1" onClick={() => {
-                    navigate("/modifyshop2");
+                    navigate("/");
                     navigate(0);
                 }}>
                     <h1>Save<span>Food </span></h1>
@@ -82,61 +158,132 @@ function NegozioPage() {
                     <h2>Aggiungi un negozio:</h2>
                 </div>
 
-                <div className="listings-grid-element1" onClick={() => {
-                    navigate("/negozio");
-                }}>
+                <div className="listings-grid-element1">
                     <form className="form">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Nome</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email"></input>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label for="inputNome">Nome</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputNome"
+                                    placeholder="Nome..."
+                                    value={formData.nome}
+                                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                                />
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Indirizzo</label>
-                                <input type="password" class="form-control" id="inputPassword4"
-                                       placeholder="Città, Via..."></input>
+                            <div className="form-group col-md-6">
+                                <label for="inputDescrizione">Descrizione</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputDescrizione"
+                                    placeholder="Descrizione..."
+                                    value={formData.descrizione}
+                                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                                />
                             </div>
 
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputAddress">Numero di Telefono</label>
-                            <input type="text" class="form-control" id="inputAddress"
-                                   placeholder="Numero cellulare"></input>
+                        <div className="form-group col-md-6">
+                            <label for="inputPrezzo">Prezzo</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="inputPrezzo"
+                                placeholder="Prezzo..."
+                                value={formData.prezzo}
+                                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                            />
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputAddress2">Descrizione</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                   placeholder="Breve descrizione del locale"></input>
+                        <div className="form-group col-md-6">
+                            <label for="inputTaglia">Taglia</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="inputTaglia"
+                                placeholder="Taglia..."
+                                value={formData.taglia}
+                                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                            />
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">Orari di apertura</label>
-                                <input type="text" class="form-control" id="inputCity"></input>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label for="inputOrario">Orario di ritiro</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputOrario"
+                                    placeholder="Orario..."
+                                    value={formData.orarioRitiro}
+                                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                                />
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputState">Categoria</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Ristorante</option>
-                                    <option>Sushi</option>
-                                    <option>Pasticceria</option>
-                                    <option>Cucina Gastronomica</option>
-                                    <option>StreetFood</option>
-                                    <option>Panificio</option>
-                                    <option>Pizzeria</option>
-                                </select>
-                            </div>
+
                         </div>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="inputNegozioId">Negozio</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputNegozio"
+                                    placeholder="Negozio..."
+                                    value={formData.negozioId}
+                                    onChange={(e) => setFormData({...formData, nome: e.target.value})}
+                                />
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+
+                        <div className="auth-wrapper">
+                            <div className="auth-inner" style={{width: "auto"}}>
+                                Carica un'immagine<br/>
+                                <input
+
+                                    accept="image/*"
+                                    type="file"
+                                    onChange={convertToBase64}
+
+                                />
+                                {image === "" || image === null ? "" : <img width={100} height={100} src={image}/>}
+
+                            </div>
+                            <br></br>
+                            <button type="submit" className="btn btn-primary #198754 bg-primary border-primary" onClick={postBox()}> Aggiungi Negozio  </button>
+
+                            {allImage.map(data => {
+
+                                return (
+                                    <img width={100} height={100} src={data.image}/>
+                                )
+
+                            })}
+
+
+                        </div>
+
+
+
+
                         <br></br>
-                        <UploadAndDisplayImage></UploadAndDisplayImage>
-                       
+
+
+
                     </form>
+
                 </div>
 
 
             </div>
         </div>
-
-
         </body>
 
 

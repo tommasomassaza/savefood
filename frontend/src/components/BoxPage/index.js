@@ -5,7 +5,7 @@ import boxes from "../../data/boxes.json";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {FaEye} from "react-icons/fa";
-import {FaStar, FaMinus, FaPlus} from "react-icons/fa";
+import {FaHome, FaMinus, FaPlus} from "react-icons/fa";
 import {MdLocalDining} from "react-icons/md";
 
 import {FaArrowLeft, FaAlignJustify, FaMapMarkerAlt, FaCalendarCheck, FaUserAlt} from "react-icons/fa";
@@ -50,9 +50,10 @@ function BoxPage() {
                     <h1>Save<span>Food</span></h1>
                 </div>
                 <div className="currentDetails1">
-                    <div className="header-option1">
-                        <i data-feather="map-pin"></i>
-                        <span>Google Maps <FaMapMarkerAlt></FaMapMarkerAlt></span>
+                    <div className="header-option1"onClick={() => {
+                        navigate("/");
+                    }}>
+                        <span>Home <FaHome></FaHome></span>
                     </div>
                     <div className="header-option1" onClick={() => {
                         navigate("/reservations");

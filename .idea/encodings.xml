@@ -5,12 +5,9 @@
     <file url="file://$PROJECT_DIR$/box-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common-utils/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/discovery-server/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/oauth-authorization-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/query-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/reservation-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/review-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/shop-service/src/main/java" charset="UTF-8" />
   </component>
 </project>

@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import boxes from '../../data/boxes.json';
-import { useUser } from "@clerk/clerk-react";
-import Negoziotem from "../NegozioItem";
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useUser} from "@clerk/clerk-react";
 
 function NegozioPage() {
     const { user } = useUser();
@@ -27,7 +25,6 @@ function NegozioPage() {
     });
 
     const navigate = useNavigate();
-    const box = boxes[window.id];
 
     const convertToBase64 = (e) => {
         const reader = new FileReader();
@@ -64,35 +61,7 @@ function NegozioPage() {
             });
     };
 
-    const uploadImage = () => {
-        fetch('http://localhost:8080/upload-image', {
-            method: 'POST',
-            crossDomain: true,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
-            body: JSON.stringify({
-                base64: image,
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-            });
-    };
 
-    const getImage = () => {
-        fetch('http://localhost:8080/upload-image', {
-            method: 'GET',
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setAllImage(data.data);
-            });
-    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

@@ -36,7 +36,7 @@ public class ShopProjection {
     @QueryHandler
     public List<ShopDto> handle(GetShopsBySellerQuery getShopsBySellerQuery) {
         List<Shop> shops = new LinkedList<>();
-        shopRepository.findAll().forEach(shops::add);
+        shopRepository.findAllBySellerId(getShopsBySellerQuery.getShopId()).forEach(shops::add);
 
         return shops.stream()
                 .map(this::toDto)

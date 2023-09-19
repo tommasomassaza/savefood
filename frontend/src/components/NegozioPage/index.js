@@ -21,7 +21,7 @@ function NegozioPage() {
         name: '',
         city: '',
         address: '',
-        descritpion: '',
+        description: '',
         telephonNumber: '',
         image: image
     });
@@ -169,7 +169,7 @@ function NegozioPage() {
                                     id="inputDescription"
                                     placeholder="Descrizione..."
                                     name="description"
-                                    value={formData.descritpion}
+                                    value={formData.description}
                                     onChange={handleInputChange}
                                 />
                             </div>

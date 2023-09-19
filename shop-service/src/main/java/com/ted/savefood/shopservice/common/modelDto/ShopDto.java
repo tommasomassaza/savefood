@@ -10,11 +10,12 @@ public class ShopDto {
     private String shopId;
     private String sellerId;
     private String name;
+    private String city;
     private String address;
     private String description;
     private int telephoneNumber;
     @Nullable
     private int numberOfReviews;
     @Nullable
-    private int stars;
+    private float stars;
 }

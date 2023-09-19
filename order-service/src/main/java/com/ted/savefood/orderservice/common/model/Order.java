@@ -13,6 +13,8 @@ public class Order {
     private String orderId;
     private String boxId;
     private String userId;
+    private String sellerId;
+    private String boxName;
     private int quantity;
     private String orderStatus;
 }

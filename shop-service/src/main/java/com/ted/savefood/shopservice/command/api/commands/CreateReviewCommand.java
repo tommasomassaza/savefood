@@ -4,15 +4,11 @@ import lombok.Data;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Data
-public class CreateShopCommand {
+public class CreateReviewCommand {
     @TargetAggregateIdentifier
+    private String reviewId;
     private String shopId;
-    private String sellerId;
-    private String name;
-    private String city;
-    private String address;
+    private String customerId;
     private String description;
-    private int telephoneNumber;
-    private int numberOfReviews;
-    private float stars;
+    private int stars;
 }

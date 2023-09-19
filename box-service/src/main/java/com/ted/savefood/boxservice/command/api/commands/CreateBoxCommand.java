@@ -12,4 +12,6 @@ public class CreateBoxCommand {
     private String description;
     private float price;
     private int size;
+    private String pickUpTime;
+    private int quantity;
 }

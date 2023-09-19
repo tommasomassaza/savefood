@@ -14,4 +14,5 @@ public class BoxDto {
     private float price;
     private int size;
     private String pickUpTime;
+    private int quantity;
 }

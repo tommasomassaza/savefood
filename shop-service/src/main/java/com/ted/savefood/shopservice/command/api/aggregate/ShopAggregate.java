@@ -23,7 +23,7 @@ public class ShopAggregate {
     private int telephoneNumber;
     private int numberOfReviews;
     private float stars;
-    private String image;
+    private byte[] image;
 
 
     public ShopAggregate() {

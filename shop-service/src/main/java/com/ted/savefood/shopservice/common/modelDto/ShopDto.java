@@ -18,5 +18,6 @@ public class ShopDto {
     private int numberOfReviews;
     @Nullable
     private float stars;
-    private String image;
+
+    private byte[] image;
 }

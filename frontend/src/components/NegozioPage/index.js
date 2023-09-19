@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import boxes from '../../data/boxes.json';
 import { useUser } from "@clerk/clerk-react";
+import Negoziotem from "../NegozioItem";
 
 function NegozioPage() {
     const { user } = useUser();
@@ -224,3 +225,4 @@ function NegozioPage() {
         </div>
     );
 }
+export default NegozioPage;

@@ -1,17 +1,13 @@
 import shops from "../../data/shops.json";
 import ShopItemOwner from '../ShopItem/index.js';
 import {useNavigate} from "react-router-dom";
-import {FaArrowRight} from "react-icons/fa";
+import { useUser } from "@clerk/clerk-react";
 import {
     FaAlignJustify,
     FaPlusCircle,
     FaSearch,
-    FaMapMarkerAlt,
     FaCalendarCheck,
     FaHome,
-    FaUserAlt,
-    FaArrowUp,
-    FaArrowDown
 } from "react-icons/fa";
 
 
@@ -25,6 +21,12 @@ import {UserButton} from "@clerk/clerk-react";
 
 function ModifyShop2() {
 
+    const { user } = useUser();
+    let userId = null; // Inizializza userId come null
+    if (user) {
+        userId = user.id; // Assegna il valore solo se user è definito
+        console.log(userId);
+    }
 
     //per navigare tra i link
     const navigate = useNavigate();
@@ -36,10 +38,10 @@ function ModifyShop2() {
 
 
     //console.log(posts)
-    const [shopss, setShops] = useState([]);
+    const [shops, setShops] = useState([]);
 
     let getShops = () => {
-        fetch('http://localhost:8080/api/shops')
+        fetch('http://localhost:8080/api/shops?sellerId='+userId)
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);

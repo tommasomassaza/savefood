@@ -3,13 +3,11 @@ import BoxItem from '../BoxItem/index.js';
 import {useNavigate} from "react-router-dom";
 import {FaArrowRight} from "react-icons/fa";
 import {
-    FaAlignJustify,
+
     FaSearch,
-    FaMapMarkerAlt,
+    FaHome,
     FaCalendarCheck,
-    FaUserAlt,
-    FaArrowUp,
-    FaArrowDown
+
 } from "react-icons/fa";
 import './slider.js';
 import './selection.js';
@@ -123,14 +121,15 @@ function HomePage2() {
                     <h1>Save<span>Food</span></h1>
                 </div>
                 <div className="currentDetails1">
-                    <div className="header-option1">
-                        <i data-feather="map-pin"></i>
-                        <span>Google Maps <FaMapMarkerAlt></FaMapMarkerAlt></span>
+                    <div className="header-option1"onClick={() => {
+                        navigate("/");}}>
+
+                        <span>Home <FaHome></FaHome></span>
                     </div>
                     <div className="header-option1" onClick={() => {
                         navigate("/reservations");
                     }}>
-                        <i data-feather="clock"></i>
+
                         <span>I miei ordini <FaCalendarCheck></FaCalendarCheck></span>
                     </div>
                 </div>

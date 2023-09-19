@@ -7,23 +7,106 @@ import UploadAndDisplayImage from "./UploadAndDisplayImage.js"
 
 function AddBoxPage() {
 
+    const [image, setImage] = useState("");
+    const [allImage, setAllImage] = useState([]);
 
     const box = boxes[window.id]; /*window.id è una variabile globale definita in BoxItem, usata per caricare la box dall'id corretto nella BoxPage*/
 
     const navigate = useNavigate();
 
 
-    const [quantity, setQuantity] = useState(1);
+    const [formData, setFormData] = useState({
+        nome: "",
+        descrizione: "",
+        prezzo: "",
+        taglia: "",
+        orarioRitiro: "",
+        città: "Città",
+        base64: image,
+        negozioId: "",
+        // Aggiungi altri campi del form qui se necessario
+    });
 
-    const onMinus = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    };
 
-    const onPlus = () => {
-        setQuantity(quantity + 1);
-    };
+
+
+
+
+
+
+    let postBox = () => {
+        fetch(`http://localhost:8080/api/boxes`, {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+            .then(res => {
+                console.log(res.status)
+                console.log(res.headers)
+
+
+            })
+            .catch(error => {
+                console.error({
+                    error
+                });
+            })
+
+    }
+
+
+
+
+    function convertToBase64(e) {
+        console.log(e);
+        var reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+            console.log(reader.result);
+            setImage(reader.result);
+        };
+
+        reader.onerror = error => {
+            console.log("Error: ", error);
+        };
+    }
+
+
+    function uploadImage() {
+        fetch('http://localhost:8080/upload-image', {
+            method: "POST",
+            crossDomain: true,
+            haders: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify({
+                base64: image
+            })
+        })
+            .then(res =>
+                res.json()
+            )
+            .then((data) =>
+                console.log(data))
+    }
+
+    function getImage() {
+        fetch('http://localhost:8080/upload-image', {
+            method: "GET",
+
+        })
+            .then((res) => res.json()).then((data) => {
+            console.log(data)
+            setAllImage(data.data)
+        })
+    }
+
+
+
 
 
     return (
@@ -79,35 +162,117 @@ function AddBoxPage() {
                     <form className="form">
                         <div className="form-row">
                             <div className="form-group col-md-6">
-                                <label for="inputEmail4">Nome</label>
-                                <input type="text" className="form-control" id="inputEmail4" placeholder="Nome..."></input>
+                                <label for="inputNome">Nome</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputNome"
+                                    placeholder="Nome..."
+                                    value={formData.nome}
+                                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                                />
                             </div>
                             <div className="form-group col-md-6">
-                                <label for="inputPassword4">Prezzo</label>
-                                <input type="text" className="form-control" id="inputPassword4"
-                                       placeholder="Prezzo..."></input>
+                                <label for="inputDescrizione">Descrizione</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputDescrizione"
+                                    placeholder="Descrizione..."
+                                    value={formData.descrizione}
+                                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                                />
                             </div>
 
                         </div>
                         <div className="form-group col-md-6">
-                            <label for="inputAddress">Orario di ritiro</label>
-                            <input type="text" className="form-control" id="inputAddress"
-                                   placeholder="A che ora vuoi che sia ritirata?"></input>
+                            <label for="inputPrezzo">Prezzo</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="inputPrezzo"
+                                placeholder="Prezzo..."
+                                value={formData.prezzo}
+                                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                            />
                         </div>
                         <div className="form-group col-md-6">
-                            <label for="inputAddress2">Taglia</label>
-                            <input type="text" className="form-control" id="inputAddress2"
-                                   placeholder="Grandezza della box da 1 a 3..."></input>
+                            <label for="inputTaglia">Taglia</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="inputTaglia"
+                                placeholder="Taglia..."
+                                value={formData.taglia}
+                                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                            />
                         </div>
                         <div className="form-row">
                             <div className="form-group col-md-6">
-                                <label for="inputCity">Negozio</label>
-                                <input type="text" className="form-control" id="inputCity"
-                                       placeholder="Il nome del negozio a cui è associata la box..."></input>
+                                <label for="inputOrario">Orario di ritiro</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputOrario"
+                                    placeholder="Orario..."
+                                    value={formData.orarioRitiro}
+                                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                                />
                             </div>
 
                         </div>
-                        <UploadAndDisplayImage></UploadAndDisplayImage>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="inputNegozioId">Negozio</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputNegozio"
+                                    placeholder="Negozio..."
+                                    value={formData.negozioId}
+                                    onChange={(e) => setFormData({...formData, nome: e.target.value})}
+                                />
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+
+                        <div className="auth-wrapper">
+                            <div className="auth-inner" style={{width: "auto"}}>
+                                Carica un'immagine<br/>
+                                <input
+
+                                    accept="image/*"
+                                    type="file"
+                                    onChange={convertToBase64}
+
+                                />
+                                {image === "" || image === null ? "" : <img width={100} height={100} src={image}/>}
+
+                            </div>
+                            <br></br>
+                            <button type="submit" className="btn btn-primary #198754 bg-primary border-primary" onClick={postBox()}> Aggiungi box  </button>
+
+                            {allImage.map(data => {
+
+                                return (
+                                    <img width={100} height={100} src={data.image}/>
+                                )
+
+                            })}
+
+
+                        </div>
+
+
+
+
                         <br></br>
                         
 

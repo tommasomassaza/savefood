@@ -12,10 +12,6 @@ import ModifyShop2 from './components/ModifyShop/index2.js';
 import ModifyShop3 from './components/ModifyShop/index3.js';
 import ReviewsPage from './components/ReviewsPage/index.js';
 import AddBoxPage from './components/AddBoxPage/index.js';
-import DeleteShop from './components/DeleteShop/index.js';
-import ModifyNegozio from './components/ModifyNegozio/index.js';
-import DeleteBox from './components/DeleteBox/index.js';
-import ModifyBox from './components/ModifyBox/index.js';
 import ReviewsVendors from './components/ReviewsVendors/index.js';
 import BoxPageVendor from './components/BoxPage/index_vendors.js';
 import OrdiniPage from './components/OrdiniPage/index.js';
@@ -160,7 +156,7 @@ function App() {
           </>
           }
         />
-                    <Route path="/modifyshop2" element={ <>
+                    <Route path="/vendors/homepage" element={ <>
             <SignedIn>
               <ModifyShop2 />
             </SignedIn>
@@ -170,7 +166,7 @@ function App() {
           </>
           }
         />
-                    <Route path="/modifyshop3" element={ <>
+                    <Route path="/vendors/homepage2" element={ <>
             <SignedIn>
               <ModifyShop3 />
             </SignedIn>
@@ -180,7 +176,7 @@ function App() {
           </>
           }
         />
-                    <Route path="/addbox" element={ <>
+                    <Route path="/vendors/addbox" element={ <>
             <SignedIn>
               <AddBoxPage />
             </SignedIn>
@@ -190,7 +186,7 @@ function App() {
           </>
           }
         />
-                    <Route path="/negozio" element={ <>
+                    <Route path="/vendors/addshop" element={ <>
             <SignedIn>
               <NegozioPage />
             </SignedIn>
@@ -200,7 +196,7 @@ function App() {
           </>
           }
         />
-                    <Route path="/boxvendor" element={ <>
+                    <Route path="/vendors/box" element={ <>
             <SignedIn>
               <BoxPageVendor />
             </SignedIn>

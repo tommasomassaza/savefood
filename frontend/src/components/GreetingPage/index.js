@@ -32,8 +32,11 @@ const GreetingPage = () => {
                         </div>
                     </button>
 
-                    <button type="button" class="btn btn-success btn-sq-responsive text-light active" aria-pressed="true"
-                            onClick={() => handleSignUp("venditore")}> <div className="logo1">
+                    <button type="button" class="btn btn-success btn-sq-responsive text-light"
+                            onClick={() => {
+                                handleSignUp("cliente");
+                                navigate("/");
+                            }}> <div className="logo1">
                             <h1>Customer</h1>
                         </div></button>
                 </Col>
@@ -53,7 +56,10 @@ const GreetingPage = () => {
 
 
                     <button type="button" class="btn btn-info btn-sq-responsive text-light"
-                            onClick={() => handleSignUp("cliente")}><h3>Accedi</h3></button>
+                            onClick={() => {
+                                handleSignUp("venditore");
+                                navigate("/vendors/homepage");
+                            }}> <div className="logo1"><h1>Vendor</h1></div></button>
                 </Col>
 
             </div>

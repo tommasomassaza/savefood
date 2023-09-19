@@ -37,7 +37,7 @@ const OrdiniPage = () => {
         <header>
             <div className="container1">
                 <div className="logo1" onClick={() => {
-                    navigate("/modifyshop2");
+                    navigate("/vendors/homepage");
                 }}>
                     <h1>Save<span>Food</span></h1>
                 </div>
@@ -71,13 +71,13 @@ const OrdiniPage = () => {
         <div className="options2">
             <div className="container1">
                 <button className="options-btn2 uno" onClick={() => {
-                    navigate("/modifyshop3");
+                    navigate("/vendors/homepage2");
                 }}>
                     <i data-feather="shopping-bag"></i>
                     <span>Le mie box </span>
                 </button>
                 <button className="options-btn2 due" onClick={() => {
-                    navigate("/modifyshop2");
+                    navigate("/vendors/homepage");
                 }}>
                     <i data-feather="watch"></i>
                     <span>I miei locali</span>

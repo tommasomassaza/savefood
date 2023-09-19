@@ -8,6 +8,7 @@ import {
     FaSearch,
     FaMapMarkerAlt,
     FaCalendarCheck,
+    FaHome,
     FaUserAlt,
     FaArrowUp,
     FaArrowDown
@@ -35,7 +36,7 @@ function ModifyShop2() {
 
 
     //console.log(posts)
-    const [shops, setShops] = useState([]);
+    const [shopss, setShops] = useState([]);
 
     let getShops = () => {
         fetch('http://localhost:8080/api/shops')
@@ -100,15 +101,18 @@ function ModifyShop2() {
         <header>
 
             <div className="container1">
+                <Greeting></Greeting>
 
                 <div className="logo1">
                     <h1>Save<span>Food </span></h1>
                 </div>
 
                 <div className="currentDetails1">
-                    <div className="header-option1">
-                        <i data-feather="map-pin"></i>
-                        <span>Google Maps <FaMapMarkerAlt></FaMapMarkerAlt></span>
+                    <div className="header-option1" onClick={() => {
+                        navigate("/ordini");
+                    }}>
+                        <i data-feather="clock"></i>
+                        <span>Home  <FaHome></FaHome></span>
                     </div>
                     <div className="header-option1" onClick={() => {
                         navigate("/ordini");
@@ -169,7 +173,7 @@ function ModifyShop2() {
                 <div className="header1">
                     <div className="header-title1">
                         <h2>I miei Locali <FaPlusCircle color="green" onClick={() => {
-                            navigate("/addbox");
+                            navigate("/vendors/addshop");
                         }}></FaPlusCircle></h2>
                         <span>Gestisci i locali</span>
                     </div>

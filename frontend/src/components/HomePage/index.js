@@ -1,6 +1,6 @@
 import BoxItem from '../BoxItem/index.js';
 import {useNavigate} from "react-router-dom";
-import {FaCalendarCheck, FaMapMarkerAlt, FaSearch} from "react-icons/fa";
+import {FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
 import './slider.js';
 import './selection.js';
 import Greeting from "../Greeting";
@@ -127,13 +127,15 @@ function HomePage() {
 
             <div className="container1">
                 <Greeting></Greeting>
-                <div className="logo1">
+                <div className="logo1" onClick={() => {
+                    navigate("/greeting_page");}}>
                     <h1>Save<span>Food </span></h1>
                 </div>
 
                 <div className="currentDetails1">
-                    <div className="header-option1">
-                    <span>Venditori</span>
+                    <div className="header-option1" onClick={() => {
+                        navigate("/");}}>
+                    <span>Home <FaHome></FaHome></span>
                     </div>
                     <div className="header-option1" onClick={() => {
                         navigate("/reservations");

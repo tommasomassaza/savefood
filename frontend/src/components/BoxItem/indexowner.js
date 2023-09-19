@@ -46,7 +46,7 @@ const BoxItemOwner = ({box}) => {
 
         <div className="listings-grid-element1">
             <div className="image1" onClick={() => {
-                navigate("/boxvendor");
+                navigate("/vendors/box");
             }}>
                 <img src={box.image} alt="prova"/>
             </div>

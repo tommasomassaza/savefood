@@ -10,12 +10,8 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 import {
     FaArrowLeft,
-    FaSearch,
     FaMapMarkerAlt,
-    FaCalendarCheck,
-    FaUserAlt,
-    FaArrowUp,
-    FaArrowDown
+    FaCalendarCheck, FaHome,
 } from "react-icons/fa";
 import {UserButton,useUser} from "@clerk/clerk-react";
 
@@ -44,9 +40,10 @@ const ReservationsPage = () => {
                     <h1>Save<span>Food</span></h1>
                 </div>
                 <div className="currentDetails1">
-                    <div className="header-option1">
-                        <i data-feather="map-pin"></i>
-                        <span>Google Maps <FaMapMarkerAlt></FaMapMarkerAlt></span>
+                    <div className="header-option1"onClick={() => {
+                        navigate("/");
+                    }}>
+                        <span>Home <FaHome></FaHome></span>
                     </div>
                     <div className="header-option1" onClick={() => {
                         navigate("/reservations");

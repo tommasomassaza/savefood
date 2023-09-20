@@ -42,54 +42,7 @@ function NegozioPage() {
         reader.readAsArrayBuffer(file);
     };
 
-    const postShop = () => {
-        fetch('http://localhost:8080/api/shops', {
-            method: 'POST',
-            body: JSON.stringify(formData),
-            headers: {
-                'content-type': 'application/json',
-            },
-        })
-            .then((res) => {
-                console.log(res.status);
-                console.log(res.headers);
-            })
-            .catch((error) => {
-                console.error({
-                    error,
-                });
-            });
-    };
 
-    const uploadImage = () => {
-        fetch('http://localhost:8080/upload-image', {
-            method: 'POST',
-            crossDomain: true,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
-            body: JSON.stringify({
-                base64: image,
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-            });
-    };
-
-    const getImage = () => {
-        fetch('http://localhost:8080/upload-image', {
-            method: 'GET',
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setAllImage(data.data);
-            });
-    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

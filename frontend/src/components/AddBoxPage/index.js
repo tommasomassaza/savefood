@@ -16,14 +16,15 @@ function AddBoxPage() {
 
 
     const [formData, setFormData] = useState({
-        nome: "",
-        descrizione: "",
-        prezzo: "",
-        taglia: "",
-        orarioRitiro: "",
-        città: "Città",
-        base64: image,
-        negozioId: "",
+        ShopId: "1", //da passare
+        name: "",
+        description: "",
+        price: "",
+        size: "",
+        pickUpTime: "",
+        city: "", //da passare
+        quantity: "",
+        image: image,
         // Aggiungi altri campi del form qui se necessario
     });
 
@@ -31,262 +32,203 @@ function AddBoxPage() {
 
 
 
+    const convertToByteArray = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
 
-
-
-    let postBox = () => {
-        fetch(`http://localhost:8080/api/boxes`, {
-            method: "POST",
-            body: JSON.stringify(formData),
-            headers: {
-                "content-type": "application/json"
-            }
-        })
-            .then(res => {
-                console.log(res.status)
-                console.log(res.headers)
-
-
-            })
-            .catch(error => {
-                console.error({
-                    error
-                });
-            })
-
-    }
-
-
-
-
-    function convertToBase64(e) {
-        console.log(e);
-        var reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
         reader.onload = () => {
-            console.log(reader.result);
-            setImage(reader.result);
+            const arrayBuffer = reader.result;
+            const byteArray = new Uint8Array(arrayBuffer);
+
+            setImage(byteArray); // Salva l'immagine come array di byte
         };
 
-        reader.onerror = error => {
-            console.log("Error: ", error);
-        };
-    }
+        reader.readAsArrayBuffer(file);
+    };
 
 
-    function uploadImage() {
-        fetch('http://localhost:8080/upload-image', {
-            method: "POST",
-            crossDomain: true,
-            haders: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-            body: JSON.stringify({
-                base64: image
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // Crea un nuovo oggetto formData solo con i dati necessari
+        const formDataToSend = new FormData();
+        formDataToSend.append('sellerId', formData.sellerId);
+        formDataToSend.append('name', formData.name);
+        formDataToSend.append('description', formData.description);
+        formDataToSend.append('size', formData.size);
+        formDataToSend.append('pickUpTime', formData.pickUpTime);
+        formDataToSend.append('city', formData.city);
+        formDataToSend.append('quantity', formData.quantity);
+        formDataToSend.append('image', new Blob([image], { type: 'image/jpeg' })); // Usa 'image/jpeg' o il tipo di immagine corretto
+
+        // Invia formDataToSend al tuo backend
+        fetch('http://localhost:8080/api/boxes', {
+            method: 'POST',
+            body: formDataToSend,
+        })
+            .then((res) => {
+                console.log(res.status);
+                console.log(res.headers);
             })
-        })
-            .then(res =>
-                res.json()
-            )
-            .then((data) =>
-                console.log(data))
-    }
-
-    function getImage() {
-        fetch('http://localhost:8080/upload-image', {
-            method: "GET",
-
-        })
-            .then((res) => res.json()).then((data) => {
-            console.log(data)
-            setAllImage(data.data)
-        })
-    }
+            .catch((error) => {
+                console.error({
+                    error,
+                });
+            });
+    };
 
 
 
 
 
     return (
+        <div>
+            <header>
+                {/* ... Il resto del tuo codice di intestazione */}
+            </header>
 
-        <body>
-
-
-        <header>
-            <div className="container1">
-                <div className="logo1" onClick={() => {
-                    navigate("/");
-                    navigate(0);
-                }}>
-                    <h1>Save<span>Food </span></h1>
-                </div>
-                <div className="currentDetails1">
-                    <div className="header-option1">
-                        <i data-feather="map-pin"></i>
-                        <span>Google Maps</span>
+            <div className="options1">
+                <div className="container1">
+                    <div className="header-title1">
+                        <h2>Aggiungi una box:</h2>
                     </div>
-                    <div className="header-option1" onClick={() => {
-                        navigate("/reservations");
-                    }}>
-                        <i data-feather="clock"></i>
-                        <span>I miei ordini</span>
-                    </div>
-                </div>
 
+                    <div className="listings-grid-element1">
+                        <form className="form" onSubmit={handleSubmit}>
+                            <div className="form-row">
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="inputNome">Nome</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="inputNome"
+                                        placeholder="Nome..."
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="inputDescription">Descrizione</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="inputDescription"
+                                        placeholder="Descrizione..."
+                                        name="description"
+                                        value={formData.description}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
 
-                <div className="searchBar1">
-                    <div className="header-option1">
-                        <i data-feather="search"></i>
-                        <span>Cerca</span>
-                    </div>
-                    <div className="header-option1" onClick={() => {
-                        navigate("/login");
-                    }}>
-                        <span>Log in</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-
-        <div className="options1">
-            <div className="container1">
-
-                <div className="header-title1">
-                    <h2>Aggiungi una box:</h2>
-                </div>
-
-                <div className="listings-grid-element1">
-                    <form className="form">
-                        <div className="form-row">
                             <div className="form-group col-md-6">
-                                <label for="inputNome">Nome</label>
+                                <label htmlFor="inputPrezzo">Prezzo</label>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    id="inputNome"
-                                    placeholder="Nome..."
-                                    value={formData.nome}
-                                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                                    id="inputPrezzo"
+                                    placeholder="Prezzo..."
+                                    name="price"
+                                    value={formData.price}
+                                    onChange={handleInputChange}
                                 />
                             </div>
                             <div className="form-group col-md-6">
-                                <label for="inputDescrizione">Descrizione</label>
+                                <label htmlFor="inputTaglia">Taglia</label>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    id="inputDescrizione"
-                                    placeholder="Descrizione..."
-                                    value={formData.descrizione}
-                                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                                    id="inputTaglia"
+                                    placeholder="inputTaglia..."
+                                    name="size"
+                                    value={formData.size}
+                                    onChange={handleInputChange}
                                 />
                             </div>
-
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label for="inputPrezzo">Prezzo</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="inputPrezzo"
-                                placeholder="Prezzo..."
-                                value={formData.prezzo}
-                                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label for="inputTaglia">Taglia</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="inputTaglia"
-                                placeholder="Taglia..."
-                                value={formData.taglia}
-                                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                            />
-                        </div>
-                        <div className="form-row">
                             <div className="form-group col-md-6">
-                                <label for="inputOrario">Orario di ritiro</label>
+                                <label htmlFor="inputOrario">Orario di ritiro</label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="inputOrario"
-                                    placeholder="Orario..."
-                                    value={formData.orarioRitiro}
-                                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                                    placeholder="Orario di ritiro..."
+                                    name="pickUpTime"
+                                    value={formData.pickUpTime}
+                                    onChange={handleInputChange}
                                 />
                             </div>
-
-                        </div>
-                        <div className="form-row">
                             <div className="form-group col-md-6">
-                                <label htmlFor="inputNegozioId">Negozio</label>
+                                <label htmlFor="inputCity">Città</label>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    id="inputNegozio"
-                                    placeholder="Negozio..."
-                                    value={formData.negozioId}
-                                    onChange={(e) => setFormData({...formData, nome: e.target.value})}
+                                    id="inputCity"
+                                    placeholder="Città..."
+                                    name="city"
+                                    value={formData.city}
+                                    onChange={handleInputChange}
                                 />
                             </div>
-
-                        </div>
-
-
-
-
-
-
-
-
-                        <div className="auth-wrapper">
-                            <div className="auth-inner" style={{width: "auto"}}>
-                                Carica un'immagine<br/>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="inputQuantity">Quantity</label>
                                 <input
-
-                                    accept="image/*"
-                                    type="file"
-                                    onChange={convertToBase64}
-
+                                    type="text"
+                                    className="form-control"
+                                    id="inputQuantity"
+                                    placeholder="Quantity..."
+                                    name="quantity"
+                                    value={formData.quantity}
+                                    onChange={handleInputChange}
                                 />
-                                {image === "" || image === null ? "" : <img width={100} height={100} src={image}/>}
-
                             </div>
-                            <br></br>
-                            <button type="submit" className="btn btn-primary #198754 bg-primary border-primary" onClick={postBox()}> Aggiungi box  </button>
 
-                            {allImage.map(data => {
+                            <div className="auth-wrapper">
+                                <div className="auth-inner" style={{ width: 'auto' }}>
+                                    Carica un'immagine<br />
+                                    <input
+                                        accept="image/*"
+                                        type="file"
+                                        onChange={convertToByteArray}
+                                    />
+                                    {image === '' || image === null ? '' : (
+                                        <img width={100} height={100} src={image} alt="Uploaded" />
+                                    )}
+                                </div>
+                                <br />
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary #198754 bg-primary border-primary"
+                                >
+                                    Aggiungi Box
+                                </button>
 
-                                return (
-                                    <img width={100} height={100} src={data.image}/>
-                                )
+                                {allImage.map((data) => (
+                                    <img
+                                        key={data.id}
+                                        width={100}
+                                        height={100}
+                                        src={data.image}
+                                        alt="Uploaded"
+                                    />
+                                ))}
+                            </div>
 
-                            })}
-
-
-                        </div>
-
-
-
-
-                        <br></br>
-                        
-
-
-                    </form>
-
+                            <br />
+                        </form>
+                    </div>
                 </div>
-
-
             </div>
         </div>
-        </body>
-
-
     );
 }
 

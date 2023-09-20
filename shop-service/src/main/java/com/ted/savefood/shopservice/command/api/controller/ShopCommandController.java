@@ -2,11 +2,11 @@ package com.ted.savefood.shopservice.command.api.controller;
 
 import com.ted.savefood.shopservice.command.api.commands.CancelShopCommand;
 import com.ted.savefood.shopservice.command.api.commands.CreateShopCommand;
-import com.ted.savefood.shopservice.common.modelDto.ShopDto;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @RestController
@@ -19,14 +19,36 @@ public class ShopCommandController {
     }
 
     @PostMapping
-    public String addShop(@RequestBody ShopDto shopDto) {
+    public String addShop(
+            @RequestParam("sellerId") String sellerId,
+            @RequestParam("name") String name,
+            @RequestParam("city") String city,
+            @RequestParam("address") String address,
+            @RequestParam("description") String description,
+            @RequestParam("telephonNumber") String telephonNumber,
+            @RequestParam("image") MultipartFile imageFile
+    ) {
         String shopId = UUID.randomUUID().toString();
         CreateShopCommand createShopCommand = new CreateShopCommand();
-        BeanUtils.copyProperties(shopDto, createShopCommand);
 
         createShopCommand.setShopId(shopId);
+        createShopCommand.setSellerId(sellerId);
+        createShopCommand.setName(name);
+        createShopCommand.setCity(city);
+        createShopCommand.setAddress(address);
+        createShopCommand.setDescription(description);
+        createShopCommand.setTelephoneNumber(Integer.parseInt(telephonNumber));
         createShopCommand.setNumberOfReviews(0);
         createShopCommand.setStars(0);
+
+        // Converti il file MultipartFile in un array di byte
+        try {
+            byte[] imageBytes = imageFile.getBytes();
+            createShopCommand.setImage(imageBytes);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         String result = commandGateway.sendAndWait(createShopCommand);
         return result;

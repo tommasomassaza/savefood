@@ -193,7 +193,7 @@ function NegozioPage() {
                                     id="inputDescription"
                                     placeholder="Descrizione..."
                                     name="description"
-                                    value={formData.description} {/* Corretto il nome del campo 'description' */}
+                                    value={formData.description}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -205,7 +205,7 @@ function NegozioPage() {
                                     id="inputtelephonNumber"
                                     placeholder="Numero di telefono..."
                                     name="telephonNumber"
-                                    value={formData.telephonNumber} {/* Corretto il nome del campo 'telephonNumber' */}
+                                    value={formData.telephonNumber}
                                     onChange={handleInputChange}
                                 />
                             </div>

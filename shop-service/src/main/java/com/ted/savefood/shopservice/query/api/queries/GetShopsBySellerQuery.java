@@ -4,5 +4,5 @@ import lombok.Value;
 
 @Value
 public class GetShopsBySellerQuery {
-    private String shopId;
+    private String sellerId;
 }

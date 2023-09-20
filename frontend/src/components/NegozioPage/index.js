@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {useUser} from "@clerk/clerk-react";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import boxes from '../../data/boxes.json';
+import { useUser } from "@clerk/clerk-react";
 
 function NegozioPage() {
     const { user } = useUser();
@@ -19,27 +20,26 @@ function NegozioPage() {
         name: '',
         city: '',
         address: '',
-        description: '',
-        telephonNumber: '',
+        description: '', // Corretto il nome del campo 'description'
+        telephonNumber: '', // Corretto il nome del campo 'telephonNumber'
         image: image
     });
 
     const navigate = useNavigate();
+    const box = boxes[window.id];
 
-    const convertToBase64 = (e) => {
+    const convertToByteArray = (e) => {
+        const file = e.target.files[0];
         const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
+
         reader.onload = () => {
-            setImage(reader.result);
-            setFormData({
-                ...formData,
-                image: reader.result, // Imposta il valore di image in formData
-            });
+            const arrayBuffer = reader.result;
+            const byteArray = new Uint8Array(arrayBuffer);
+
+            setImage(byteArray); // Salva l'immagine come array di byte
         };
 
-        reader.onerror = (error) => {
-            console.log('Error: ', error);
-        };
+        reader.readAsArrayBuffer(file);
     };
 
     const postShop = () => {
@@ -61,7 +61,35 @@ function NegozioPage() {
             });
     };
 
+    const uploadImage = () => {
+        fetch('http://localhost:8080/upload-image', {
+            method: 'POST',
+            crossDomain: true,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                base64: image,
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            });
+    };
 
+    const getImage = () => {
+        fetch('http://localhost:8080/upload-image', {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setAllImage(data.data);
+            });
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -73,7 +101,34 @@ function NegozioPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        postShop();
+
+        // Rimuovi l'invio dell'immagine come stringa Base64 da formData
+        const { image, ...formDataWithoutImage } = formData;
+
+        // Crea un nuovo oggetto formData solo con i dati necessari
+        const formDataToSend = new FormData();
+        formDataToSend.append('sellerId', formDataWithoutImage.sellerId);
+        formDataToSend.append('name', formDataWithoutImage.name);
+        formDataToSend.append('city', formDataWithoutImage.city);
+        formDataToSend.append('address', formDataWithoutImage.address);
+        formDataToSend.append('description', formDataWithoutImage.description);
+        formDataToSend.append('telephonNumber', formDataWithoutImage.telephonNumber);
+        formDataToSend.append('image', new Blob([image], { type: 'image/jpeg' })); // Usa 'image/jpeg' o il tipo di immagine corretto
+
+        // Invia formDataToSend al tuo backend
+        fetch('http://localhost:8080/api/shops', {
+            method: 'POST',
+            body: formDataToSend,
+        })
+            .then((res) => {
+                console.log(res.status);
+                console.log(res.headers);
+            })
+            .catch((error) => {
+                console.error({
+                    error,
+                });
+            });
     };
 
 
@@ -138,7 +193,7 @@ function NegozioPage() {
                                     id="inputDescription"
                                     placeholder="Descrizione..."
                                     name="description"
-                                    value={formData.description}
+                                    value={formData.description} {/* Corretto il nome del campo 'description' */}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -150,7 +205,7 @@ function NegozioPage() {
                                     id="inputtelephonNumber"
                                     placeholder="Numero di telefono..."
                                     name="telephonNumber"
-                                    value={formData.telephonNumber}
+                                    value={formData.telephonNumber} {/* Corretto il nome del campo 'telephonNumber' */}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -161,7 +216,7 @@ function NegozioPage() {
                                     <input
                                         accept="image/*"
                                         type="file"
-                                        onChange={convertToBase64}
+                                        onChange={convertToByteArray}
                                     />
                                     {image === '' || image === null ? '' : (
                                         <img width={100} height={100} src={image} alt="Uploaded" />
@@ -194,4 +249,5 @@ function NegozioPage() {
         </div>
     );
 }
+
 export default NegozioPage;

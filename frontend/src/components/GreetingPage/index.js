@@ -2,8 +2,8 @@ import React from "react";
 import Col from 'react-bootstrap/Col';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import {useUser} from "@clerk/clerk-react";
-import { globalRole } from "./global"; // Importa la variabile globale
 import {useNavigate} from "react-router-dom";
+import {globalDataRole} from "./global"
 
 const GreetingPage = () => {
 
@@ -11,10 +11,16 @@ const GreetingPage = () => {
 
     const {user} = useUser();
     const handleSignUp = async (role) => {
-    
-        globalRole = role; 
-        navigate("/");
+
+        globalDataRole.globalRole = role; // Utilizza la funzione di impostazione
+        if(role === "cliente") {
+            navigate("/");
+        } else if(role === "venditore") {
+            navigate("/vendors/homepage");
+        }
     };
+
+
     
 
     return (

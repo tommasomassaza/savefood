@@ -1,10 +1,8 @@
 import boxes from "../../data/boxes.json";
 import BoxItemOwner from '../BoxItem/indexowner.js';
 import {useNavigate} from "react-router-dom";
-import {FaAlignJustify, FaCalendarCheck, FaMapMarkerAlt, FaPlusCircle, FaSearch} from "react-icons/fa";
-import { globalShopsId } from "../GreetingPage/global"; // Importa la variabile globale
-
-
+import {FaAlignJustify, FaCalendarCheck, FaPlusCircle, FaSearch} from "react-icons/fa";
+import { globalData } from "../GreetingPage/global";
 import React, {useEffect, useState} from "react";
 import '../HomePage/HomePage.scss';
 import {UserButton} from "@clerk/clerk-react";
@@ -13,7 +11,7 @@ import {UserButton} from "@clerk/clerk-react";
 function ModifyShop3() {
 
 
-    console.log("eccolo: " + globalShopsId)
+    console.log("eccolo: " + globalData.globalShopsId)
 
 
     //per navigare tra i link
@@ -26,10 +24,10 @@ function ModifyShop3() {
 
 
     //console.log(posts)
-    const [shopsas, setShops] = useState([]);
+    const [boxes, setShops] = useState([]);
 
-    let getShops = () => {
-        fetch('http://localhost:8080/api/shops')
+    let getBoxes = () => {
+        fetch('http://localhost:8080/api/boxes')
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -48,7 +46,7 @@ function ModifyShop3() {
 
 
     useEffect(() => {
-        getShops();
+        getBoxes();
     }, []);
 
 

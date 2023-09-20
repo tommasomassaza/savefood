@@ -1,5 +1,10 @@
 // global.js
 
-export let globalRole = null;
-export let globalShopsId = null;
-export let globalBoxId = null;
+
+export const globalData = {
+    globalShopsId: null,
+};
+
+export const globalDataRole = {
+    globalRole: null,
+};

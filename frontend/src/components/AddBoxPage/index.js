@@ -16,7 +16,7 @@ function AddBoxPage() {
 
 
     const [formData, setFormData] = useState({
-        ShopId: "1", //da passare
+        shopId: "1", //da passare
         name: "",
         description: "",
         price: "",
@@ -61,9 +61,10 @@ function AddBoxPage() {
 
         // Crea un nuovo oggetto formData solo con i dati necessari
         const formDataToSend = new FormData();
-        formDataToSend.append('sellerId', formData.sellerId);
+        formDataToSend.append('shopId', formData.shopId);
         formDataToSend.append('name', formData.name);
         formDataToSend.append('description', formData.description);
+        formDataToSend.append('price', formData.price);
         formDataToSend.append('size', formData.size);
         formDataToSend.append('pickUpTime', formData.pickUpTime);
         formDataToSend.append('city', formData.city);

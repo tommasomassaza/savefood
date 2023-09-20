@@ -33,7 +33,7 @@ function HomePage() {
 
 
     //console.log(posts)
-    const [acab, setBoxes] = useState([]);
+    const [boxes, setBoxes] = useState([]);
 
     const {user} = useUser();
     let getBoxes = () => {

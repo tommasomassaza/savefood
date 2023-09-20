@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 
-import { globalShopsId } from "../GreetingPage/global"; // Importa la variabile globale
+import { globalData } from "../GreetingPage/global";
 
 // Funzione per convertire una stringa Base64 in un oggetto Blob
 function base64ToBlob(base64String, contentType) {
@@ -30,8 +30,9 @@ const ShoptItemOwner = ({ shop }) => {
     const [imageBlob, setImageBlob] = useState(null); // Stato per l'immagine Blob
     const navigate = useNavigate();
 
-    const setIdNew = () => {
-        globalShopsId = shop.id ;
+    const setIdNew = (shopId) => {
+        globalData.globalShopsId = shopId; // Utilizza la funzione di impostazione
+        console.log("eccolooooo: " + globalData.globalShopsId)
     };
 
     const deleteshop = (shopId) => {
@@ -62,7 +63,7 @@ const ShoptItemOwner = ({ shop }) => {
 
     return (
         <div className="listings-grid-element1">
-            <div className="image1" onClick={() => { navigate("/vendors/homepage2"); setIdNew();}}>
+            <div className="image1" onClick={() => { setIdNew(shop.shopId); navigate("/vendors/homepage2"); }}>
                 {/* Utilizza l'URL dell'immagine Blob */}
                 {imageBlob && <img src={imageBlob} alt="prova" />}
             </div>

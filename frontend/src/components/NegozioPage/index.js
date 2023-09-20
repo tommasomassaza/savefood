@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import boxes from '../../data/boxes.json';
-import { useUser } from "@clerk/clerk-react";
+import {useUser} from "@clerk/clerk-react";
 
 function NegozioPage() {
     const { user } = useUser();
@@ -102,17 +102,14 @@ function NegozioPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Rimuovi l'invio dell'immagine come stringa Base64 da formData
-        const { image, ...formDataWithoutImage } = formData;
-
         // Crea un nuovo oggetto formData solo con i dati necessari
         const formDataToSend = new FormData();
-        formDataToSend.append('sellerId', formDataWithoutImage.sellerId);
-        formDataToSend.append('name', formDataWithoutImage.name);
-        formDataToSend.append('city', formDataWithoutImage.city);
-        formDataToSend.append('address', formDataWithoutImage.address);
-        formDataToSend.append('description', formDataWithoutImage.description);
-        formDataToSend.append('telephonNumber', formDataWithoutImage.telephonNumber);
+        formDataToSend.append('sellerId', formData.sellerId);
+        formDataToSend.append('name', formData.name);
+        formDataToSend.append('city', formData.city);
+        formDataToSend.append('address', formData.address);
+        formDataToSend.append('description', formData.description);
+        formDataToSend.append('telephonNumber', formData.telephonNumber);
         formDataToSend.append('image', new Blob([image], { type: 'image/jpeg' })); // Usa 'image/jpeg' o il tipo di immagine corretto
 
         // Invia formDataToSend al tuo backend

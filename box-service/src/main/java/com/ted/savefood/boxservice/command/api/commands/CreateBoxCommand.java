@@ -13,5 +13,7 @@ public class CreateBoxCommand {
     private float price;
     private int size;
     private String pickUpTime;
+    private String city;
     private int quantity;
+    private byte[] image;
 }

@@ -20,6 +20,10 @@ public class BoxAggregate {
     private String description;
     private int size;
     private float price;
+    private String pickUpTime;
+    private String city;
+    private int quantity;
+    private byte[] image;
 
 
     public BoxAggregate() {}
@@ -40,6 +44,10 @@ public class BoxAggregate {
         this.description=boxCreatedEvent.getDescription();
         this.size=boxCreatedEvent.getSize();
         this.price= boxCreatedEvent.getPrice();
+        this.pickUpTime = boxCreatedEvent.getPickUpTime();
+        this.city = boxCreatedEvent.getCity();
+        this.quantity = boxCreatedEvent.getQuantity();
+        this.image = boxCreatedEvent.getImage();
     }
 
     @CommandHandler

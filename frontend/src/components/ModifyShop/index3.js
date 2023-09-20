@@ -2,6 +2,7 @@ import boxes from "../../data/boxes.json";
 import BoxItemOwner from '../BoxItem/indexowner.js';
 import {useNavigate} from "react-router-dom";
 import {FaAlignJustify, FaCalendarCheck, FaMapMarkerAlt, FaPlusCircle, FaSearch} from "react-icons/fa";
+import { globalShopsId } from "../GreetingPage/global"; // Importa la variabile globale
 
 
 import React, {useEffect, useState} from "react";
@@ -10,6 +11,9 @@ import {UserButton} from "@clerk/clerk-react";
 
 
 function ModifyShop3() {
+
+
+    console.log("eccolo: " + globalShopsId)
 
 
     //per navigare tra i link

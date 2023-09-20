@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaArrowLeft, FaPen, FaTrashAlt, FaPlusCircle, FaUserAlt } from "react-icons/fa";
+import { FaPen, FaTrashAlt } from "react-icons/fa";
+
+import { globalShopsId } from "../GreetingPage/global"; // Importa la variabile globale
 
 // Funzione per convertire una stringa Base64 in un oggetto Blob
 function base64ToBlob(base64String, contentType) {
@@ -22,16 +24,18 @@ function base64ToBlob(base64String, contentType) {
     return new Blob(byteArrays, { type: contentType });
 }
 
+
+
 const ShoptItemOwner = ({ shop }) => {
     const [imageBlob, setImageBlob] = useState(null); // Stato per l'immagine Blob
     const navigate = useNavigate();
 
     const setIdNew = () => {
-        window.id = shop.id - 1;
+        globalShopsId = shop.id ;
     };
 
     const deleteshop = (shopId) => {
-        fetch(`http://localhost:8080/api/shopes/${shopId}`, {
+        fetch('http://localhost:8080/api/shops?sellerId='+userId, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",
@@ -58,7 +62,7 @@ const ShoptItemOwner = ({ shop }) => {
 
     return (
         <div className="listings-grid-element1">
-            <div className="image1" onClick={() => navigate("/vendors/homepage2")}>
+            <div className="image1" onClick={() => { navigate("/vendors/homepage2"); setIdNew();}}>
                 {/* Utilizza l'URL dell'immagine Blob */}
                 {imageBlob && <img src={imageBlob} alt="prova" />}
             </div>
@@ -74,16 +78,16 @@ const ShoptItemOwner = ({ shop }) => {
                     <FaPen color="#034694" />
                     <div className="info1">
             <span>
-              Indirizzo: {shop.address} | Descrizione: {shop.description} |
+              Città: {shop.city} | Indirizzo: {shop.address} | Telefono: {shop.telephoneNumber}
             </span>
                     </div>
                 </div>
                 <div className="rating2">
-                    <span className="circle1">4.2</span>
+                    <span className="circle1">{shop.stars}</span>
                 </div>
             </div>
             <div className="text-lower1">
-                <span className="smallText1">Info1 | Info2 | Info3 | Info4 | Info5 </span>
+                <span className="smallText1">| Descrizione: {shop.description} |</span>
             </div>
         </div>
     );

@@ -2,7 +2,6 @@ package com.ted.savefood.shopservice.common.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -20,7 +19,5 @@ public class Shop {
     private int telephoneNumber;
     private int numberOfReviews;
     private float stars;
-
-    @Lob
-    private byte[] image;
+    private String image;
 }

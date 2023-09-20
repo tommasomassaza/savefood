@@ -19,5 +19,5 @@ public class ShopDto {
     @Nullable
     private float stars;
 
-    private byte[] image;
+    private String image;
 }

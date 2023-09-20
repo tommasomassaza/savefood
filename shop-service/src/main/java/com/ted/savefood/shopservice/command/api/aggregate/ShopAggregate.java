@@ -23,7 +23,7 @@ public class ShopAggregate {
     private int telephoneNumber;
     private int numberOfReviews;
     private float stars;
-    private byte[] image;
+    private String image;
 
 
     public ShopAggregate() {
@@ -42,11 +42,13 @@ public class ShopAggregate {
         this.shopId = shopCreatedEvent.getShopId();
         this.sellerId = shopCreatedEvent.getSellerId();
         this.name = shopCreatedEvent.getName();
+        this.city = shopCreatedEvent.getCity();
         this.description = shopCreatedEvent.getDescription();
         this.address = shopCreatedEvent.getAddress();
         this.telephoneNumber = shopCreatedEvent.getTelephoneNumber();
         this.numberOfReviews = shopCreatedEvent.getNumberOfReviews();
         this.stars = shopCreatedEvent.getStars();
+        this.image = shopCreatedEvent.getImage();
     }
 
     @CommandHandler

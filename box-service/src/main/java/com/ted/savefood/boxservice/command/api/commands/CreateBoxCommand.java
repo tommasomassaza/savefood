@@ -15,4 +15,5 @@ public class CreateBoxCommand {
     private String pickUpTime;
     private String city;
     private int quantity;
+    private byte[] image;
 }

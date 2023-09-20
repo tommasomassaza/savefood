@@ -23,6 +23,7 @@ public class BoxAggregate {
     private String pickUpTime;
     private String city;
     private int quantity;
+    private byte[] image;
 
 
     public BoxAggregate() {}
@@ -46,6 +47,7 @@ public class BoxAggregate {
         this.pickUpTime = boxCreatedEvent.getPickUpTime();
         this.city = boxCreatedEvent.getCity();
         this.quantity = boxCreatedEvent.getQuantity();
+        this.image = boxCreatedEvent.getImage();
     }
 
     @CommandHandler

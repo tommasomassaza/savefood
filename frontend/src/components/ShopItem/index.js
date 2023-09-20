@@ -35,7 +35,7 @@ const ShoptItemOwner = ({ shop }) => {
     };
 
     const deleteshop = (shopId) => {
-        fetch('http://localhost:8080/api/shops?sellerId='+userId, {
+        fetch('http://localhost:8080/api/shops', {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",

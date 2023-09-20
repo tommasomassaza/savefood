@@ -13,5 +13,5 @@ public class ShopCreatedEvent {
     private int telephoneNumber;
     private int numberOfReviews;
     private int stars;
-    private String image;
+    private byte[] image;
 }

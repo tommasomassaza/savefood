@@ -15,5 +15,5 @@ public class CreateShopCommand {
     private int telephoneNumber;
     private int numberOfReviews;
     private float stars;
-    private String image;
+    private byte[] image;
 }

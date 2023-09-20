@@ -1,7 +1,6 @@
 package com.ted.savefood.boxservice.common.modelDto;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Nullable;
 
@@ -17,5 +16,4 @@ public class BoxDto {
     private String pickUpTime;
     private String city;
     private int quantity;
-    private MultipartFile image;
 }

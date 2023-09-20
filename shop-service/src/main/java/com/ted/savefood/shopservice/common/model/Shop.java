@@ -20,7 +20,6 @@ public class Shop {
     private int telephoneNumber;
     private int numberOfReviews;
     private float stars;
-
     @Lob
     private byte[] image;
 }

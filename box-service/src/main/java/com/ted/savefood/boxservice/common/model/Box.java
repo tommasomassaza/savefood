@@ -2,7 +2,6 @@ package com.ted.savefood.boxservice.common.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -20,6 +19,4 @@ public class Box {
     private String pickUpTime;
     private String city;
     private int quantity;
-    @Lob
-    private byte[] image;
 }

@@ -1,7 +1,6 @@
 package com.ted.savefood.shopservice.common.modelDto;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Nullable;
 
@@ -20,5 +19,5 @@ public class ShopDto {
     @Nullable
     private float stars;
 
-    private MultipartFile image;
+    private byte[] image;
 }

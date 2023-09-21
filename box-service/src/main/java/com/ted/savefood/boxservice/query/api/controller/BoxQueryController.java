@@ -33,7 +33,7 @@ public class BoxQueryController {
                 .join();
     }
 
-    @GetMapping("/{shopId}")
+    @GetMapping("/getByShopId/{shopId}")
     public List<BoxDto> getAllBoxes(@PathVariable String shopId) {
         GetBoxesByShopQuery getBoxesByShopQuery = new GetBoxesByShopQuery(shopId);
 
@@ -43,7 +43,7 @@ public class BoxQueryController {
                 .join();
     }
 
-    @GetMapping("/{boxId}")
+    @GetMapping("/getById/{boxId}")
     public BoxDto getBoxById(@PathVariable String boxId) {
         GetBoxQuery getBoxQuery = new GetBoxQuery(boxId);
 

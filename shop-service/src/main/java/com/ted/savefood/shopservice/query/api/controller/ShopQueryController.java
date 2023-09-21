@@ -33,7 +33,7 @@ public class ShopQueryController {
                 .join();
     }
 
-    @GetMapping("/{sellerId}")
+    @GetMapping("/getBySellerId/{sellerId}")
     public List<ShopDto> getAllShops(@PathVariable String sellerId) {
         GetShopsBySellerQuery getShopsBySellerQuery = new GetShopsBySellerQuery(sellerId);
 
@@ -43,7 +43,7 @@ public class ShopQueryController {
                 .join();
     }
 
-    @GetMapping("/{shopId}")
+    @GetMapping("/getById/{shopId}")
     public ShopDto getShopById(@PathVariable String shopId) {
         GetShopQuery getShopQuery = new GetShopQuery(shopId);
 

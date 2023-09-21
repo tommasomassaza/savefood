@@ -19,7 +19,9 @@ import Sidebar from "../HomePage/sidebar";
 function BoxPage() {
 
     //console.log(posts)
-    const [box, setBox] = useState([]);
+    const [box, setBoxes] = useState([]);
+
+
 
     let getBox = () => {
         fetch('http://localhost:8080/api/boxes?boxId='+ globalDataBox.globalBoxId)
@@ -31,14 +33,18 @@ function BoxPage() {
             })
             .then((result) => {
                     console.log(result);
-                    setBox(result);
-                    console.log("Questa è box dopo essere stata settata:" + box);
+                    setBoxes(result);
+                    console.log(box);
+                    console.log(box[0].price);
                 },
                 (error) => {
                     console.log(error);
                 }
             )
     };
+
+
+
 
     const { user } = useUser();
 
@@ -131,7 +137,9 @@ function BoxPage() {
                     <div className="listings-grid1">
                         <div className="listings-col1">
 
-                            <BoxItem box={box}></BoxItem>
+                            {box.map((singleBox) => (
+                                <BoxItem key={singleBox.boxId} box={singleBox} />
+                            ))}
 
 
                             <div className="listings-grid-element1">
@@ -170,9 +178,9 @@ function BoxPage() {
 
                                 <div className="text2">
                                     <div className="text-title1">
-                                        <h3>Totale: {quantity * box.price} €</h3>
+                                        <h3>Totale: {quantity * box[0].price} €</h3>
                                         <div className="info1">
-                                            <span> Prodotto: {box.name}</span>
+                                            <span> Prodotto: {box[0].name}</span>
                                         </div>
                                     </div>
 

@@ -1,7 +1,14 @@
 import React, {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom";
 import {FaPen, FaTrashAlt} from "react-icons/fa";
-import {globalDataBox} from "../GreetingPage/global";
+import {
+    globalDataBox,
+    globalBoxName,
+    globalBoxPrice,
+    globalBoxPickUpTime,
+    globalBoxShopId,
+    globalData
+} from "../GreetingPage/global";
 
 window.id = 0;
 
@@ -29,10 +36,30 @@ function base64ToBlob(base64String, contentType) {
 
 const BoxItem = ({box}) => {
 
+    const [grandezzaStringa, setGrandezzaStringa] = useState(null); // Stringa di grandezza della box
 
-    const setIdNew = (boxId) => {
-        globalDataBox.globalBoxId = boxId; // Utilizza la funzione di impostazione
-        console.log("eccola la box: " + globalDataBox.globalBoxId)
+    const setIdNew = (boxId, boxname, boxprice, boxpickuptime, boxshopId) => {
+        globalDataBox.globalBoxId = boxId;
+        globalBoxName.globalName = boxname;
+        globalBoxPrice.globalPrice = boxprice;
+        globalBoxPickUpTime.globalPickUpTime = boxpickuptime;
+        globalBoxShopId.globalBoxShopId = boxshopId
+        console.log("eccola la box: " + globalBoxName.globalName);
+    };
+
+    const setBoxSize = (size) => {
+        if(size === 1)
+        {
+            setGrandezzaStringa("Piccola")
+        }
+        if(size === 2)
+        {
+            setGrandezzaStringa("Media")
+        }
+        if(size === 3)
+        {
+            setGrandezzaStringa("Grande")
+        }
     };
 
 
@@ -76,13 +103,14 @@ const BoxItem = ({box}) => {
             const blob = base64ToBlob(box.image, "image/jpeg"); // Cambia il tipo MIME in base al tuo tipo di immagine
             setImageBlob(URL.createObjectURL(blob));
         }
+        setBoxSize(box.size)
     }, [box.image]);
 
 
     return (
 
         <div className="listings-grid-element1">
-            <div className="image1" onClick={() => { setIdNew(box.boxId); navigate("/box");}}>
+            <div className="image1" onClick={() => { setIdNew(box.boxId,box.name,box.price,box.pickUpTime,box.shopId); navigate("/box");}}>
                 {/* Utilizza l'URL dell'immagine Blob */}
                 {imageBlob && <img src={imageBlob} alt="prova" />}
             </div>
@@ -96,15 +124,15 @@ const BoxItem = ({box}) => {
 
 
                     <div className="info1">
-                        <span>{box.price} euro | ora ritiro: {box.pickuptime} | </span>
+                        <span><strong className="bold-text">Prezzo:</strong> {box.price} € | <strong className="bold-text">Grandezza:</strong> {grandezzaStringa} | <strong className="bold-text">Orario di ritiro:</strong> {box.pickUpTime} |</span>
                     </div>
                 </div>
                 <div className="rating2">
-                    <span className="circle1">4.2</span>
+                    <span className="circle1">{box.quantity}</span>
                 </div>
             </div>
             <div className="text-lower1">
-                <span className="smallText1">Info1 | Info2 | Info3 | Info4 | Info5 </span>
+                <span className="smallText1">Descrizione: {box.description} </span>
             </div>
         </div>
 

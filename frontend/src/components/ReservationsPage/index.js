@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom";
 
 
@@ -10,7 +10,6 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 import {
     FaArrowLeft,
-    FaMapMarkerAlt,
     FaCalendarCheck, FaHome,
 } from "react-icons/fa";
 import {UserButton,useUser} from "@clerk/clerk-react";
@@ -21,6 +20,7 @@ import reservations from "../../data/reservations.json";
 
 
 import Sidebar from "../HomePage/sidebar";
+import {globalDataBox} from "../GreetingPage/global";
 
 const ReservationsPage = () => {
     const { user } = useUser();
@@ -28,6 +28,37 @@ const ReservationsPage = () => {
 
     const navigate = useNavigate();
 
+
+    //console.log(posts)
+    const [reservations, setReservations] = useState([]);
+
+    let userId = null; // Inizializza userId come null
+
+    if (user) {
+        userId = user.id; // Assegna il valore solo se user è definito
+    }
+
+    let getReservations = () => {
+        fetch('http://localhost:8080/api/orders?userId='+userId)
+            .then(res => {
+                console.log(res.status);
+                console.log(res.headers);
+                return res.json();
+
+            })
+            .then((result) => {
+                    console.log("ecco la fetch:"+result);
+                    setReservations(result);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
+    };
+
+    useEffect(() => {
+        getReservations();
+    }, []);
 
     return (
         <body>

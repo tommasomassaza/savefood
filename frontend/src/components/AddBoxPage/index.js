@@ -9,6 +9,7 @@ import UploadAndDisplayImage from "./UploadAndDisplayImage.js"
 function AddBoxPage() {
 
     const [image, setImage] = useState("");
+    const [imageVisualize, setImageVisualize] = useState("");
     const [allImage, setAllImage] = useState([]);
 
     const box = boxes[window.id]; /*window.id è una variabile globale definita in BoxItem, usata per caricare la box dall'id corretto nella BoxPage*/
@@ -40,7 +41,6 @@ function AddBoxPage() {
         reader.onload = () => {
             const arrayBuffer = reader.result;
             const byteArray = new Uint8Array(arrayBuffer);
-
             setImage(byteArray); // Salva l'immagine come array di byte
         };
 
@@ -84,6 +84,25 @@ function AddBoxPage() {
                     error,
                 });
             });
+
+
+        navigate('/vendors/homepage2');
+        navigate(0);
+    };
+
+
+    function convertToBase64(e) {
+        console.log(e);
+        var reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+            console.log(reader.result);
+            setImageVisualize(reader.result);
+        };
+
+        reader.onerror = error => {
+            console.log("Error: ", error);
+        };
     };
 
 
@@ -225,7 +244,7 @@ function AddBoxPage() {
                                         onChange={convertToByteArray}
                                         required
                                     />
-                                    {image === '' || image === null ? '' : (
+                                    {imageVisualize === '' || imageVisualize === null ? '' : (
                                         <img width={100} height={100} src={image} alt="Uploaded" />
                                     )}
                                 </div>

@@ -155,6 +155,7 @@ function ReviewsPage() {
                                     <div class="form-group col-md-6">
                                         <label class="labelp" for="inputPassword4">Dacci il tuo feedback!</label>
                                         <input type="text" class="form-control" id="inputPassword4"
+                                                minlength="10" maxlength="200" required
                                                placeholder="Scrivi una recensione..."></input>
                                     </div>
                                     <button type="submit"

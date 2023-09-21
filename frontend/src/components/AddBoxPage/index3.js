@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import boxes from "../../data/boxes.json";
 import {useNavigate} from "react-router-dom";
-import { globalData } from "../GreetingPage/global";
 
 import UploadAndDisplayImage from "./UploadAndDisplayImage.js"
 
@@ -17,7 +16,7 @@ function AddBoxPage() {
 
 
     const [formData, setFormData] = useState({
-        shopId: globalData.globalShopsId, //da passare
+        shopId: "1", //da passare
         name: "",
         description: "",
         price: "",
@@ -114,9 +113,6 @@ function AddBoxPage() {
                                         placeholder="Nome..."
                                         name="name"
                                         value={formData.name}
-                                        minlength="5"
-                                        maxlength="50"
-                                        required
                                         onChange={handleInputChange}
                                     />
                                 </div>
@@ -129,9 +125,6 @@ function AddBoxPage() {
                                         placeholder="Descrizione..."
                                         name="description"
                                         value={formData.description}
-                                        minlength="20"
-                                        maxlength="300"
-                                        required
                                         onChange={handleInputChange}
                                     />
                                 </div>
@@ -140,32 +133,25 @@ function AddBoxPage() {
                             <div className="form-group col-md-6">
                                 <label htmlFor="inputPrezzo">Prezzo</label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     className="form-control"
                                     id="inputPrezzo"
                                     placeholder="Prezzo..."
                                     name="price"
                                     value={formData.price}
-                                    min="1.00"
-                                    max="50"
-                                    step="0.5"
-                                    required
+
                                     onChange={handleInputChange}
                                 />
                             </div>
                             <div className="form-group col-md-6">
                                 <label htmlFor="inputTaglia">Taglia</label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     className="form-control"
                                     id="inputTaglia"
                                     placeholder="inputTaglia..."
                                     name="size"
                                     value={formData.size}
-                                    min="1"
-                                    max="3"
-                                    step="1"
-                                    required
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -178,7 +164,7 @@ function AddBoxPage() {
                                     placeholder="Orario di ritiro..."
                                     name="pickUpTime"
                                     value={formData.pickUpTime}
-                                    required
+                                    maxlength="10"
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -191,8 +177,6 @@ function AddBoxPage() {
                                     placeholder="Città..."
                                     name="city"
                                     value={formData.city}
-                                    maxlength="20"
-                                    required
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -205,8 +189,6 @@ function AddBoxPage() {
                                     placeholder="Quantity..."
                                     name="quantity"
                                     value={formData.quantity}
-                                    maxlength="1"
-                                    required
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -218,7 +200,6 @@ function AddBoxPage() {
                                         accept="image/*"
                                         type="file"
                                         onChange={convertToByteArray}
-                                        required
                                     />
                                     {image === '' || image === null ? '' : (
                                         <img width={100} height={100} src={image} alt="Uploaded" />

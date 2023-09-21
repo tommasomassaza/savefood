@@ -10,6 +10,7 @@
         <module name="discovery-server" />
         <module name="api-gateway" />
         <module name="shop-service" />
+        <module name="common-utils" />
         <module name="order-service" />
         <module name="oauth-authorization-server" />
       </profile>
@@ -18,7 +19,6 @@
       <module name="box-service.main" target="17" />
       <module name="box-service.test" target="17" />
       <module name="common-functionality" target="17" />
-      <module name="common-utils" target="16" />
       <module name="oauth-authorization-server" target="17" />
       <module name="payment-service" target="16" />
       <module name="query-service" target="17" />

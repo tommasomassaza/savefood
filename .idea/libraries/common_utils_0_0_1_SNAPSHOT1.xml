@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="common-utils-0.0.1-SNAPSHOT1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/common-utils/target/common-utils-0.0.1-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

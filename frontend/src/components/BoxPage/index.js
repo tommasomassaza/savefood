@@ -21,6 +21,9 @@ function BoxPage() {
     //console.log(posts)
     const [box, setBoxes] = useState([]);
 
+    useEffect(() => {
+        getBox();
+    }, []);
 
 
     let getBox = () => {
@@ -35,7 +38,7 @@ function BoxPage() {
                     console.log(result);
                     setBoxes(result);
                     console.log(box);
-                    console.log(box[0].price);
+                    console.log(box.price);
                 },
                 (error) => {
                     console.log(error);
@@ -61,12 +64,17 @@ function BoxPage() {
     };
 
     const onPlus = () => {
+
+        console.log("sono qui:"+box[0].quantity);
+        if(quantity < box.map((singleBox) => (
+                singleBox.quantity
+            ))){
         setQuantity(quantity + 1);
+
+        }
     };
 
-    useEffect(() => {
-        getBox();
-    }, []);
+
 
     return (
 
@@ -178,9 +186,13 @@ function BoxPage() {
 
                                 <div className="text2">
                                     <div className="text-title1">
-                                        <h3>Totale: {quantity * box[0].price} €</h3>
+                                        <h3>Totale: {quantity * box.map((singleBox) => (
+                                             singleBox.price
+                                        ))} €</h3>
                                         <div className="info1">
-                                            <span> Prodotto: {box[0].name}</span>
+                                            <span> Prodotto: {box.map((singleBox) => (
+                                                singleBox.name
+                                            ))}</span>
                                         </div>
                                     </div>
 

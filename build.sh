@@ -11,9 +11,7 @@ if [ $# -gt 0 ]; then
       cd ..
     done
   else
-    cd common-utils
-    ./mvnw -DskipTests=true clean install
-    cd ../api-gateway
+    cd api-gateway
     ./mvnw -DskipTests=true clean install
     cd ../discovery-server
     ./mvnw -DskipTests=true clean install
@@ -21,11 +19,7 @@ if [ $# -gt 0 ]; then
     ./mvnw -DskipTests=true clean install
     cd ../box-service
     ./mvnw -DskipTests=true clean install
-    cd ../reservation-service
-    ./mvnw -DskipTests=true clean install
     cd ../shop-service
-    ./mvnw -DskipTests=true clean install
-    cd ../payment-service
     ./mvnw -DskipTests=true clean install
     cd ../order-service
     ./mvnw -DskipTests=true clean install

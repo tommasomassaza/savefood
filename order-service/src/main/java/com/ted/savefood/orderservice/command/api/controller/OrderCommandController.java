@@ -14,7 +14,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/orders")
 public class OrderCommandController {
-    private CommandGateway commandGateway;
+    private final CommandGateway commandGateway;
 
     public OrderCommandController(CommandGateway commandGateway) {
         this.commandGateway = commandGateway;
@@ -27,7 +27,6 @@ public class OrderCommandController {
         BeanUtils.copyProperties(orderDto,createOrderCommand);
 
         createOrderCommand.setOrderId(orderId);
-        createOrderCommand.setOrderStatus("CREATED");
 
         String ret = commandGateway.sendAndWait(createOrderCommand);
 

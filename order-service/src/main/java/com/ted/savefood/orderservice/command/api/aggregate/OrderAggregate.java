@@ -2,8 +2,8 @@ package com.ted.savefood.orderservice.command.api.aggregate;
 
 import com.ted.savefood.commonutils.commands.CancelOrderCommand;
 import com.ted.savefood.commonutils.commands.CompleteOrderCommand;
-import com.ted.savefood.commonutils.events.OrderCompletedEvent;
 import com.ted.savefood.commonutils.events.OrderCancelledEvent;
+import com.ted.savefood.commonutils.events.OrderCompletedEvent;
 import com.ted.savefood.orderservice.command.api.commands.CreateOrderCommand;
 import com.ted.savefood.orderservice.command.api.events.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
@@ -18,9 +18,12 @@ public class OrderAggregate {
     @AggregateIdentifier
     private String orderId;
     private String boxId;
-    private String customerId;
+    private String boxName;
+    private String userId;
+    private String name;
     private int quantity;
-    private String orderStatus;
+    private float price;
+    private String pickUpTime;
 
 
     public OrderAggregate(){}
@@ -36,9 +39,11 @@ public class OrderAggregate {
     public void on(OrderCreatedEvent orderCreatedEvent){
         this.orderId=orderCreatedEvent.getOrderId();
         this.boxId=orderCreatedEvent.getBoxId();
-        this.customerId=orderCreatedEvent.getUserId();
+        this.userId = orderCreatedEvent.getUserId();
+        this.name = orderCreatedEvent.getName();
         this.quantity=orderCreatedEvent.getQuantity();
-        this.orderStatus=orderCreatedEvent.getOrderStatus();
+        this.price = orderCreatedEvent.getPrice();
+        this.pickUpTime = orderCreatedEvent.getPickUpTime();
     }
 
     @CommandHandler
@@ -55,7 +60,6 @@ public class OrderAggregate {
 
     @EventSourcingHandler
     public void on(OrderCompletedEvent orderCompletedEvent){
-        this.orderStatus=orderCompletedEvent.getOrderStatus();
     }
 
     @CommandHandler
@@ -69,6 +73,6 @@ public class OrderAggregate {
 
     @EventSourcingHandler
     public void on(OrderCancelledEvent orderCancelledEvent){
-        this.orderStatus = orderCancelledEvent.getOrderStatus();
+
     }
 }

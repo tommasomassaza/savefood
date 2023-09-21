@@ -106,6 +106,9 @@ function NegozioPage() {
                                         placeholder="Nome..."
                                         name="name"
                                         value={formData.name}
+                                        minlength="5"
+                                        maxlength="50"
+                                        required
                                         onChange={handleInputChange}
                                     />
                                 </div>
@@ -118,6 +121,8 @@ function NegozioPage() {
                                         placeholder="Città..."
                                         name="city"
                                         value={formData.city}
+                                        maxlength="20"
+                                        required
                                         onChange={handleInputChange}
                                     />
                                 </div>
@@ -132,6 +137,9 @@ function NegozioPage() {
                                     placeholder="Indirizzo..."
                                     name="address"
                                     value={formData.address}
+                                    minlength="5"
+                                    maxlength="60"
+                                    required
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -144,18 +152,23 @@ function NegozioPage() {
                                     placeholder="Descrizione..."
                                     name="description"
                                     value={formData.description}
+                                    minlength="20"
+                                    maxlength="300"
+                                    required
                                     onChange={handleInputChange}
                                 />
                             </div>
                             <div className="form-group col-md-6">
                                 <label htmlFor="inputtelephonNumber">Numero di telefono</label>
                                 <input
-                                    type="text"
+                                    type="tel"
                                     className="form-control"
                                     id="inputtelephonNumber"
                                     placeholder="Numero di telefono..."
                                     name="telephonNumber"
                                     value={formData.telephonNumber}
+                                    pattern="[+][0-9]{2} [0-9]{3} [0-9]{7}"
+                                    required
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -167,6 +180,7 @@ function NegozioPage() {
                                         accept="image/*"
                                         type="file"
                                         onChange={convertToByteArray}
+                                        required
                                     />
                                     {image === '' || image === null ? '' : (
                                         <img width={100} height={100} src={image} alt="Uploaded" />

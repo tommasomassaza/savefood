@@ -89,7 +89,7 @@ const BoxItemOwner = ({box}) => {
 
 
                     <div className="info1">
-                        <span>{box.price} euro | ora ritiro: {box.pickuptime} | </span>
+                        <span><strong className="bold-text">Prezzo:</strong> {box.price} € | <strong className="bold-text">Grandezza:</strong> {box.size} | <strong className="bold-text">Orario di ritiro:</strong> {box.pickUpTime} |</span>
                     </div>
                 </div>
                 <div className="rating2">
@@ -97,7 +97,7 @@ const BoxItemOwner = ({box}) => {
                 </div>
             </div>
             <div className="text-lower1">
-                <span className="smallText1">Info1 | Info2 | Info3 | Info4 | Info5 </span>
+                <span className="smallText1">Descrizione: {box.description} </span>
             </div>
         </div>
 

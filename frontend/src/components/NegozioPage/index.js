@@ -79,6 +79,9 @@ function NegozioPage() {
                     error,
                 });
             });
+
+        navigate('/vendors/homepage');
+        navigate(0);
     };
 
 

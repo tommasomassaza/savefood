@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 
 import BoxItem from '../BoxItem/index.js';
-import boxes from "../../data/boxes.json";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {FaEye} from "react-icons/fa";
@@ -10,6 +9,8 @@ import {MdLocalDining} from "react-icons/md";
 
 import {FaArrowLeft, FaCalendarCheck} from "react-icons/fa";
 import { globalDataBox } from "../GreetingPage/global";
+
+import {globalBoxQuantity} from "../GreetingPage/global";
 
 import {UserButton, useUser} from "@clerk/clerk-react";
 
@@ -56,10 +57,12 @@ function BoxPage() {
 
 
     const [quantity, setQuantity] = useState(1);
+    globalBoxQuantity.globalBoxQuantity = quantity
 
     const onMinus = () => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
+            globalBoxQuantity.globalBoxQuantity = quantity-1
         }
     };
 
@@ -70,6 +73,7 @@ function BoxPage() {
                 singleBox.quantity
             ))){
         setQuantity(quantity + 1);
+        globalBoxQuantity.globalBoxQuantity = quantity+1
 
         }
     };

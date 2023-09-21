@@ -1,20 +1,67 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-import BoxItem from '../BoxItem/index.js';
 import boxes from "../../data/boxes.json";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {FaEye} from "react-icons/fa";
-import {FaStar, FaMinus, FaPlus} from "react-icons/fa";
 import {PayPalScriptProvider, PayPalButtons} from "@paypal/react-paypal-js";
 
-import {FaArrowLeft, FaSearch, FaMapMarkerAlt, FaCalendarCheck, FaUserAlt} from "react-icons/fa";
+import {globalBoxName, globalBoxPrice,globalBoxPickUpTime,globalBoxQuantity,globalBoxShopId} from "../GreetingPage/global";
 
+import {FaArrowLeft, FaSearch, FaMapMarkerAlt, FaCalendarCheck, FaUserAlt} from "react-icons/fa";
+import {useUser} from "@clerk/clerk-react";
 import {UserButton} from "@clerk/clerk-react";
 
 
 function PaymentPage() {
+    const { user } = useUser();
+    console.log("questo è il nome: " + globalBoxName.globalName)
 
+    let userId = null; // Inizializza userId come null
+    let userName = null; // Inizializza userId come null
+    if (user) {
+        userId = user.id; // Assegna il valore solo se user è definito
+        userName = user.primaryEmailAddress.emailAddress;
+        console.log(userId);
+        console.log(userName);
+    }
+
+
+    let postOrdine = () => {
+        // Crea un oggetto con i dati da inviare
+        const dataToSend = {
+            boxName: globalBoxName.globalName,
+            userId: userId,
+            userName: userName,
+            shopId: globalBoxShopId.globalBoxShopId,
+            quantity:globalBoxQuantity.globalBoxQuantity,
+            price: globalBoxPrice.globalPrice,
+            pickUpTime: globalBoxPickUpTime.globalPickUpTime
+        };
+
+
+
+        // Invia dataToSend al tuo backend
+        fetch('http://localhost:8080/api/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // Imposta l'header "Content-Type"
+            },
+            body: JSON.stringify(dataToSend) // Serializza l'oggetto in una stringa JSON
+        })
+            .then((res) => {
+                console.log(res.status);
+                console.log(res.headers);
+            })
+            .catch((error) => {
+                console.error({
+                    error,
+                });
+            });
+    };
+
+    useEffect(() => {
+        postOrdine();
+    }, []);
 
     const box = boxes[window.id]; /*window.id è una variabile globale definita in BoxItem, usata per caricare la box dall'id corretto nella BoxPage*/
 

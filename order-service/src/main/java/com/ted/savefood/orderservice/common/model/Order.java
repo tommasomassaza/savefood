@@ -11,6 +11,7 @@ import lombok.Data;
 public class Order {
     @Id
     private String orderId;
+    private String boxId;
     private String boxName;
     private String userId;
     private String userName;

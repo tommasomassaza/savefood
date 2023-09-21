@@ -1,4 +1,4 @@
-package com.ted.savefood.commonutils.events;
+package com.ted.savefood.orderservice.command.api.events;
 
 import lombok.Data;
 

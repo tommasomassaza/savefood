@@ -1,9 +1,11 @@
 package com.ted.savefood.boxservice.command.api.commands;
 
 import lombok.Data;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Data
 public class ModifyBoxCommand {
+    @TargetAggregateIdentifier
     private String boxId;
     private String shopId;
     private String name;

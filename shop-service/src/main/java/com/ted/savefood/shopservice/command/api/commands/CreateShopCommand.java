@@ -12,7 +12,7 @@ public class CreateShopCommand {
     private String city;
     private String address;
     private String description;
-    private int telephoneNumber;
+    private String telephoneNumber;
     private int numberOfReviews;
     private float stars;
     private byte[] image;

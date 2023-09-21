@@ -1,10 +1,10 @@
 package com.ted.savefood.orderservice.command.api.aggregate;
 
-import com.ted.savefood.commonutils.commands.CancelOrderCommand;
-import com.ted.savefood.commonutils.commands.CompleteOrderCommand;
-import com.ted.savefood.commonutils.events.OrderCancelledEvent;
-import com.ted.savefood.commonutils.events.OrderCompletedEvent;
+import com.ted.savefood.orderservice.command.api.commands.CancelOrderCommand;
+import com.ted.savefood.orderservice.command.api.commands.CompleteOrderCommand;
 import com.ted.savefood.orderservice.command.api.commands.CreateOrderCommand;
+import com.ted.savefood.orderservice.command.api.events.OrderCancelledEvent;
+import com.ted.savefood.orderservice.command.api.events.OrderCompletedEvent;
 import com.ted.savefood.orderservice.command.api.events.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 public class OrderAggregate {
     @AggregateIdentifier
     private String orderId;
+    private String boxId;
     private String boxName;
     private String userId;
     private String userName;
@@ -38,6 +39,7 @@ public class OrderAggregate {
     @EventSourcingHandler
     public void on(OrderCreatedEvent orderCreatedEvent){
         this.orderId=orderCreatedEvent.getOrderId();
+        this.boxId = orderCreatedEvent.getBoxId();
         this.boxName = orderCreatedEvent.getBoxName();
         this.userId = orderCreatedEvent.getUserId();
         this.userName = orderCreatedEvent.getUserName();
@@ -54,7 +56,6 @@ public class OrderAggregate {
         OrderCompletedEvent orderCompletedEvent
                 = OrderCompletedEvent.builder()
                 .orderId(completeOrderCommand.getOrderId())
-                .orderStatus(completeOrderCommand.getOrderStatus())
                 .build();
         AggregateLifecycle.apply(orderCompletedEvent);
     }

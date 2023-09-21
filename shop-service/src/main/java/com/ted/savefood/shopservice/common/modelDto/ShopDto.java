@@ -13,7 +13,7 @@ public class ShopDto {
     private String city;
     private String address;
     private String description;
-    private int telephoneNumber;
+    private String telephoneNumber;
     @Nullable
     private int numberOfReviews;
     @Nullable

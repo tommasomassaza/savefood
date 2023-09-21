@@ -22,7 +22,7 @@ public class OrderQueryController {
         this.queryGateway = queryGateway;
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/getByUserId/{userId}")
     public List<OrderDto> getAllOrders(@PathVariable String userId) {
         GetOrdersQuery getOrdersQuery = new GetOrdersQuery(userId);
 
@@ -32,7 +32,7 @@ public class OrderQueryController {
                 .join();
     }
 
-    @GetMapping("/{shopIds}")
+    @GetMapping("/getByShopIds/{shopIds}")
     public List<OrderDto> getOrdersByShopId(@PathVariable List<String> shopIds) {
         GetOrdersByShopIds getOrdersByShopIds = new GetOrdersByShopIds(shopIds);
 

@@ -37,7 +37,7 @@ public class ShopCommandController {
         createShopCommand.setCity(city);
         createShopCommand.setAddress(address);
         createShopCommand.setDescription(description);
-        createShopCommand.setTelephoneNumber(Integer.parseInt(telephonNumber));
+        createShopCommand.setTelephoneNumber(telephonNumber);
         createShopCommand.setNumberOfReviews(0);
         createShopCommand.setStars(0);
 

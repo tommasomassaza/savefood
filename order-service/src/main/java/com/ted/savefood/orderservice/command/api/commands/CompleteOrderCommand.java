@@ -1,4 +1,4 @@
-package com.ted.savefood.commonutils.commands;
+package com.ted.savefood.orderservice.command.api.commands;
 
 import lombok.Builder;
 import lombok.Data;
@@ -9,5 +9,4 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class CompleteOrderCommand {
     @TargetAggregateIdentifier
     private String orderId;
-    private String orderStatus;
 }

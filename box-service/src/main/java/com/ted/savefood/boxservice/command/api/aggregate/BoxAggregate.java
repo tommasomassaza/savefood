@@ -6,6 +6,8 @@ import com.ted.savefood.boxservice.command.api.commands.ModifyBoxCommand;
 import com.ted.savefood.boxservice.command.api.events.BoxCancelledEvent;
 import com.ted.savefood.boxservice.command.api.events.BoxCreatedEvent;
 import com.ted.savefood.boxservice.command.api.events.BoxModifiedEvent;
+import com.ted.savefood.commonutils.commands.ModifyQuantityBoxCommand;
+import com.ted.savefood.commonutils.events.BoxQuantityModifiedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -58,6 +60,14 @@ public class BoxAggregate {
         BeanUtils.copyProperties(modifyBoxCommand, boxModifiedEvent);
 
         AggregateLifecycle.apply(boxModifiedEvent);
+    }
+
+    @CommandHandler
+    public void handle(ModifyQuantityBoxCommand modifyQuantityBoxCommand) {
+        BoxQuantityModifiedEvent boxQuantityModifiedEvent = new BoxQuantityModifiedEvent();
+        BeanUtils.copyProperties(modifyQuantityBoxCommand, boxQuantityModifiedEvent);
+
+        AggregateLifecycle.apply(boxQuantityModifiedEvent);
     }
 
     @CommandHandler

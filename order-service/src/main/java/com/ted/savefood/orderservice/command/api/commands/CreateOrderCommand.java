@@ -7,6 +7,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class CreateOrderCommand {
     @TargetAggregateIdentifier
     private String orderId;
+    private String boxId;
     private String boxName;
     private String userId;
     private String userName;

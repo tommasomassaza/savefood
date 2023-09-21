@@ -10,7 +10,7 @@ public class ShopCreatedEvent {
     private String city;
     private String address;
     private String description;
-    private int telephoneNumber;
+    private String telephoneNumber;
     private int numberOfReviews;
     private int stars;
     private byte[] image;

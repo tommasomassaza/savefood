@@ -4,6 +4,7 @@ import com.ted.savefood.boxservice.command.api.events.BoxCreatedEvent;
 import com.ted.savefood.boxservice.command.api.events.BoxModifiedEvent;
 import com.ted.savefood.boxservice.common.model.Box;
 import com.ted.savefood.boxservice.common.repository.BoxRepository;
+import com.ted.savefood.commonutils.events.BoxQuantityModifiedEvent;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -30,5 +31,19 @@ public class BoxEventHandler {
         BeanUtils.copyProperties(boxModifiedEvent, box);
 
         boxRepository.save(box);
+    }
+
+    @EventHandler
+    public void on(BoxQuantityModifiedEvent boxQuantityModifiedEvent) throws Exception {
+        Box box = boxRepository.findById(boxQuantityModifiedEvent.getBoxId()).orElse(null);
+        if (box != null) {
+            if (box.getQuantity() - boxQuantityModifiedEvent.getQuantity() < 0) throw new Exception();
+            if (box.getQuantity() - boxQuantityModifiedEvent.getQuantity() == 0)
+                boxRepository.deleteById(boxQuantityModifiedEvent.getBoxId());
+            else {
+                box.setQuantity(box.getQuantity() - boxQuantityModifiedEvent.getQuantity());
+                boxRepository.save(box);
+            }
+        }
     }
 }

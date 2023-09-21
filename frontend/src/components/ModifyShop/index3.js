@@ -27,7 +27,7 @@ function ModifyShop3() {
     const [boxes, setShops] = useState([]);
 
     let getBoxes = () => {
-        fetch('http://localhost:8080/api/boxes')
+        fetch('http://localhost:8080/api/boxes?shopId='+ globalData.globalShopsId)
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -45,6 +45,10 @@ function ModifyShop3() {
     };
 
 
+    //gestione dei filtri
+    const [category, setCategory] = useState("Tutti");
+    const [allProducts, setAllProducts] = useState(boxes);
+
     useEffect(() => {
         getBoxes();
     }, []);
@@ -52,13 +56,6 @@ function ModifyShop3() {
 
     //barra di ricerca, non ancora implementata
     const [searchTerm, setSearchTerm] = useState("");
-
-
-    //gestione dei filtri
-    const [category, setCategory] = useState("Oggi");
-    const [allProducts, setAllProducts] = useState(boxes);
-
-
 
 
     return (
@@ -71,7 +68,9 @@ function ModifyShop3() {
 
             <div className="container1">
 
-                <div className="logo1">
+                <div className="logo1" onClick={() => {
+                    navigate("/greeting_page");
+                }}>
                     <h1>Save<span>Food </span></h1>
                 </div>
 

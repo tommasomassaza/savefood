@@ -170,7 +170,7 @@ function NegozioPage() {
                                     placeholder="Numero di telefono..."
                                     name="telephonNumber"
                                     value={formData.telephonNumber}
-                                    pattern="[+][0-9]{2}[0-9]{3}[0-9]{7}"
+                                    pattern="[0-9]{3}[0-9]{7}"
                                     required
                                     onChange={handleInputChange}
                                 />

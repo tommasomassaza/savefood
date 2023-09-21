@@ -1,8 +1,8 @@
 package com.ted.savefood.orderservice.query.api.queries;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class GetOrdersQuery {
     private String userId;
 }

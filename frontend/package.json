@@ -52,6 +52,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "yarn-audit-fix": "^9.3.12"
+    "yarn-audit-fix": "^10.0.1"
   }
 }

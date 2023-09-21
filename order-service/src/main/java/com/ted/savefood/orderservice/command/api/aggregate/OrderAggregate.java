@@ -17,10 +17,10 @@ import org.springframework.beans.BeanUtils;
 public class OrderAggregate {
     @AggregateIdentifier
     private String orderId;
-    private String boxId;
     private String boxName;
     private String userId;
-    private String name;
+    private String userName;
+    private String shopId;
     private int quantity;
     private float price;
     private String pickUpTime;
@@ -38,9 +38,10 @@ public class OrderAggregate {
     @EventSourcingHandler
     public void on(OrderCreatedEvent orderCreatedEvent){
         this.orderId=orderCreatedEvent.getOrderId();
-        this.boxId=orderCreatedEvent.getBoxId();
+        this.boxName = orderCreatedEvent.getBoxName();
         this.userId = orderCreatedEvent.getUserId();
-        this.name = orderCreatedEvent.getName();
+        this.userName = orderCreatedEvent.getUserName();
+        this.shopId = orderCreatedEvent.getShopId();
         this.quantity=orderCreatedEvent.getQuantity();
         this.price = orderCreatedEvent.getPrice();
         this.pickUpTime = orderCreatedEvent.getPickUpTime();

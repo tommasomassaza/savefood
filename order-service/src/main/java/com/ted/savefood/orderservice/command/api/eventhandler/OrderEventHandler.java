@@ -26,7 +26,6 @@ public class OrderEventHandler {
     @EventHandler
     public void on(OrderCompletedEvent orderCompletedEvent){
         Order order = orderRepository.findById(orderCompletedEvent.getOrderId()).get();
-        order.setOrderStatus(orderCompletedEvent.getOrderStatus());
 
         orderRepository.save(order);
     }
@@ -34,7 +33,6 @@ public class OrderEventHandler {
     @EventHandler
     public void on(OrderCancelledEvent orderCancelledEvent){
         Order order = orderRepository.findById(orderCancelledEvent.getOrderId()).get();
-        order.setOrderStatus(orderCancelledEvent.getOrderStatus());
 
         orderRepository.save(order);
     }

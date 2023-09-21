@@ -2,6 +2,7 @@ package com.ted.savefood.boxservice.command.api.controller;
 
 import com.ted.savefood.boxservice.command.api.commands.CancelBoxCommand;
 import com.ted.savefood.boxservice.command.api.commands.CreateBoxCommand;
+import com.ted.savefood.boxservice.command.api.commands.ModifyBoxCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,6 +55,41 @@ public class BoxCommandController {
         return result;
     }
 
+    @PutMapping
+    public String modifyBox(
+            @RequestParam("boxId") String boxId,
+            @RequestParam("shopId") String shopId,
+            @RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam("price") float price,
+            @RequestParam("size") int size,
+            @RequestParam("pickUpTime") String pickUpTime,
+            @RequestParam("city") String city,
+            @RequestParam("quantity") int quantity,
+            @RequestParam("image") MultipartFile imageFile
+    ) {
+        ModifyBoxCommand modifyBoxCommand = new ModifyBoxCommand();
+
+        modifyBoxCommand.setBoxId(boxId);
+        modifyBoxCommand.setShopId(shopId);
+        modifyBoxCommand.setName(name);
+        modifyBoxCommand.setDescription(description);
+        modifyBoxCommand.setPrice(price);
+        modifyBoxCommand.setSize(size);
+        modifyBoxCommand.setPickUpTime(pickUpTime);
+        modifyBoxCommand.setCity(city);
+        modifyBoxCommand.setQuantity(quantity);
+
+        try {
+            byte[] imageBytes = imageFile.getBytes();
+            modifyBoxCommand.setImage(imageBytes);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String result = commandGateway.sendAndWait(modifyBoxCommand);
+        return result;
+    }
 
     @DeleteMapping("{boxId}")
     public String deleteBox(@PathVariable String boxId){

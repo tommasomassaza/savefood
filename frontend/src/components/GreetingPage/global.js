@@ -5,6 +5,10 @@ export const globalData = {
     globalShopsId: null,
 };
 
+export const globalDataBox = {
+    globalBoxId: null,
+};
+
 export const globalDataRole = {
     globalRole: null,
 };

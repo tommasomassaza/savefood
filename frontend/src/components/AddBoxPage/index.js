@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import boxes from "../../data/boxes.json";
 import {useNavigate} from "react-router-dom";
+import { globalData } from "../GreetingPage/global";
 
 import UploadAndDisplayImage from "./UploadAndDisplayImage.js"
 
@@ -16,7 +17,7 @@ function AddBoxPage() {
 
 
     const [formData, setFormData] = useState({
-        shopId: "1", //da passare
+        shopId: globalData.globalShopsId, //da passare
         name: "",
         description: "",
         price: "",

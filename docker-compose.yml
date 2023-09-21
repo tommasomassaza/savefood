@@ -25,30 +25,6 @@ services:
       - discovery-server
 
 
-  # Payment service
-  payment-service:
-    container_name: payment-service
-    build: ./payment-service/
-    environment:
-      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
-    depends_on:
-      - discovery-server
-      - axon-server
-      - postgres-payment
-
-  # Postgres for payment
-  postgres-payment:
-    container_name: postgres-payment
-    image: postgres
-    environment:
-      POSTGRES_DB: payment-db
-      POSTGRES_USER: ted
-      POSTGRES_PASSWORD: qazmlpD
-    volumes:
-      - payment-db-data:/data/postgres
-    restart: unless-stopped
-
-
   # Order service
   order-service:
     container_name: order-service
@@ -96,30 +72,6 @@ services:
     restart: unless-stopped
 
 
-  # Reservation service
-  reservation-service:
-    container_name: reservation-service
-    build: ./reservation-service/
-    environment:
-      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
-    depends_on:
-      - discovery-server
-      - axon-server
-      - postgres-reservation
-
-  # Postgres for reservation
-  postgres-reservation:
-    container_name: postgres-reservation
-    image: postgres
-    environment:
-      POSTGRES_DB: reservation-db
-      POSTGRES_USER: ted
-      POSTGRES_PASSWORD: qazmlpD
-    volumes:
-      - reservation-db-data:/data/postgres
-    restart: unless-stopped
-
-
   # Box service
   box-service:
     container_name: box-service
@@ -163,8 +115,6 @@ volumes:
     axonserver-data:
     axonserver-events:
     axonserver-config:
-    reservation-db-data:
-    payment-db-data:
     order-db-data:
     shop-db-data:
     box-db-data:

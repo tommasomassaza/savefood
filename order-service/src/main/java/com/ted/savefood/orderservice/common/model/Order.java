@@ -11,10 +11,11 @@ import lombok.Data;
 public class Order {
     @Id
     private String orderId;
-    private String boxId;
-    private String userId;
-    private String sellerId;
     private String boxName;
+    private String userId;
+    private String userName;
+    private String shopId;
     private int quantity;
-    private String orderStatus;
+    private float price;
+    private String pickUpTime;
 }

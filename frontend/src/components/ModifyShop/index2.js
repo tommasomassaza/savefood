@@ -105,7 +105,9 @@ function ModifyShop2() {
             <div className="container1">
                 <Greeting></Greeting>
 
-                <div className="logo1">
+                <div className="logo1" onClick={() => {
+                    navigate("/greeting_page");
+                }}>
                     <h1>Save<span>Food </span></h1>
                 </div>
 

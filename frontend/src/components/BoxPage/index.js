@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import BoxItem from '../BoxItem/index.js';
 import boxes from "../../data/boxes.json";
@@ -8,7 +8,8 @@ import {FaEye} from "react-icons/fa";
 import {FaHome, FaMinus, FaPlus} from "react-icons/fa";
 import {MdLocalDining} from "react-icons/md";
 
-import {FaArrowLeft, FaAlignJustify, FaMapMarkerAlt, FaCalendarCheck, FaUserAlt} from "react-icons/fa";
+import {FaArrowLeft, FaCalendarCheck} from "react-icons/fa";
+import { globalDataBox } from "../GreetingPage/global";
 
 import {UserButton, useUser} from "@clerk/clerk-react";
 
@@ -17,10 +18,39 @@ import Sidebar from "../HomePage/sidebar";
 
 function BoxPage() {
 
+    //console.log(posts)
+    const [box, setBoxes] = useState([]);
+
+    useEffect(() => {
+        getBox();
+    }, []);
+
+
+    let getBox = () => {
+        fetch('http://localhost:8080/api/boxes?boxId='+ globalDataBox.globalBoxId)
+            .then(res => {
+                console.log(res.status);
+                console.log(res.headers);
+                return res.json();
+
+            })
+            .then((result) => {
+                    console.log(result);
+                    setBoxes(result);
+                    console.log(box);
+                    console.log(box.price);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
+    };
+
+
+
+
     const { user } = useUser();
 
-
-    const box = boxes[window.id]; /*window.id è una variabile globale definita in BoxItem, usata per caricare la box dall'id corretto nella BoxPage*/
 
     const navigate = useNavigate();
 
@@ -34,8 +64,17 @@ function BoxPage() {
     };
 
     const onPlus = () => {
+
+        console.log("sono qui:"+box[0].quantity);
+        if(quantity < box.map((singleBox) => (
+                singleBox.quantity
+            ))){
         setQuantity(quantity + 1);
+
+        }
     };
+
+
 
     return (
 
@@ -106,7 +145,9 @@ function BoxPage() {
                     <div className="listings-grid1">
                         <div className="listings-col1">
 
-                            <BoxItem box={box}></BoxItem>
+                            {box.map((singleBox) => (
+                                <BoxItem key={singleBox.boxId} box={singleBox} />
+                            ))}
 
 
                             <div className="listings-grid-element1">
@@ -145,9 +186,13 @@ function BoxPage() {
 
                                 <div className="text2">
                                     <div className="text-title1">
-                                        <h3>Totale: {quantity * box.price} €</h3>
+                                        <h3>Totale: {quantity * box.map((singleBox) => (
+                                             singleBox.price
+                                        ))} €</h3>
                                         <div className="info1">
-                                            <span> Prodotto: {box.name}</span>
+                                            <span> Prodotto: {box.map((singleBox) => (
+                                                singleBox.name
+                                            ))}</span>
                                         </div>
                                     </div>
 

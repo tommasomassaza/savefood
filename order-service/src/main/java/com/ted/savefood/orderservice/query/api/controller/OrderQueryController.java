@@ -5,7 +5,10 @@ import com.ted.savefood.orderservice.query.api.queries.GetOrdersByShopIds;
 import com.ted.savefood.orderservice.query.api.queries.GetOrdersQuery;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -29,8 +32,8 @@ public class OrderQueryController {
                 .join();
     }
 
-    @GetMapping
-    public List<OrderDto> getOrdersByShopId(@RequestParam List<String> shopIds) {
+    @GetMapping("/{shopIds}")
+    public List<OrderDto> getOrdersByShopId(@PathVariable List<String> shopIds) {
         GetOrdersByShopIds getOrdersByShopIds = new GetOrdersByShopIds(shopIds);
 
         return queryGateway.query(

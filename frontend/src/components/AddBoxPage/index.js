@@ -172,12 +172,14 @@ function AddBoxPage() {
                             <div className="form-group col-md-6">
                                 <label htmlFor="inputOrario">Orario di ritiro</label>
                                 <input
-                                    type="text"
+                                    type="time"
                                     className="form-control"
                                     id="inputOrario"
                                     placeholder="Orario di ritiro..."
                                     name="pickUpTime"
                                     value={formData.pickUpTime}
+                                    min="11:00"
+                                    max="03:00"
                                     required
                                     onChange={handleInputChange}
                                 />
@@ -205,7 +207,10 @@ function AddBoxPage() {
                                     placeholder="Quantity..."
                                     name="quantity"
                                     value={formData.quantity}
-                                    maxlength="1"
+                                    maxlength="2"
+                                    min="1"
+                                    max="10"
+                                    step="1"
                                     required
                                     onChange={handleInputChange}
                                 />

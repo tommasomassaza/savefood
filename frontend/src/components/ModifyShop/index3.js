@@ -24,10 +24,10 @@ function ModifyShop3() {
 
 
     //console.log(posts)
-    const [boxes, setShops] = useState([]);
+    const [boxes, setBoxes] = useState([]);
 
     let getBoxes = () => {
-        fetch('http://localhost:8080/api/boxes?shopId='+ globalData.globalShopsId)
+        fetch('http://localhost:8080/api/boxes/getByShopId/'+ globalData.globalShopsId)
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -36,7 +36,7 @@ function ModifyShop3() {
             })
             .then((result) => {
                     console.log(result);
-                    setShops(result);
+                    setBoxes(result);
                 },
                 (error) => {
                     console.log(error);

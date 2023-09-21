@@ -53,11 +53,12 @@ function AddBoxPage() {
             ...formData,
             [name]: value,
         });
+        console.log("l'id in addbox:"+globalData.globalShopsId);
+        console.log("l'id in form:"+formData.shopId);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         // Crea un nuovo oggetto formData solo con i dati necessari
         const formDataToSend = new FormData();
         formDataToSend.append('shopId', formData.shopId);
@@ -133,8 +134,8 @@ function AddBoxPage() {
                                         placeholder="Nome..."
                                         name="name"
                                         value={formData.name}
-                                        minlength="5"
-                                        maxlength="50"
+                                        minLength="5"
+                                        maxLength="50"
                                         required
                                         onChange={handleInputChange}
                                     />
@@ -148,8 +149,8 @@ function AddBoxPage() {
                                         placeholder="Descrizione..."
                                         name="description"
                                         value={formData.description}
-                                        minlength="20"
-                                        maxlength="300"
+                                        minLength="20"
+                                        maxLength="300"
                                         required
                                         onChange={handleInputChange}
                                     />
@@ -212,7 +213,7 @@ function AddBoxPage() {
                                     placeholder="Città..."
                                     name="city"
                                     value={formData.city}
-                                    maxlength="20"
+                                    maxLength="20"
                                     required
                                     onChange={handleInputChange}
                                 />
@@ -226,7 +227,7 @@ function AddBoxPage() {
                                     placeholder="Quantity..."
                                     name="quantity"
                                     value={formData.quantity}
-                                    maxlength="2"
+                                    maxLength="2"
                                     min="1"
                                     max="10"
                                     step="1"

@@ -20,7 +20,7 @@ import Sidebar from "../HomePage/sidebar";
 function BoxPage() {
 
     //console.log(posts)
-    const [box, setBoxes] = useState([]);
+    const [box, setBox] = useState([]);
 
     useEffect(() => {
         getBox();
@@ -28,7 +28,7 @@ function BoxPage() {
 
 
     let getBox = () => {
-        fetch('http://localhost:8080/api/boxes?boxId='+ globalDataBox.globalBoxId)
+        fetch('http://localhost:8080/api/boxes/getById/'+ globalDataBox.globalBoxId)
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -37,9 +37,10 @@ function BoxPage() {
             })
             .then((result) => {
                     console.log(result);
-                    setBoxes(result);
+                    setBox(result);
                     console.log(box);
                     console.log(box.price);
+                    console.log("questo è l'id della box:" + globalDataBox.globalBoxId);
                 },
                 (error) => {
                     console.log(error);
@@ -68,10 +69,8 @@ function BoxPage() {
 
     const onPlus = () => {
 
-        console.log("sono qui:"+box[0].quantity);
-        if(quantity < box.map((singleBox) => (
-                singleBox.quantity
-            ))){
+        console.log("sono qui:"+box.quantity);
+        if(quantity < box.quantity ){
         setQuantity(quantity + 1);
         globalBoxQuantity.globalBoxQuantity = quantity+1
 
@@ -149,9 +148,9 @@ function BoxPage() {
                     <div className="listings-grid1">
                         <div className="listings-col1">
 
-                            {box.map((singleBox) => (
-                                <BoxItem key={singleBox.boxId} box={singleBox} />
-                            ))}
+
+                                <BoxItem box={box} />
+
 
 
                             <div className="listings-grid-element1">
@@ -190,13 +189,9 @@ function BoxPage() {
 
                                 <div className="text2">
                                     <div className="text-title1">
-                                        <h3>Totale: {quantity * box.map((singleBox) => (
-                                             singleBox.price
-                                        ))} €</h3>
+                                        <h3>Totale: {quantity * box.price} €</h3>
                                         <div className="info1">
-                                            <span> Prodotto: {box.map((singleBox) => (
-                                                singleBox.name
-                                            ))}</span>
+                                            <span> Prodotto: {box.name}</span>
                                         </div>
                                     </div>
 

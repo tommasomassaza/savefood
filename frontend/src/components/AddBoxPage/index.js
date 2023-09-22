@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import boxes from "../../data/boxes.json";
 import {useNavigate} from "react-router-dom";
-import { globalData } from "../GreetingPage/global";
+import { globalData,globalCityShop } from "../GreetingPage/global";
 
 import UploadAndDisplayImage from "./UploadAndDisplayImage.js"
 
@@ -24,7 +24,7 @@ function AddBoxPage() {
         price: "",
         size: "",
         pickUpTime: "",
-        city: "", //da passare
+        city: globalCityShop.globalCityShop, //da passare
         quantity: "",
         image: image,
         // Aggiungi altri campi del form qui se necessario

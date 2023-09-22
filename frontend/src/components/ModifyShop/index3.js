@@ -31,6 +31,7 @@ function ModifyShop3() {
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
+                console.log("questo è lo shopId:"+globalData.globalShopsId);
                 return res.json();
 
             })

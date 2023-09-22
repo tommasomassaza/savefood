@@ -1,10 +1,18 @@
 // global.js
 
-
+//globali Negozio
 export const globalData = {
     globalShopsId: null,
 };
 
+export const globalCityShop = {
+    globalCityShop: null,
+};
+
+
+
+
+//globali Box
 export const globalDataBox = {
     globalBoxId: null,
 };

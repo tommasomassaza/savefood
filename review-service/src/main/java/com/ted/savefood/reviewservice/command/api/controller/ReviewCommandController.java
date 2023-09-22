@@ -1,8 +1,8 @@
-package com.ted.savefood.shopservice.command.api.controller;
+package com.ted.savefood.reviewservice.command.api.controller;
 
-import com.ted.savefood.shopservice.command.api.commands.CancelReviewCommand;
-import com.ted.savefood.shopservice.command.api.commands.CreateReviewCommand;
-import com.ted.savefood.shopservice.common.modelDto.ReviewDto;
+import com.ted.savefood.reviewservice.command.api.commands.CancelReviewCommand;
+import com.ted.savefood.reviewservice.command.api.commands.CreateReviewCommand;
+import com.ted.savefood.reviewservice.common.modelDto.ReviewDto;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +23,8 @@ public class ReviewCommandController {
         String reviewId = UUID.randomUUID().toString();
         CreateReviewCommand createReviewCommand = new CreateReviewCommand();
         BeanUtils.copyProperties(reviewDto, createReviewCommand);
+
+        createReviewCommand.setReviewId(reviewId);
 
         String result = commandGateway.sendAndWait(createReviewCommand);
         return result;

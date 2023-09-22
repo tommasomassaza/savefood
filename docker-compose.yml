@@ -71,6 +71,28 @@ services:
       - shop-db-data:/data/postgres
     restart: unless-stopped
 
+  # Shop service
+  review-service:
+    container_name: review-service
+    build: ./review-service/
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka/
+    depends_on:
+      - discovery-server
+      - axon-server
+      - postgres-review
+
+  # Postgres for review
+  postgres-review:
+    container_name: postgres-review
+    image: postgres
+    environment:
+      POSTGRES_DB: review-db
+      POSTGRES_USER: ted
+      POSTGRES_PASSWORD: qazmlpD
+    volumes:
+      - review-db-data:/data/postgres
+    restart: unless-stopped
 
   # Box service
   box-service:
@@ -117,5 +139,6 @@ volumes:
     axonserver-config:
     order-db-data:
     shop-db-data:
+    review-db-data:
     box-db-data:
 

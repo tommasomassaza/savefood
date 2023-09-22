@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="box-service" />
         <module name="discovery-server" />
+        <module name="review-service" />
         <module name="api-gateway" />
         <module name="shop-service" />
         <module name="common-utils" />
@@ -23,7 +24,8 @@
       <module name="payment-service" target="16" />
       <module name="query-service" target="17" />
       <module name="reservation-service" target="16" />
-      <module name="review-service" target="17" />
+      <module name="review-service.main" target="17" />
+      <module name="review-service.test" target="17" />
       <module name="user-service" target="17" />
     </bytecodeTargetLevel>
   </component>

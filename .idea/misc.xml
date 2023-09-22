@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/box-service" />
+    <file type="web" url="file://$PROJECT_DIR$/review-service" />
     <file type="web" url="file://$PROJECT_DIR$/user-service" />
   </component>
   <component name="MavenProjectsManager">
@@ -17,6 +19,7 @@
         <option value="$PROJECT_DIR$/common-functionality/pom.xml" />
         <option value="$PROJECT_DIR$/payment-service/pom.xml" />
         <option value="$PROJECT_DIR$/common-utils/pom.xml" />
+        <option value="$PROJECT_DIR$/review-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

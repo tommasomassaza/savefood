@@ -1,4 +1,4 @@
-package com.ted.savefood.shopservice.command.api.events;
+package com.ted.savefood.reviewservice.command.api.events;
 
 import lombok.Data;
 
@@ -6,7 +6,8 @@ import lombok.Data;
 public class ReviewCreatedEvent {
     private String reviewId;
     private String shopId;
-    private String customerId;
+    private String userId;
+    private String userName;
     private String description;
     private int stars;
 }

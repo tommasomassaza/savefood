@@ -1,4 +1,4 @@
-package com.ted.savefood.shopservice.command.api.events;
+package com.ted.savefood.reviewservice.command.api.events;
 
 import lombok.Data;
 

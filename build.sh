@@ -21,6 +21,8 @@ if [ $# -gt 0 ]; then
     ./mvnw -DskipTests=true clean install
     cd ../shop-service
     ./mvnw -DskipTests=true clean install
+    cd ../review-service
+    ./mvnw -DskipTests=true clean install
     cd ../order-service
     ./mvnw -DskipTests=true clean install
     cd ..

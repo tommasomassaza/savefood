@@ -1,4 +1,4 @@
-package com.ted.savefood.shopservice.command.api.commands;
+package com.ted.savefood.reviewservice.command.api.commands;
 
 import lombok.Value;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;

@@ -1,11 +1,9 @@
-package com.ted.savefood.shopservice.command.api.eventHandler;
+package com.ted.savefood.reviewservice.command.api.eventHandler;
 
-import com.ted.savefood.shopservice.command.api.events.ReviewCancelledEvent;
-import com.ted.savefood.shopservice.command.api.events.ReviewCreatedEvent;
-import com.ted.savefood.shopservice.command.api.events.ShopCreatedEvent;
-import com.ted.savefood.shopservice.common.model.Review;
-import com.ted.savefood.shopservice.common.model.Shop;
-import com.ted.savefood.shopservice.common.repository.ReviewRepository;
+import com.ted.savefood.reviewservice.command.api.events.ReviewCancelledEvent;
+import com.ted.savefood.reviewservice.command.api.events.ReviewCreatedEvent;
+import com.ted.savefood.reviewservice.common.model.Review;
+import com.ted.savefood.reviewservice.common.repository.ReviewRepository;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;

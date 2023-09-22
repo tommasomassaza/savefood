@@ -9,6 +9,9 @@ if [ $# -gt 0 ]; then
     docker tag savefood-shop-service:latest tommimassa98/savefood-shop-service:latest
     docker push tommimassa98/savefood-shop-service:latest
 
+    docker tag savefood-review-service:latest tommimassa98/savefood-review-service:latest
+    docker push tommimassa98/savefood-review-service:latest
+
     docker tag savefood-api-gateway:latest tommimassa98/savefood-api-gateway:latest
     docker push tommimassa98/savefood-api-gateway:latest
 

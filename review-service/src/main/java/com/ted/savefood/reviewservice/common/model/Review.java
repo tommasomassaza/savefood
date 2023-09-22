@@ -1,4 +1,4 @@
-package com.ted.savefood.shopservice.common.model;
+package com.ted.savefood.reviewservice.common.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,7 +12,8 @@ public class Review {
     @Id
     private String reviewId;
     private String shopId;
-    private String customerId;
+    private String userId;
+    private String userName;
     private String description;
     private int stars;
 }

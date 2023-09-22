@@ -18,6 +18,7 @@ function ModifyShop3() {
     const navigate = useNavigate();
 
 
+
     function buttonColor() {
         document.getElementById("options-btn1").style.backgroundColor = '#911';
     }

@@ -88,7 +88,7 @@ function AddBoxPage() {
 
 
         navigate('/vendors/homepage2');
-        navigate(0);
+        //navigate(0);
     };
 
 

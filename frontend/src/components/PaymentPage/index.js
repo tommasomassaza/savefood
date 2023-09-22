@@ -5,7 +5,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {PayPalScriptProvider, PayPalButtons} from "@paypal/react-paypal-js";
 
-import {globalBoxName, globalBoxPrice,globalBoxPickUpTime,globalBoxQuantity,globalBoxShopId} from "../GreetingPage/global";
+import {globalBoxName, globalBoxPrice,globalBoxPickUpTime,globalBoxQuantity,globalBoxShopId,globalDataBox} from "../GreetingPage/global";
 
 import {FaArrowLeft, FaSearch, FaMapMarkerAlt, FaCalendarCheck, FaUserAlt} from "react-icons/fa";
 import {useUser} from "@clerk/clerk-react";
@@ -29,6 +29,7 @@ function PaymentPage() {
     let postOrdine = () => {
         // Crea un oggetto con i dati da inviare
         const dataToSend = {
+            boxId: globalDataBox.globalBoxId,
             boxName: globalBoxName.globalName,
             userId: userId,
             userName: userName,

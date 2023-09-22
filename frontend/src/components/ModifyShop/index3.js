@@ -18,6 +18,7 @@ function ModifyShop3() {
     const navigate = useNavigate();
 
 
+
     function buttonColor() {
         document.getElementById("options-btn1").style.backgroundColor = '#911';
     }
@@ -31,6 +32,7 @@ function ModifyShop3() {
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
+                console.log("questo è lo shopId:"+globalData.globalShopsId);
                 return res.json();
 
             })

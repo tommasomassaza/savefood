@@ -19,6 +19,9 @@ import Sidebar from "../HomePage/sidebar";
 
 function BoxPage() {
 
+
+    const navigate = useNavigate();
+
     //console.log(posts)
     const [box, setBox] = useState([]);
 
@@ -54,7 +57,7 @@ function BoxPage() {
     const { user } = useUser();
 
 
-    const navigate = useNavigate();
+
 
 
     const [quantity, setQuantity] = useState(1);

@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import boxes from "../../data/boxes.json";
 import {useNavigate} from "react-router-dom";
-import { globalData } from "../GreetingPage/global";
+import { globalData,globalCityShop } from "../GreetingPage/global";
 
 import UploadAndDisplayImage from "./UploadAndDisplayImage.js"
+import Greeting from "../Greeting";
+import {FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
+import {UserButton} from "@clerk/clerk-react";
 
 
 function AddBoxPage() {
@@ -24,7 +27,7 @@ function AddBoxPage() {
         price: "",
         size: "",
         pickUpTime: "",
-        city: "", //da passare
+        city: globalCityShop.globalCityShop, //da passare
         quantity: "",
         image: image,
         // Aggiungi altri campi del form qui se necessario
@@ -88,7 +91,7 @@ function AddBoxPage() {
 
 
         navigate('/vendors/homepage2');
-        navigate(0);
+        //navigate(0);
     };
 
 
@@ -113,7 +116,31 @@ function AddBoxPage() {
     return (
         <div>
             <header>
-                {/* ... Il resto del tuo codice di intestazione */}
+
+                <div className="container1">
+                    <Greeting></Greeting>
+                    <div className="logo1" onClick={() => {
+                        navigate("/greeting_page");}}>
+                        <h1>Save<span>Food </span></h1>
+                    </div>
+
+                    <div className="currentDetails1">
+                        <div className="header-option1" onClick={() => {
+                            navigate("/");}}>
+                            <span>Home <FaHome></FaHome></span>
+                        </div>
+                        <div className="header-option1" onClick={() => {
+                            navigate("/reservations");
+                        }}>
+                            <i data-feather="clock"></i>
+                            <span>I miei ordini <FaCalendarCheck></FaCalendarCheck></span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
             </header>
 
             <div className="options1">
@@ -200,20 +227,6 @@ function AddBoxPage() {
                                     value={formData.pickUpTime}
                                     min="11:00"
                                     max="03:00"
-                                    required
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label htmlFor="inputCity">Città</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="inputCity"
-                                    placeholder="Città..."
-                                    name="city"
-                                    value={formData.city}
-                                    maxLength="20"
                                     required
                                     onChange={handleInputChange}
                                 />

@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import boxes from '../../data/boxes.json';
 import {useUser} from "@clerk/clerk-react";
+import {FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
+import Greeting from "../Greeting";
 
 function NegozioPage() {
     const { user } = useUser();
@@ -88,7 +90,31 @@ function NegozioPage() {
     return (
         <div>
             <header>
-                {/* ... Il resto del tuo codice di intestazione */}
+
+                <div className="container1">
+                    <Greeting></Greeting>
+                    <div className="logo1" onClick={() => {
+                        navigate("/greeting_page");}}>
+                        <h1>Save<span>Food </span></h1>
+                    </div>
+
+                    <div className="currentDetails1">
+                        <div className="header-option1" onClick={() => {
+                            navigate("/");}}>
+                            <span>Home <FaHome></FaHome></span>
+                        </div>
+                        <div className="header-option1" onClick={() => {
+                            navigate("/reservations");
+                        }}>
+                            <i data-feather="clock"></i>
+                            <span>I miei ordini <FaCalendarCheck></FaCalendarCheck></span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
             </header>
 
             <div className="options1">
@@ -170,7 +196,7 @@ function NegozioPage() {
                                     placeholder="Numero di telefono..."
                                     name="telephonNumber"
                                     value={formData.telephonNumber}
-                                    pattern="[0-9]{7}"
+                                    pattern="[0-9]{10}"
                                     required
                                     onChange={handleInputChange}
                                 />

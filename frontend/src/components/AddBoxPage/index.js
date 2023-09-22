@@ -4,6 +4,9 @@ import {useNavigate} from "react-router-dom";
 import { globalData,globalCityShop } from "../GreetingPage/global";
 
 import UploadAndDisplayImage from "./UploadAndDisplayImage.js"
+import Greeting from "../Greeting";
+import {FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
+import {UserButton} from "@clerk/clerk-react";
 
 
 function AddBoxPage() {
@@ -113,7 +116,31 @@ function AddBoxPage() {
     return (
         <div>
             <header>
-                {/* ... Il resto del tuo codice di intestazione */}
+
+                <div className="container1">
+                    <Greeting></Greeting>
+                    <div className="logo1" onClick={() => {
+                        navigate("/greeting_page");}}>
+                        <h1>Save<span>Food </span></h1>
+                    </div>
+
+                    <div className="currentDetails1">
+                        <div className="header-option1" onClick={() => {
+                            navigate("/");}}>
+                            <span>Home <FaHome></FaHome></span>
+                        </div>
+                        <div className="header-option1" onClick={() => {
+                            navigate("/reservations");
+                        }}>
+                            <i data-feather="clock"></i>
+                            <span>I miei ordini <FaCalendarCheck></FaCalendarCheck></span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
             </header>
 
             <div className="options1">

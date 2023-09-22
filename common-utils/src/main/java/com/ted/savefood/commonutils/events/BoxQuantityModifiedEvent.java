@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BoxQuantityModifiedEvent {
-    private String orderId;
     private String boxId;
+    private String orderId;
     private int quantity;
 }

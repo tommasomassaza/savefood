@@ -205,20 +205,6 @@ function AddBoxPage() {
                                 />
                             </div>
                             <div className="form-group col-md-6">
-                                <label htmlFor="inputCity">Città</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="inputCity"
-                                    placeholder="Città..."
-                                    name="city"
-                                    value={formData.city}
-                                    maxLength="20"
-                                    required
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group col-md-6">
                                 <label htmlFor="inputQuantity">Quantity</label>
                                 <input
                                     type="text"

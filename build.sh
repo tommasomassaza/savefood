@@ -17,8 +17,6 @@ if [ $# -gt 0 ]; then
     ./mvnw -DskipTests=true clean install
     cd ../discovery-server
     ./mvnw -DskipTests=true clean install
-    cd ../api-gateway
-    ./mvnw -DskipTests=true clean install
     cd ../box-service
     ./mvnw -DskipTests=true clean install
     cd ../shop-service

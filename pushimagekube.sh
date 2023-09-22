@@ -12,9 +12,6 @@ if [ $# -gt 0 ]; then
     docker tag savefood-api-gateway:latest tommimassa98/savefood-api-gateway:latest
     docker push tommimassa98/savefood-api-gateway:latest
 
-    docker tag savefood-reservation-service:latest tommimassa98/savefood-reservation-service:latest
-    docker push tommimassa98/savefood-reservation-service:latest
-
     docker tag savefood-box-service:latest tommimassa98/savefood-box-service:latest
     docker push tommimassa98/savefood-box-service:latest
 
@@ -23,7 +20,4 @@ if [ $# -gt 0 ]; then
 
     docker tag savefood-discovery-server:latest tommimassa98/savefood-discovery-server:latest
     docker push tommimassa98/savefood-discovery-server:latest
-
-    docker tag savefood-payment-service:latest tommimassa98/savefood-payment-service:latest
-    docker push tommimassa98/savefood-payment-service:latest
 fi

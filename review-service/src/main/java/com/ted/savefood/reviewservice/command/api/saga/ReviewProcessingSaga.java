@@ -34,6 +34,7 @@ public class ReviewProcessingSaga {
             ModifyStarsShopCommand modifyStarsShopCommand =
                     ModifyStarsShopCommand.builder()
                             .shopId(reviewCreatedEvent.getShopId())
+                            .reviewId(reviewCreatedEvent.getReviewId())
                             .stars(reviewCreatedEvent.getStars())
                             .build();
             commandGateway.send(modifyStarsShopCommand);
@@ -57,7 +58,7 @@ public class ReviewProcessingSaga {
 
         CompleteReviewCommand completeReviewCommand
                 = CompleteReviewCommand.builder()
-                .reviewId(shopStarsModifiedEvent.getShopId())
+                .reviewId(shopStarsModifiedEvent.getReviewId())
                 .build();
 
         commandGateway.sendAndWait(completeReviewCommand);

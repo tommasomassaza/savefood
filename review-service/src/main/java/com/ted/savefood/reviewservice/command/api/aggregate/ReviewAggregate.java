@@ -8,8 +8,10 @@ import com.ted.savefood.reviewservice.command.api.events.ReviewCompletedEvent;
 import com.ted.savefood.reviewservice.command.api.events.ReviewCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.modelling.command.AggregateCreationPolicy;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
+import org.axonframework.modelling.command.CreationPolicy;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
 
@@ -17,11 +19,6 @@ import org.springframework.beans.BeanUtils;
 public class ReviewAggregate {
     @AggregateIdentifier
     private String reviewId;
-    private String shopId;
-    private String userId;
-    private String userName;
-    private String description;
-    private int stars;
 
     public ReviewAggregate() {
     }
@@ -37,11 +34,6 @@ public class ReviewAggregate {
     @EventSourcingHandler
     public void on(ReviewCreatedEvent reviewCreatedEvent) {
         this.reviewId = reviewCreatedEvent.getReviewId();
-        this.shopId = reviewCreatedEvent.getShopId();
-        this.userId = reviewCreatedEvent.getUserId();
-        this.userName = reviewCreatedEvent.getUserName();
-        this.description = reviewCreatedEvent.getDescription();
-        this.stars = reviewCreatedEvent.getStars();
     }
 
     @CommandHandler
@@ -56,11 +48,17 @@ public class ReviewAggregate {
     }
 
     @CommandHandler
+    @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
     public void handle(CancelReviewCommand cancelReviewCommand) {
         ReviewCancelledEvent reviewCancelledEvent
                 = new ReviewCancelledEvent();
         BeanUtils.copyProperties(cancelReviewCommand, reviewCancelledEvent);
 
         AggregateLifecycle.apply(reviewCancelledEvent);
+    }
+
+    @EventSourcingHandler
+    public void on(ReviewCancelledEvent reviewCancelledEvent) {
+        this.reviewId = reviewCancelledEvent.getReviewId();
     }
 }

@@ -8,8 +8,10 @@ import com.ted.savefood.shopservice.command.api.events.ShopCancelledEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.modelling.command.AggregateCreationPolicy;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
+import org.axonframework.modelling.command.CreationPolicy;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
 
@@ -17,16 +19,6 @@ import org.springframework.beans.BeanUtils;
 public class ShopAggregate {
     @AggregateIdentifier
     private String shopId;
-    private String sellerId;
-    private String name;
-    private String city;
-    private String address;
-    private String description;
-    private String telephoneNumber;
-    private int numberOfReviews;
-    private float stars;
-    private byte[] image;
-
 
     public ShopAggregate() {
     }
@@ -42,18 +34,10 @@ public class ShopAggregate {
     @EventSourcingHandler
     public void on(ShopCreatedEvent shopCreatedEvent) {
         this.shopId = shopCreatedEvent.getShopId();
-        this.sellerId = shopCreatedEvent.getSellerId();
-        this.name = shopCreatedEvent.getName();
-        this.city = shopCreatedEvent.getCity();
-        this.description = shopCreatedEvent.getDescription();
-        this.address = shopCreatedEvent.getAddress();
-        this.telephoneNumber = shopCreatedEvent.getTelephoneNumber();
-        this.numberOfReviews = shopCreatedEvent.getNumberOfReviews();
-        this.stars = shopCreatedEvent.getStars();
-        this.image = shopCreatedEvent.getImage();
     }
 
     @CommandHandler
+    @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
     public void handle(ModifyStarsShopCommand modifyStarsShopCommand) {
         ShopStarsModifiedEvent shopStarsModifiedEvent = new ShopStarsModifiedEvent();
         BeanUtils.copyProperties(modifyStarsShopCommand, shopStarsModifiedEvent);
@@ -61,12 +45,23 @@ public class ShopAggregate {
         AggregateLifecycle.apply(shopStarsModifiedEvent);
     }
 
+    @EventSourcingHandler
+    public void on(ShopStarsModifiedEvent shopStarsModifiedEvent) {
+        this.shopId = shopStarsModifiedEvent.getShopId();
+    }
+
     @CommandHandler
+    @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
     public void handle(CancelShopCommand cancelShopCommand) {
         ShopCancelledEvent shopCancelledEvent
                 = new ShopCancelledEvent();
         BeanUtils.copyProperties(cancelShopCommand, shopCancelledEvent);
 
         AggregateLifecycle.apply(shopCancelledEvent);
+    }
+
+    @EventSourcingHandler
+    public void on(ShopCancelledEvent shopCancelledEvent) {
+        this.shopId = shopCancelledEvent.getShopId();
     }
 }

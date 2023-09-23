@@ -17,14 +17,6 @@ import org.springframework.beans.BeanUtils;
 public class OrderAggregate {
     @AggregateIdentifier
     private String orderId;
-    private String boxId;
-    private String boxName;
-    private String userId;
-    private String userName;
-    private String shopId;
-    private int quantity;
-    private float price;
-    private String pickUpTime;
 
 
     public OrderAggregate(){}
@@ -39,14 +31,6 @@ public class OrderAggregate {
     @EventSourcingHandler
     public void on(OrderCreatedEvent orderCreatedEvent){
         this.orderId=orderCreatedEvent.getOrderId();
-        this.boxId = orderCreatedEvent.getBoxId();
-        this.boxName = orderCreatedEvent.getBoxName();
-        this.userId = orderCreatedEvent.getUserId();
-        this.userName = orderCreatedEvent.getUserName();
-        this.shopId = orderCreatedEvent.getShopId();
-        this.quantity=orderCreatedEvent.getQuantity();
-        this.price = orderCreatedEvent.getPrice();
-        this.pickUpTime = orderCreatedEvent.getPickUpTime();
     }
 
     @CommandHandler
@@ -60,10 +44,6 @@ public class OrderAggregate {
         AggregateLifecycle.apply(orderCompletedEvent);
     }
 
-    @EventSourcingHandler
-    public void on(OrderCompletedEvent orderCompletedEvent){
-    }
-
     @CommandHandler
     public void handle(CancelOrderCommand cancelOrderCommand){
         OrderCancelledEvent orderCancelledEvent
@@ -71,10 +51,5 @@ public class OrderAggregate {
         BeanUtils.copyProperties(cancelOrderCommand, orderCancelledEvent);
 
         AggregateLifecycle.apply(orderCancelledEvent);
-    }
-
-    @EventSourcingHandler
-    public void on(OrderCancelledEvent orderCancelledEvent){
-
     }
 }

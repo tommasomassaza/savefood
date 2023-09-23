@@ -9,5 +9,6 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class ModifyStarsShopCommand {
     @TargetAggregateIdentifier
     private String shopId;
+    private String reviewId;
     private int stars;
 }

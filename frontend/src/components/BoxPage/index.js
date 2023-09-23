@@ -114,7 +114,8 @@ function BoxPage() {
     const onMinus = () => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
-            globalBoxQuantity.globalBoxQuantity = quantity-1
+            globalBoxQuantity.globalBoxQuantity = quantity-1;
+            globalBoxPrice.globalPrice = box.price*quantity;
         }
     };
 
@@ -123,7 +124,8 @@ function BoxPage() {
         console.log("sono qui:"+box.quantity);
         if(quantity < box.quantity ){
         setQuantity(quantity + 1);
-        globalBoxQuantity.globalBoxQuantity = quantity+1
+        globalBoxQuantity.globalBoxQuantity = quantity+1;
+        globalBoxPrice.globalPrice = box.price*quantity;
 
         }
     };

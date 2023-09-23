@@ -39,7 +39,7 @@ const ReservationsPage = () => {
     }
 
     let getReservations = () => {
-        fetch('http://localhost:8080/api/getByUserId/'+userId)
+        fetch('http://localhost:8080/api/orders/getByUserId/'+ userId)
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);

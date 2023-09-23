@@ -82,8 +82,8 @@ function NegozioPage() {
                 });
             });
 
-        navigate('/vendors/homepage');
-        navigate(0);
+        //navigate('/vendors/homepage');
+        //navigate(0);
     };
 
 

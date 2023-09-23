@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import boxes from "../../data/boxes.json";
 import {useNavigate} from "react-router-dom";
 import { globalData,globalCityShop } from "../GreetingPage/global";
-
-import UploadAndDisplayImage from "./UploadAndDisplayImage.js"
 import Greeting from "../Greeting";
 import {FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
 import {UserButton} from "@clerk/clerk-react";

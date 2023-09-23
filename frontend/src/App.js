@@ -45,7 +45,8 @@ function App() {
 
         <Routes>
 
-        <Route
+
+            <Route
       path="/sign-up/*"
       element={<SignUpCustom routing="path" path="/sign-up" />}
     />
@@ -226,8 +227,8 @@ function App() {
           </>
           }
         />
-                   
-               
+
+
 
 
 

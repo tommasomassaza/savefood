@@ -26,14 +26,16 @@ function base64ToBlob(base64String, contentType) {
 
 
 
-const ShoptItemOwner = ({ shop, city }) => {
+const ShoptItemOwner = ({ shop }) => {
     const [imageBlob, setImageBlob] = useState(null); // Stato per l'immagine Blob
     const navigate = useNavigate();
 
-    const setIdNew = (shopId) => {
+    const setIdNew = (shopId, city) => {
         globalData.globalShopsId = shopId; // Utilizza la funzione di impostazione
         globalCityShop.globalCityShop = city;
         console.log("eccolooooo: " + globalData.globalShopsId)
+        console.log("è la cittadine: " + city)
+        console.log("è la cite: " + globalCityShop.globalCityShop)
     };
 
     const deleteshop = (shopId) => {

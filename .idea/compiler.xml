@@ -13,7 +13,6 @@
         <module name="shop-service" />
         <module name="common-utils" />
         <module name="order-service" />
-        <module name="oauth-authorization-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

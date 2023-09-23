@@ -51,6 +51,7 @@ function ModifyShop2() {
             .then((result) => {
                     console.log(result);
                     setShops(result);
+                    setAllProducts(result)
                 },
                 (error) => {
                     console.log(error);
@@ -70,7 +71,7 @@ function ModifyShop2() {
 
     //gestione dei filtri
     const [category, setCategory] = useState("Tutti");
-    const [allProducts, setAllProducts] = useState(shops);
+    const [allProducts, setAllProducts] = useState([]);
 
 
     useEffect(() => {
@@ -188,7 +189,7 @@ function ModifyShop2() {
 
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {shops.map(item => (
+                        {allProducts.map(item => (
                             <ShopItemOwner shop={item}></ShopItemOwner>
 
                         ))}

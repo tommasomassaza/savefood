@@ -141,9 +141,8 @@ const ReservationsPage = () => {
                 <Container style={{maxHeight: 500, overflow: 'scroll'}}>
 
 
-                    {reservations.map(item => (
-                        <ReservationItem reservation={item}></ReservationItem>
-
+                    {reservations.reverse().map(item => (
+                        <ReservationItem reservation={item} key={item.id}></ReservationItem>
                     ))}
 
                 </Container>

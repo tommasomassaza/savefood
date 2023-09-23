@@ -47,6 +47,7 @@ function HomePage() {
             .then((result) => {
                     console.log(result);
                     setBoxes(result);
+                    setAllProducts(result);
                 },
                 (error) => {
                     console.log(error);
@@ -66,7 +67,7 @@ function HomePage() {
 
     //gestione dei filtri
     const [category, setCategory] = useState("Oggi");
-    const [allProducts, setAllProducts] = useState(boxes);
+    const [allProducts, setAllProducts] = useState([]);
 
 
     useEffect(() => {
@@ -232,7 +233,7 @@ function HomePage() {
 
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {boxes.map(item => (
+                        {allProducts.map(item => (
                             <BoxItem box={item}></BoxItem>
 
                         ))}

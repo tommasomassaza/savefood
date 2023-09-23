@@ -39,6 +39,7 @@ function ModifyShop3() {
             .then((result) => {
                     console.log(result);
                     setBoxes(result);
+                    setAllProducts(result);
                 },
                 (error) => {
                     console.log(error);
@@ -47,18 +48,39 @@ function ModifyShop3() {
     };
 
 
-    //gestione dei filtri
-    const [category, setCategory] = useState("Tutti");
-    const [allProducts, setAllProducts] = useState(boxes);
-
     useEffect(() => {
-       // navigate(0);
         getBoxes();
     }, []);
 
 
     //barra di ricerca, non ancora implementata
     const [searchTerm, setSearchTerm] = useState("");
+
+
+    //gestione dei filtri
+    const [category, setCategory] = useState("Tutti");
+    const [allProducts, setAllProducts] = useState([]);
+
+
+    useEffect(() => {
+        if (category === "Tutti") {
+            setAllProducts(boxes);
+        }
+
+        if (category === "Searched") {
+            console.log(category);
+            if (searchTerm === "") {
+                setAllProducts(boxes);
+            } else {
+                const filteredProducts = boxes.filter(
+                    (item) => item.name.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                setAllProducts(filteredProducts);
+            }
+
+        }
+
+    }, [category, searchTerm]);
 
 
     return (
@@ -154,7 +176,7 @@ function ModifyShop3() {
 
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {boxes.map(item => (
+                        {allProducts.map(item => (
                             <BoxItemOwner box={item}></BoxItemOwner>
 
                         ))}

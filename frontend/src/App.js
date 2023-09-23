@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 
 import HomePage from './components/HomePage/index.js';
@@ -47,11 +47,15 @@ function App() {
 
 
             <Route
-      path="/sign-up/*"
-      element={<SignUpCustom routing="path" path="/sign-up" />}
+          path="/sign-up/*"
+          element={<SignUpCustom routing="path" path="/sign-up" />}
     />
 
-      
+
+            {/* Per ogni url non valido reiderizza alla home */}
+            <Route path="/*" element={<NotFound />} />
+
+
         <Route
           path="/sign-in/*"
           element={<SignIn routing="path" path="/sign-in" />}
@@ -236,6 +240,20 @@ function App() {
         </ClerkProvider>
 
     );
+
+    function NotFound() {
+
+            useEffect(() => {
+                const timeout = setTimeout(() => {
+                    // 👇️ redirects to an external URL
+                    window.location.replace('/');
+                }, 3000);
+
+                return () => clearTimeout(timeout);
+            }, []);
+
+            return <>Pagina non valida verrai reindirizzato alla home...</>;
+        }
 
 
 }

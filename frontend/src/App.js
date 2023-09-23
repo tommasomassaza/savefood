@@ -53,7 +53,7 @@ function App() {
 
 
             {/* Per ogni url non valido reiderizza alla home */}
-            <Route path="/*" element={<NotFound />} />
+        <Route path="/*" element={<NotFound />} />
 
 
         <Route

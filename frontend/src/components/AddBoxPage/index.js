@@ -20,7 +20,7 @@ function AddBoxPage() {
         setShowConfirmation(true);
         setTimeout(() => {
             setShowConfirmation(false);
-        }, 2000); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
+        }, 1000); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
     };
 
 

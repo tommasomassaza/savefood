@@ -56,12 +56,10 @@
   border-radius: 5px; /* Bordi arrotondati */
   text-align: center; /* Allinea il testo al centro */
   font-size: 18px; /* Dimensione del testo */
-  margin: 20px auto; /* Margine per centrare il messaggio di conferma */
+  margin-top: 20px; /* Distanza dal contenuto sottostante */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombra leggera */
   user-select: none; /* Impedisce la selezione del testo */
   cursor: default; /* Impedisce il cambiamento del cursore al passaggio del mouse */
-  display: inline-block; /* Limita la larghezza al contenuto */
-  width: max-content; /* Imposta la larghezza massima al contenuto */
 }
 
 

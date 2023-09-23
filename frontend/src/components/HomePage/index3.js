@@ -1,4 +1,3 @@
-import boxes from "../../data/boxes.json";
 import BoxItem from '../BoxItem/index.js';
 import {useNavigate} from "react-router-dom";
 import { FaHome} from "react-icons/fa";
@@ -32,7 +31,7 @@ function HomePage3() {
     }
 
     //console.log(posts)
-    const [acaso, setBoxes] = useState([]);
+    const [boxes, setBoxes] = useState([]);
 
     let getBoxes = () => {
         fetch('http://localhost:8080/api/boxes')
@@ -204,7 +203,7 @@ function HomePage3() {
                 </div>
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {allProducts.map(item => (
+                        {boxes.map(item => (
                             <BoxItem box={item}></BoxItem>
 
                         ))}

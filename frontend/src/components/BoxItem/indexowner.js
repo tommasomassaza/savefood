@@ -60,7 +60,7 @@ const BoxItemOwner = ({box}) => {
             });
 
 
-        //history.push("/");
+       navigate("/vendors/homepage2");
     };
 
     // Effettua la conversione dell'immagine quando il componente viene montato

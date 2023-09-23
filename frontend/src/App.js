@@ -245,7 +245,6 @@ function App() {
 
             useEffect(() => {
                 const timeout = setTimeout(() => {
-                    // 👇️ redirects to an external URL
                     window.location.replace('/');
                 }, 3000);
 

@@ -118,10 +118,6 @@ const BoxItem = ({box}) => {
                 <div className="text-title1">
                     <h3>{box.name}</h3>
 
-                    <FaTrashAlt className="icons1" color="red" margin-left="2rem" onClick={() => deleteBox(box.boxId)}/>
-
-                    <FaPen color="#034694"/>
-
 
                     <div className="info1">
                         <span><strong className="bold-text">Prezzo:</strong> {box.price} € | <strong className="bold-text">Grandezza:</strong> {grandezzaStringa} | <strong className="bold-text">Orario di ritiro:</strong> {box.pickUpTime} |</span>

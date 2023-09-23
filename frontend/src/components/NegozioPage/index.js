@@ -2,13 +2,15 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import boxes from '../../data/boxes.json';
 import {useUser} from "@clerk/clerk-react";
-import {FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
+import {FaArrowLeft, FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
 import Greeting from "../Greeting";
 
 function NegozioPage() {
     const { user } = useUser();
     const [image, setImage] = useState('');
     const [allImage, setAllImage] = useState([]);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     let userId = null; // Inizializza userId come null
 
@@ -42,6 +44,14 @@ function NegozioPage() {
         };
 
         reader.readAsArrayBuffer(file);
+    };
+
+    const handleConfirmation = () => {
+        setShowConfirmation(true);
+        setTimeout(() => {
+            setShowConfirmation(false);
+            navigate('/vendors/homepage');
+        }, 1500); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
     };
 
 
@@ -82,8 +92,7 @@ function NegozioPage() {
                 });
             });
 
-        navigate('/vendors/homepage');
-        navigate(0);
+        handleConfirmation(); // Chiamiamo handleConfirmation dopo aver eseguito l'azione desiderata
     };
 
 
@@ -121,6 +130,15 @@ function NegozioPage() {
                 <div className="container1">
                     <div className="header-title1">
                         <h2>Aggiungi un negozio:</h2>
+                    </div>
+                    <div className="header-viewOptions1">
+                        <div className="viewAll1" onClick={() => {
+                            navigate("/vendors/homepage");
+
+                        }}>
+                            <span><FaArrowLeft/> Torna Indietro</span>
+                        </div>
+
                     </div>
 
                     <div className="listings-grid-element1">
@@ -233,6 +251,12 @@ function NegozioPage() {
                                     />
                                 ))}
                             </div>
+
+                            {showConfirmation && (
+                                <div className="confirmation-message">
+                                    Il locale è stato aggiunto con successo
+                                </div>
+                            )}
 
                             <br />
                         </form>

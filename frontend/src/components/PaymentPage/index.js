@@ -13,6 +13,7 @@ import {UserButton} from "@clerk/clerk-react";
 
 
 function PaymentPage() {
+    const [count, setCount] = useState(0);
     const { user } = useUser();
     console.log("questo è il nome: " + globalBoxName.globalName)
 
@@ -39,8 +40,6 @@ function PaymentPage() {
             pickUpTime: globalBoxPickUpTime.globalPickUpTime
         };
 
-
-
         // Invia dataToSend al tuo backend
         fetch('http://localhost:8080/api/orders', {
             method: 'POST',
@@ -59,27 +58,19 @@ function PaymentPage() {
                 });
             });
     };
-
+/*
     useEffect(() => {
-        postOrdine();
-    }, []);
+        //postOrdine();
+        // Incrementa il contatore ad ogni chiamata di useEffect
+        setCount((prevCount) => prevCount + 1);
+
+        // Stampa il valore del contatore
+        console.log(`Il contatore è: ${count}`);
+    }, []);*/
 
     const box = boxes[window.id]; /*window.id è una variabile globale definita in BoxItem, usata per caricare la box dall'id corretto nella BoxPage*/
 
     const navigate = useNavigate();
-
-
-    const [quantity, setQuantity] = useState(1);
-
-    const onMinus = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    };
-
-    const onPlus = () => {
-        setQuantity(quantity + 1);
-    };
 
     return (
 
@@ -173,7 +164,9 @@ function PaymentPage() {
                                         onApprove={async (data, actions) => {
                                             const details = await actions.order.capture();
                                             const name = details.payer.name.given_name;
-                                            alert("Transaction completed by " + name);
+                                            postOrdine();
+
+                                            alert("Transazione completata da: " + name);
                                         }}
                                     />
                                 </PayPalScriptProvider>

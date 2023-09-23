@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import boxes from "../../data/boxes.json";
 import {useNavigate} from "react-router-dom";
 import { globalData,globalCityShop } from "../GreetingPage/global";
-
-import UploadAndDisplayImage from "./UploadAndDisplayImage.js"
 import Greeting from "../Greeting";
-import {FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
-import {UserButton} from "@clerk/clerk-react";
+import {FaArrowLeft, FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
+
+
 
 
 function AddBoxPage() {
@@ -14,6 +13,18 @@ function AddBoxPage() {
     const [image, setImage] = useState("");
     const [imageVisualize, setImageVisualize] = useState("");
     const [allImage, setAllImage] = useState([]);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+
+    const handleConfirmation = () => {
+        setShowConfirmation(true);
+        setTimeout(() => {
+            setShowConfirmation(false);
+            navigate('/vendors/homepage2');
+        }, 1500); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
+
+    };
+
 
     const box = boxes[window.id]; /*window.id è una variabile globale definita in BoxItem, usata per caricare la box dall'id corretto nella BoxPage*/
 
@@ -82,16 +93,14 @@ function AddBoxPage() {
             .then((res) => {
                 console.log(res.status);
                 console.log(res.headers);
+                setIsSubmitted(true); // Imposta il valore su true dopo il successo dell'invio
             })
             .catch((error) => {
                 console.error({
                     error,
                 });
             });
-
-
-        navigate('/vendors/homepage2');
-        //navigate(0);
+        handleConfirmation(); // Chiamiamo handleConfirmation dopo aver eseguito l'azione desiderata
     };
 
 
@@ -147,6 +156,15 @@ function AddBoxPage() {
                 <div className="container1">
                     <div className="header-title1">
                         <h2>Aggiungi una box:</h2>
+                        <div className="header-viewOptions1">
+                            <div className="viewAll1" onClick={() => {
+                                navigate("/vendors/homepage2");
+
+                            }}>
+                                <span><FaArrowLeft/> Torna Indietro</span>
+                            </div>
+
+                        </div>
                     </div>
 
                     <div className="listings-grid-element1">
@@ -280,6 +298,12 @@ function AddBoxPage() {
                                     />
                                 ))}
                             </div>
+
+                            {showConfirmation && (
+                                <div className="confirmation-message">
+                                    La box è stata aggiunta con successo
+                                </div>
+                            )}
 
                             <br />
                         </form>

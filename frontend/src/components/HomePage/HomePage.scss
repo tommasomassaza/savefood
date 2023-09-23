@@ -49,6 +49,19 @@
   font-size: 18px; /* Imposta la dimensione del carattere a 18px (puoi regolare questo valore a tuo piacimento) */
 }
 
+.confirmation-message {
+  background-color: #d4edda; /* Colore di sfondo verde chiaro */
+  color: #155724; /* Colore del testo verde scuro */
+  padding: 10px 20px; /* Spaziatura interna */
+  border-radius: 5px; /* Bordi arrotondati */
+  text-align: center; /* Allinea il testo al centro */
+  font-size: 18px; /* Dimensione del testo */
+  margin-top: 20px; /* Distanza dal contenuto sottostante */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+  user-select: none; /* Impedisce la selezione del testo */
+  cursor: default; /* Impedisce il cambiamento del cursore al passaggio del mouse */
+}
+
 
 /* Style for Extra Large Screen */
 @media (max-width: 3920px) {

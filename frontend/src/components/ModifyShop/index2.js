@@ -25,7 +25,7 @@ function ModifyShop2() {
     let userId = null; // Inizializza userId come null
     if (user) {
         userId = user.id; // Assegna il valore solo se user è definito
-        console.log(userId);
+        console.log("l'user id è:"+userId);
     }
 
     //per navigare tra i link
@@ -41,7 +41,7 @@ function ModifyShop2() {
     const [shops, setShops] = useState([]);
 
     let getShops = () => {
-        fetch('http://localhost:8080/api/shops?sellerId='+userId)
+        fetch('http://localhost:8080/api/shops/getBySellerId/'+userId)
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);

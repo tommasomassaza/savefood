@@ -8,7 +8,13 @@ import {FaHome, FaMinus, FaPlus} from "react-icons/fa";
 import {MdLocalDining} from "react-icons/md";
 
 import {FaArrowLeft, FaCalendarCheck} from "react-icons/fa";
-import { globalDataBox } from "../GreetingPage/global";
+import {
+    globalBoxName,
+    globalBoxPickUpTime,
+    globalBoxPrice,
+    globalBoxShopId,
+    globalDataBox
+} from "../GreetingPage/global";
 
 import {globalBoxQuantity} from "../GreetingPage/global";
 
@@ -20,6 +26,7 @@ import Sidebar from "../HomePage/sidebar";
 function BoxPage() {
 
 
+
     const navigate = useNavigate();
 
     //console.log(posts)
@@ -28,6 +35,18 @@ function BoxPage() {
     useEffect(() => {
         getBox();
     }, []);
+
+    const { user } = useUser();
+    console.log("questo è il nome: " + globalBoxName.globalName)
+
+    let userId = null; // Inizializza userId come null
+    let userName = null; // Inizializza userId come null
+    if (user) {
+        userId = user.id; // Assegna il valore solo se user è definito
+        userName = user.primaryEmailAddress.emailAddress;
+        console.log(userId);
+        console.log(userName);
+    }
 
 
     let getBox = () => {
@@ -51,10 +70,39 @@ function BoxPage() {
             )
     };
 
+    let postOrdine = () => {
+        // Crea un oggetto con i dati da inviare
+        const dataToSend = {
+            boxId: globalDataBox.globalBoxId,
+            boxName: globalBoxName.globalName,
+            userId: userId,
+            userName: userName,
+            shopId: globalBoxShopId.globalBoxShopId,
+            quantity:globalBoxQuantity.globalBoxQuantity,
+            price: globalBoxPrice.globalPrice,
+            pickUpTime: globalBoxPickUpTime.globalPickUpTime
+        };
+
+        // Invia dataToSend al tuo backend
+        fetch('http://localhost:8080/api/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // Imposta l'header "Content-Type"
+            },
+            body: JSON.stringify(dataToSend) // Serializza l'oggetto in una stringa JSON
+        })
+            .then((res) => {
+                console.log(res.status);
+                console.log(res.headers);
+            })
+            .catch((error) => {
+                console.error({
+                    error,
+                });
+            });
+    };
 
 
-
-    const { user } = useUser();
 
 
 
@@ -208,7 +256,8 @@ function BoxPage() {
                                         <span><FaPlus></FaPlus></span>
                                     </button>
                                     <button className="options-btn1 prenota1" onClick={() => {
-                                        navigate("/payment");
+                                        postOrdine();
+                                        //navigate("/payment");
                                     }}>
                                         <span>Prenota</span>
                                     </button>

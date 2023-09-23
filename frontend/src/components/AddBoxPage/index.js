@@ -20,7 +20,9 @@ function AddBoxPage() {
         setShowConfirmation(true);
         setTimeout(() => {
             setShowConfirmation(false);
-        }, 1000); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
+            navigate('/vendors/homepage2');
+        }, 1500); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
+
     };
 
 
@@ -161,7 +163,6 @@ function AddBoxPage() {
                             }}>
                                 <span><FaArrowLeft/> Torna Indietro</span>
                             </div>
-
 
                         </div>
                     </div>

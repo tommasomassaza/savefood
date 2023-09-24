@@ -41,7 +41,7 @@ const BoxItemOwner = ({box}) => {
 
 
     const deleteBox = boxId => {
-        fetch(`http://localhost:8080/api/boxes/${boxId}`, {
+        fetch('http://localhost:8080/api/boxes/'+box.boxId, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json"

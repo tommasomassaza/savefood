@@ -75,27 +75,6 @@ function HomePage() {
             setAllProducts(boxes);
         }
 
-        if (category === "Piccole") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Pranzo") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Cena") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
         if (category === "Searched") {
             console.log(category);
             if (searchTerm === "") {

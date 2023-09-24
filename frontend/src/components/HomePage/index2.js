@@ -64,7 +64,7 @@ function HomePage2() {
 
 
     //gestione dei filtri
-    const [category, setCategory] = useState("Offera");
+    const [category, setCategory] = useState("Piccole");
     const [allProducts, setAllProducts] = useState([]);
 
 
@@ -75,24 +75,11 @@ function HomePage2() {
 
         if (category === "Piccole") {
             const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
+                (item) => item.size === parseInt(searchTerm, 2)
             );
             setAllProducts(filteredProducts);
         }
 
-        if (category === "Pranzo") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Cena") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
 
         if (category === "Searched") {
             console.log(category);
@@ -181,15 +168,6 @@ function HomePage2() {
                     <i data-feather="watch"></i>
                     <span>Più vendute</span>
                 </button>
-                <div className="searchBar2">
-                    <FaSearch></FaSearch>
-                    <input className="searchQueryInput2" type="text" placeholder="Cerca..." onChange={event => {
-                        setSearchTerm(event.target.value);
-                        setCategory("Searched");
-                    }}/>
-
-
-                </div>
 
             </div>
         </div>

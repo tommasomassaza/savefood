@@ -39,7 +39,7 @@ const ReservationsPage = () => {
     }
 
     let getReservations = () => {
-        fetch('http://localhost:8080/api/getByUserId/'+userId)
+        fetch('http://localhost:8080/api/orders/getByUserId/'+ userId)
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -141,9 +141,8 @@ const ReservationsPage = () => {
                 <Container style={{maxHeight: 500, overflow: 'scroll'}}>
 
 
-                    {reservations.map(item => (
-                        <ReservationItem reservation={item}></ReservationItem>
-
+                    {reservations.reverse().map(item => (
+                        <ReservationItem reservation={item} key={item.id}></ReservationItem>
                     ))}
 
                 </Container>

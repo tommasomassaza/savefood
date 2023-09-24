@@ -44,6 +44,7 @@ function HomePage3() {
             .then((result) => {
                     console.log(result);
                     setBoxes(result);
+                    setAllProducts(result);
                 },
                 (error) => {
                     console.log(error);
@@ -62,7 +63,7 @@ function HomePage3() {
 
     //gestione dei filtri
     const [category, setCategory] = useState("Più");
-    const [allProducts, setAllProducts] = useState(boxes);
+    const [allProducts, setAllProducts] = useState([]);
 
 
     useEffect(() => {
@@ -70,26 +71,6 @@ function HomePage3() {
             setAllProducts(boxes);
         }
 
-        if (category === "Piccole") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Pranzo") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Cena") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
 
         if (category === "Searched") {
             console.log(category);
@@ -203,7 +184,7 @@ function HomePage3() {
                 </div>
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {boxes.map(item => (
+                        {allProducts.map(item => (
                             <BoxItem box={item}></BoxItem>
 
                         ))}

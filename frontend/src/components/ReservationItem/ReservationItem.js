@@ -19,13 +19,16 @@ const ReservationItem = ({reservation}) => {
         <Container>
             <Row>
                 <Col className=".bg-light.bg-gradient p-2 square border border-muted">
-                    <h4>TransactionTime</h4>{reservation.transactionTime}
+                    <h4>Box</h4>{reservation.boxName}
                 </Col>
                 <Col className=".bg-light.bg-gradient p-2 square border border-muted">
-                    <h4>PaymentMethod</h4>{reservation.paymentMethod}
+                    <h4>Quantità</h4>{reservation.quantity}
                 </Col>
                 <Col className=".bg-light.bg-gradient p-2 square border border-muted">
-                    <h4>Customer</h4>{reservation.customer}
+                    <h4>Ora di ritiro</h4>{reservation.pickUpTime}
+                </Col>
+                <Col className=".bg-light.bg-gradient p-2 square border border-muted">
+                    <h4>Totale €</h4>{reservation.price}
                 </Col>
                 <Col
                     className=".bg-light.bg-gradient p-2 square border border-muted d-flex align-items-center justify-content-center">

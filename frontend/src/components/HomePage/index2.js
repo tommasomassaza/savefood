@@ -46,6 +46,7 @@ function HomePage2() {
             .then((result) => {
                     console.log(result);
                     setBoxes(result);
+                    setAllProducts(result);
                 },
                 (error) => {
                     console.log(error);
@@ -63,8 +64,8 @@ function HomePage2() {
 
 
     //gestione dei filtri
-    const [category, setCategory] = useState("Offera");
-    const [allProducts, setAllProducts] = useState(boxes);
+    const [category, setCategory] = useState("Piccole");
+    const [allProducts, setAllProducts] = useState([]);
 
 
     useEffect(() => {
@@ -74,24 +75,11 @@ function HomePage2() {
 
         if (category === "Piccole") {
             const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
+                (item) => item.size === parseInt(searchTerm, 2)
             );
             setAllProducts(filteredProducts);
         }
 
-        if (category === "Pranzo") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
-
-        if (category === "Cena") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === "piccolo"
-            );
-            setAllProducts(filteredProducts);
-        }
 
         if (category === "Searched") {
             console.log(category);
@@ -180,15 +168,6 @@ function HomePage2() {
                     <i data-feather="watch"></i>
                     <span>Più vendute</span>
                 </button>
-                <div className="searchBar2">
-                    <FaSearch></FaSearch>
-                    <input className="searchQueryInput2" type="text" placeholder="Cerca..." onChange={event => {
-                        setSearchTerm(event.target.value);
-                        setCategory("Searched");
-                    }}/>
-
-
-                </div>
 
             </div>
         </div>
@@ -207,7 +186,7 @@ function HomePage2() {
                 </div>
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {boxes.map(item => (
+                        {allProducts.map(item => (
                             <BoxItem box={item}></BoxItem>
 
                         ))}

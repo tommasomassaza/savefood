@@ -40,11 +40,10 @@ const Sidebar = () => {
                     </div>
                     <div className="sidebar_items">
                         <div className="sidebar_item">
-                            <i className="fas fa-home"></i>
+                            <i className="fas fa-home" ></i>
                             <p onClick={() => {
-                                navigate("/reservations");}}>I miei ordini</p>
+                                navigate("/ordini");}}>I miei ordini</p>
                         </div>
-
                         <div className="sidebar_item">
                             <i className="fas fa-envelope"></i>
                             <UserButton onClick={handleSignOut}></UserButton>

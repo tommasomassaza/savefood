@@ -1,38 +1,58 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
-import BoxItem from '../BoxItem/index.js';
-import boxes from "../../data/boxes.json";
-import {useState} from "react";
+import BoxItemOwner from '../BoxItem/indexowner.js';
 import {useNavigate} from "react-router-dom";
 import {FaEye} from "react-icons/fa";
-import {FaStar, FaMinus, FaPlus} from "react-icons/fa";
 import {MdLocalDining} from "react-icons/md";
 
 import {FaArrowLeft, FaSearch, FaMapMarkerAlt, FaCalendarCheck, FaUserAlt} from "react-icons/fa";
 
 import {UserButton, useUser} from "@clerk/clerk-react";
+import {globalDataBox} from "../GreetingPage/global";
 
 
 function BoxPageVendor() {
     const { user } = useUser();
 
-
-    const box = boxes[window.id]; /*window.id è una variabile globale definita in BoxItem, usata per caricare la box dall'id corretto nella BoxPage*/
+    const [box, setBox] = useState([]);
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        getBox();
+    }, []);
 
-    const [quantity, setQuantity] = useState(1);
+    let userId = null; // Inizializza userId come null
+    let userName = null; // Inizializza userId come null
+    if (user) {
+        userId = user.id; // Assegna il valore solo se user è definito
+        userName = user.primaryEmailAddress.emailAddress;
+        console.log(userId);
+        console.log(userName);
+    }
 
-    const onMinus = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
+
+    let getBox = () => {
+        fetch('http://localhost:8080/api/boxes/getById/'+ globalDataBox.globalBoxId)
+            .then(res => {
+                console.log(res.status);
+                console.log(res.headers);
+                return res.json();
+
+            })
+            .then((result) => {
+                    console.log(result);
+                    setBox(result);
+                    console.log(box);
+                    console.log(box.price);
+                    console.log("questo è l'id della box:" + globalDataBox.globalBoxId);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
     };
 
-    const onPlus = () => {
-        setQuantity(quantity + 1);
-    };
 
     return (
 
@@ -101,7 +121,7 @@ function BoxPageVendor() {
                     <div className="listings-grid1">
                         <div className="listings-col1">
 
-                            <BoxItem box={box}></BoxItem>
+                            <BoxItemOwner box={box}></BoxItemOwner>
 
 
                             <div className="listings-grid-element1">

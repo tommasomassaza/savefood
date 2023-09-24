@@ -219,7 +219,7 @@ function BoxPage() {
                                     <div className="text-title1" onClick={() => {
                                         navigate("/reviews");
                                     }}>
-                                        <h3 class="reviews">La pizzera <MdLocalDining color="gold"></MdLocalDining></h3>
+                                        <h3 class="reviews">{box.name} <MdLocalDining color="gold"></MdLocalDining></h3>
                                     </div>
                                 </div>
 

@@ -1,7 +1,6 @@
 package com.ted.savefood.orderservice.command.api.eventhandler;
 
-import com.ted.savefood.orderservice.command.api.events.OrderCancelledEvent;
-import com.ted.savefood.orderservice.command.api.events.OrderCreatedEvent;
+import com.ted.savefood.orderservice.command.api.events.OrderCompletedEvent;
 import com.ted.savefood.orderservice.common.model.Order;
 import com.ted.savefood.orderservice.common.repository.OrderRepository;
 import org.axonframework.eventhandling.EventHandler;
@@ -15,17 +14,10 @@ public class OrderEventHandler {
     private OrderRepository orderRepository;
 
     @EventHandler
-    public void on(OrderCreatedEvent orderCreatedEvent){
+    public void on(OrderCompletedEvent orderCompletedEvent) {
         Order order = new Order();
-        BeanUtils.copyProperties(orderCreatedEvent,order);
+        BeanUtils.copyProperties(orderCompletedEvent, order);
 
         orderRepository.save(order);
-    }
-
-    @EventHandler
-    public void on(OrderCancelledEvent orderCancelledEvent){
-        Order order = orderRepository.findById(orderCancelledEvent.getOrderId()).get();
-
-        orderRepository.delete(order);
     }
 }

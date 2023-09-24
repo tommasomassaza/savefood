@@ -3,8 +3,10 @@ package com.ted.savefood.shopservice.command.api.aggregate;
 import com.ted.savefood.commonutils.commands.ModifyStarsShopCommand;
 import com.ted.savefood.commonutils.events.ShopStarsModifiedEvent;
 import com.ted.savefood.shopservice.command.api.commands.CancelShopCommand;
+import com.ted.savefood.shopservice.command.api.commands.CompleteCancelShopCommand;
 import com.ted.savefood.shopservice.command.api.commands.CreateShopCommand;
-import com.ted.savefood.shopservice.command.api.events.ShopCancelledEvent;
+import com.ted.savefood.shopservice.command.api.events.ShopCancelCompleteEvent;
+import com.ted.savefood.shopservice.command.api.events.ShopCancelEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -53,15 +55,25 @@ public class ShopAggregate {
     @CommandHandler
     @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
     public void handle(CancelShopCommand cancelShopCommand) {
-        ShopCancelledEvent shopCancelledEvent
-                = new ShopCancelledEvent();
-        BeanUtils.copyProperties(cancelShopCommand, shopCancelledEvent);
+        ShopCancelEvent shopCancelEvent
+                = new ShopCancelEvent();
+        BeanUtils.copyProperties(cancelShopCommand, shopCancelEvent);
 
-        AggregateLifecycle.apply(shopCancelledEvent);
+        AggregateLifecycle.apply(shopCancelEvent);
     }
 
     @EventSourcingHandler
-    public void on(ShopCancelledEvent shopCancelledEvent) {
-        this.shopId = shopCancelledEvent.getShopId();
+    public void on(ShopCancelEvent shopCancelEvent) {
+        this.shopId = shopCancelEvent.getShopId();
+    }
+
+    @CommandHandler
+    public void handle(CompleteCancelShopCommand completeCancelShopCommand) {
+        // Validate the command
+        ShopCancelCompleteEvent shopCancelCompleteEvent
+                = ShopCancelCompleteEvent.builder()
+                .shopId(completeCancelShopCommand.getShopId())
+                .build();
+        AggregateLifecycle.apply(shopCancelCompleteEvent);
     }
 }

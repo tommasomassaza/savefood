@@ -5,9 +5,12 @@ import com.ted.savefood.boxservice.command.api.events.BoxModifiedEvent;
 import com.ted.savefood.boxservice.common.model.Box;
 import com.ted.savefood.boxservice.common.repository.BoxRepository;
 import com.ted.savefood.commonutils.events.BoxQuantityModifiedEvent;
+import com.ted.savefood.commonutils.events.BoxesCancelledByShopIdEvent;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class BoxEventHandler {
@@ -44,6 +47,15 @@ public class BoxEventHandler {
                 box.setQuantity(box.getQuantity() - boxQuantityModifiedEvent.getQuantity());
                 boxRepository.save(box);
             }
+        }
+    }
+
+    @EventHandler
+    public void on(BoxesCancelledByShopIdEvent boxesCancelledByShopIdEvent) {
+        List<Box> boxesToCancel = boxRepository.findAllByShopId(boxesCancelledByShopIdEvent.getShopId());
+
+        for (Box box : boxesToCancel) {
+            boxRepository.deleteById(box.getBoxId());
         }
     }
 }

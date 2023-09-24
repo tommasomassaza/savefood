@@ -161,7 +161,7 @@ function ModifyShop3() {
         <div className="listings1">
             <div className="container1">
                 <div className="header1">
-                    <div className="header-title1">
+                    <div className="options-btn1 selected1 uno">
                         <h2>Le mie Box <FaPlusCircle color="green" onClick={() => {
                             navigate("/vendors/addbox");
                         }}></FaPlusCircle></h2>

@@ -1,6 +1,7 @@
 package com.ted.savefood.shopservice.command.api.eventHandler;
 
 import com.ted.savefood.commonutils.events.ShopStarsModifiedEvent;
+import com.ted.savefood.shopservice.command.api.events.ShopCancelCompleteEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopCreatedEvent;
 import com.ted.savefood.shopservice.common.model.Shop;
 import com.ted.savefood.shopservice.common.repository.ShopRepository;
@@ -35,5 +36,10 @@ public class ShopEventHandler {
 
             shopRepository.save(shop);
         }
+    }
+
+    @EventHandler
+    public void on(ShopCancelCompleteEvent shopCancelCompleteEvent) {
+        shopRepository.deleteById(shopCancelCompleteEvent.getShopId());
     }
 }

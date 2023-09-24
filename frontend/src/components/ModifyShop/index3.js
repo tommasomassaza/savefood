@@ -6,6 +6,7 @@ import { globalData } from "../GreetingPage/global";
 import React, {useEffect, useState} from "react";
 import '../HomePage/HomePage.scss';
 import {UserButton} from "@clerk/clerk-react";
+import Sidebar from "./sidebar";
 
 
 function ModifyShop3() {
@@ -90,7 +91,7 @@ function ModifyShop3() {
 
 
         <header>
-
+            <Sidebar className="barra"></Sidebar>
             <div className="container1">
 
                 <div className="logo1" onClick={() => {
@@ -129,9 +130,6 @@ function ModifyShop3() {
 
 
         <div className="options1">
-            <FaAlignJustify className="optionCell" onclick="openNav()"></FaAlignJustify>
-
-
             <div className="container1">
 
 

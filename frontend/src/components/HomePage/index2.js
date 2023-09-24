@@ -156,11 +156,11 @@ function HomePage2() {
                     navigate("/");
                 }}>
                     <i data-feather="shopping-bag"></i>
-                    <span>Disponibili oggi</span>
+                    <span>Tutte</span>
                 </button>
                 <button className="options-btn1 selected1 due">
                     <i data-feather="watch"></i>
-                    <span>In offerta</span>
+                    <span>Piccole</span>
                 </button>
                 <button className="options-btn1 tre" onClick={() => {
                     navigate("/3");
@@ -177,8 +177,8 @@ function HomePage2() {
             <div className="container1">
                 <div className="header1">
                     <div className="header-title1">
-                        <h2>In offerta</h2>
-                        <span>Box in offerta</span>
+                        <h2>Piccole</h2>
+                        <span>Box più piccole</span>
                     </div>
                     <div className="header-viewOptions1">
 

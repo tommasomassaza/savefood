@@ -32,6 +32,7 @@ const ReservationsPage = () => {
     //console.log(posts)
     const [reservations, setReservations] = useState([]);
 
+
     let userId = null; // Inizializza userId come null
 
     if (user) {
@@ -59,6 +60,7 @@ const ReservationsPage = () => {
     useEffect(() => {
         getReservations();
     }, []);
+
 
     return (
         <body>
@@ -138,13 +140,14 @@ const ReservationsPage = () => {
                     </Row>
                 </Container>
 
-                <Container style={{maxHeight: 500, overflow: 'scroll'}}>
-
-
-                    {reservations.reverse().map(item => (
-                        <ReservationItem reservation={item} key={item.id}></ReservationItem>
+                <Container style={{ maxHeight: 500, overflow: 'scroll' }}>
+                    {[...reservations].reverse().map((item, index) => (
+                        <ReservationItem
+                            reservation={item}
+                            key={item.id}
+                            isLastItem={index === 0} // Cambiato da 'reservations.length - 1' a '0'
+                        ></ReservationItem>
                     ))}
-
                 </Container>
 
             </div>

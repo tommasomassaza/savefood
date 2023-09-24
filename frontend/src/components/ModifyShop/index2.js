@@ -12,7 +12,7 @@ import {
 
 
 import Greeting from "../Greeting";
-
+import Sidebar from "./sidebar";
 
 import React, {useState, useEffect} from "react";
 import '../HomePage/HomePage.scss';
@@ -102,7 +102,7 @@ function ModifyShop2() {
 
 
         <header>
-
+            <Sidebar className="barra"></Sidebar>
             <div className="container1">
                 <Greeting></Greeting>
 
@@ -148,8 +148,6 @@ function ModifyShop2() {
 
 
         <div className="options1">
-            <FaAlignJustify className="optionCell" onclick="openNav()"></FaAlignJustify>
-
 
             <div className="container1">
 

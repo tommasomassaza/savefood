@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom";
-
-
-
 import {FaPen, FaTrashAlt} from "react-icons/fa";
+import {globalDataBox} from "../GreetingPage/global";
 
-window.id = 0;
+
 
 
 // Funzione per convertire una stringa Base64 in un oggetto Blob
@@ -32,8 +30,8 @@ const BoxItemOwner = ({box}) => {
 
     const [imageBlob, setImageBlob] = useState(null); // Stato per l'immagine Blob
 
-    const setIdNew = () => {
-        window.id = box.id - 1
+    const setIdNew = (boxId) => {
+        globalDataBox.globalBoxId = boxId;
     };
 
 
@@ -75,7 +73,7 @@ const BoxItemOwner = ({box}) => {
     return (
 
         <div className="listings-grid-element1">
-            <div className="image1" onClick={() => { navigate("/vendors/box");}}>
+            <div className="image1" onClick={() => { setIdNew(box.boxId); navigate("/vendors/box");}}>
                 {/* Utilizza l'URL dell'immagine Blob */}
                 {imageBlob && <img src={imageBlob} alt="prova" />}
             </div>

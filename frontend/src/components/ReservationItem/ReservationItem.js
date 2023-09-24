@@ -9,14 +9,15 @@ import Button from 'react-bootstrap/Button';
 import {FaTrashAlt} from "react-icons/fa";
 
 
-const ReservationItem = ({reservation}) => {
+const ReservationItem = ({ reservation, isLastItem }) => {
 
     const navigate = useNavigate();
+    const classNames = isLastItem ? "green-reservation" : "";
 
     return (
 
 
-        <Container>
+        <Container className={classNames}>
             <Row>
                 <Col className=".bg-light.bg-gradient p-2 square border border-muted">
                     <h4>Box</h4>{reservation.boxName}

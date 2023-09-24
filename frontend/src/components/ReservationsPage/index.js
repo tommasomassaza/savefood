@@ -139,12 +139,13 @@ const ReservationsPage = () => {
                 </Container>
 
                 <Container style={{maxHeight: 500, overflow: 'scroll'}}>
-
-
-                    {reservations.reverse().map(item => (
-                        <ReservationItem reservation={item} key={item.id}></ReservationItem>
+                    {reservations.reverse().map((item, index) => (
+                        <ReservationItem
+                            reservation={item}
+                            key={item.id}
+                            className={index === 0 ? 'green-reservation' : ''} // Aggiungi la classe solo all'ultimo elemento
+                        ></ReservationItem>
                     ))}
-
                 </Container>
 
             </div>

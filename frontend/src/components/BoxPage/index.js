@@ -25,12 +25,20 @@ import Sidebar from "../HomePage/sidebar";
 
 function BoxPage() {
 
-
-
     const navigate = useNavigate();
 
     //console.log(posts)
     const [box, setBox] = useState([]);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+
+    const handleConfirmation = () => {
+        setShowConfirmation(true);
+        setTimeout(() => {
+            setShowConfirmation(false);
+            navigate('/reservations');
+        }, 1500); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
+
+    };
 
     useEffect(() => {
         getBox();
@@ -259,12 +267,18 @@ function BoxPage() {
                                     </button>
                                     <button className="options-btn1 prenota1" onClick={() => {
                                         postOrdine();
-                                        //navigate("/payment");
+                                        handleConfirmation(); // Chiamiamo handleConfirmation dopo aver eseguito l'azione desiderata
+
                                     }}>
                                         <span>Prenota</span>
                                     </button>
 
                                 </div>
+                                {showConfirmation && (
+                                    <div className="confirmation-message">
+                                        La box è stata aggiunta con successo
+                                    </div>
+                                )}
                             </div>
 
 

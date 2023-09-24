@@ -145,13 +145,13 @@ function HomePage3() {
                     navigate("/");
                 }}>
                     <i data-feather="shopping-bag"></i>
-                    <span>Disponibili oggi</span>
+                    <span>Tutte</span>
                 </button>
                 <button className="options-btn1 due" onClick={() => {
                     navigate("/2");
                 }}>
                     <i data-feather="watch"></i>
-                    <span>In offerta</span>
+                    <span>Piccole</span>
                 </button>
                 <button className="options-btn1 selected1 tre">
                     <i data-feather="watch"></i>

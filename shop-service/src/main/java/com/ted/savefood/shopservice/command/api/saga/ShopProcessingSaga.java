@@ -1,8 +1,8 @@
 package com.ted.savefood.shopservice.command.api.saga;
 
-import com.ted.savefood.commonutils.commands.CancelBoxesByShopIdCommand;
 import com.ted.savefood.commonutils.events.BoxesCancelledByShopIdEvent;
 import com.ted.savefood.shopservice.command.api.commands.AnnulCancelShopCommand;
+import com.ted.savefood.shopservice.command.api.commands.CancelBoxesByShopIdCommand;
 import com.ted.savefood.shopservice.command.api.commands.CompleteCancelShopCommand;
 import com.ted.savefood.shopservice.command.api.events.ShopCancelAnnulEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopCancelCompleteEvent;
@@ -28,7 +28,7 @@ public class ShopProcessingSaga {
     @StartSaga
     @SagaEventHandler(associationProperty = "shopId")
     private void handle(ShopCancelEvent shopCancelEvent) {
-        log.info("CancelShopCommand in Saga for Shop Id : {}", shopCancelEvent.getShopId());
+        log.info("ShopCancelEvent in Saga for Shop Id : {}", shopCancelEvent.getShopId());
 
         try {
             CancelBoxesByShopIdCommand cancelBoxesByShopIdCommand =

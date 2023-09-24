@@ -1,7 +1,9 @@
 package com.ted.savefood.shopservice.command.api.aggregate;
 
 import com.ted.savefood.commonutils.commands.ModifyStarsShopCommand;
+import com.ted.savefood.commonutils.events.BoxesCancelledByShopIdEvent;
 import com.ted.savefood.commonutils.events.ShopStarsModifiedEvent;
+import com.ted.savefood.shopservice.command.api.commands.CancelBoxesByShopIdCommand;
 import com.ted.savefood.shopservice.command.api.commands.CancelShopCommand;
 import com.ted.savefood.shopservice.command.api.commands.CompleteCancelShopCommand;
 import com.ted.savefood.shopservice.command.api.commands.CreateShopCommand;
@@ -75,5 +77,13 @@ public class ShopAggregate {
                 .shopId(completeCancelShopCommand.getShopId())
                 .build();
         AggregateLifecycle.apply(shopCancelCompleteEvent);
+    }
+
+    @CommandHandler
+    public void handle(CancelBoxesByShopIdCommand cancelBoxesByShopIdCommand) {
+        BoxesCancelledByShopIdEvent boxesCancelledByShopIdEvent = new BoxesCancelledByShopIdEvent();
+        BeanUtils.copyProperties(cancelBoxesByShopIdCommand, boxesCancelledByShopIdEvent);
+
+        AggregateLifecycle.apply(boxesCancelledByShopIdEvent);
     }
 }

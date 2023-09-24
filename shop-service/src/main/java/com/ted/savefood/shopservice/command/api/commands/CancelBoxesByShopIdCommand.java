@@ -1,4 +1,4 @@
-package com.ted.savefood.commonutils.commands;
+package com.ted.savefood.shopservice.command.api.commands;
 
 import lombok.Builder;
 import lombok.Data;

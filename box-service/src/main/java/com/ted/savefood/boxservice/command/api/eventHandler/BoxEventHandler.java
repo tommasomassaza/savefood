@@ -1,5 +1,6 @@
 package com.ted.savefood.boxservice.command.api.eventHandler;
 
+import com.ted.savefood.boxservice.command.api.events.BoxCancelledEvent;
 import com.ted.savefood.boxservice.command.api.events.BoxCreatedEvent;
 import com.ted.savefood.boxservice.command.api.events.BoxModifiedEvent;
 import com.ted.savefood.boxservice.common.model.Box;
@@ -34,6 +35,11 @@ public class BoxEventHandler {
         BeanUtils.copyProperties(boxModifiedEvent, box);
 
         boxRepository.save(box);
+    }
+
+    @EventHandler
+    public void on(BoxCancelledEvent boxCancelledEvent) {
+        boxRepository.deleteById(boxCancelledEvent.getBoxId());
     }
 
     @EventHandler

@@ -10,11 +10,34 @@ import { UserButton, useUser } from '@clerk/clerk-react';
 import Sidebar from '../HomePage/sidebar';
 import { globalData } from '../GreetingPage/global';
 
+
+// Funzione per convertire una stringa Base64 in un oggetto Blob
+function base64ToBlob(base64String, contentType) {
+    const byteCharacters = atob(base64String);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        const slice = byteCharacters.slice(offset, offset + 512);
+
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, { type: contentType });
+}
+
+
 function ReviewsPage() {
     const { user } = useUser();
 
     const [reviewText, setReviewText] = useState('');
     const [selectedStars, setSelectedStars] = useState(0);
+    const [imageBlob, setImageBlob] = useState(null); // Stato per l'immagine Blob
 
     const navigate = useNavigate();
 
@@ -111,6 +134,14 @@ function ReviewsPage() {
         getShopById();
     }, []);
 
+    // Effettua la conversione dell'immagine quando il componente viene montato
+    useEffect(() => {
+        if (shop.image) {
+            const blob = base64ToBlob(shop.image, "image/jpeg"); // Cambia il tipo MIME in base al tuo tipo di immagine
+            setImageBlob(URL.createObjectURL(blob));
+        }
+    }, [shop.image]);
+
     return (
         <body>
         <header>
@@ -185,10 +216,10 @@ function ReviewsPage() {
                                 style={{ overflow: 'auto' }}
                             >
                                 <div className="image3">
-                                    <img
-                                        src={require('../../data/sushi2.jpg')}
-                                        alt="Listing pic"
-                                    />
+
+                                        {/* Utilizza l'URL dell'immagine Blob */}
+                                        {imageBlob && <img src={imageBlob} alt="prova" />}
+
                                 </div>
                                 <div className="text2">
                                     <div className="text-title1">
@@ -243,7 +274,7 @@ function ReviewsPage() {
                                             <span className="circle1">4.2</span>
                                         </div>
                                         <div className="info1">
-                                            <h11>11 utenti hanno recensito questo locale</h11>
+                                            <h7><strong>{shopsReviews.length}</strong> utenti hanno recensito questo locale</h7>
                                         </div>
                                     </div>
                                 </div>

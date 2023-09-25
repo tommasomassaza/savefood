@@ -9,9 +9,6 @@ export const globalCityShop = {
     globalCityShop: null,
 };
 
-
-
-
 //globali Box
 export const globalDataBox = {
     globalBoxId: null,

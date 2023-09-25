@@ -1,13 +1,11 @@
 package com.ted.savefood.orderservice.command.api.controller;
 
+import com.ted.savefood.orderservice.command.api.commands.CancelOrderCommand;
 import com.ted.savefood.orderservice.command.api.commands.CreateOrderCommand;
 import com.ted.savefood.orderservice.common.modelDto.OrderDto;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -31,5 +29,13 @@ public class OrderCommandController {
         String ret = commandGateway.sendAndWait(createOrderCommand);
 
         return ret;
+    }
+
+    @DeleteMapping("{orderId}")
+    public String deleteOrder(@PathVariable String orderId) {
+        CancelOrderCommand cancelOrderCommand = new CancelOrderCommand(orderId);
+
+        String result = commandGateway.sendAndWait(cancelOrderCommand);
+        return result;
     }
 }

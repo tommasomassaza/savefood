@@ -11,6 +11,8 @@ function NegozioPage() {
     const [allImage, setAllImage] = useState([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const [imagePreview, setImagePreview] = useState('');
+
 
     let userId = null; // Inizializza userId come null
 
@@ -41,10 +43,13 @@ function NegozioPage() {
             const byteArray = new Uint8Array(arrayBuffer);
 
             setImage(byteArray); // Salva l'immagine come array di byte
+            setImagePreview(URL.createObjectURL(file)); // Imposta l'anteprima dell'immagine
         };
 
         reader.readAsArrayBuffer(file);
     };
+
+
 
     const handleConfirmation = () => {
         setShowConfirmation(true);
@@ -229,8 +234,8 @@ function NegozioPage() {
                                         onChange={convertToByteArray}
                                         required
                                     />
-                                    {image === '' || image === null ? '' : (
-                                        <img width={100} height={100} src={image} alt="Uploaded" />
+                                    {imagePreview && (
+                                        <img width={100} height={100} src={imagePreview} alt="Preview" />
                                     )}
                                 </div>
                                 <br />

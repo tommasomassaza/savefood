@@ -79,7 +79,7 @@ const ShoptItemOwner = ({ shop }) => {
                         margin-left="2rem"
                         onClick={() => deleteshop(shop.shopId)}
                     />
-                    <FaPen color="#034694" />
+                    <FaPen color="#034694" onClick={() => { setIdNew(shop.shopId,shop.city); navigate("/vendors/modifyshop"); }}/>
                     <div className="info1">
             <span>
               Città: {shop.city} | Indirizzo: {shop.address} | Telefono: {shop.telephoneNumber}

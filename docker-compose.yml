@@ -2,6 +2,19 @@
 version: '3.8'
 services:
 
+  # Axon Server for event store
+  axon-server:
+    image: axoniq/axonserver:latest-dev
+    hostname: axon-server
+    volumes:
+      - axonserver-data:/axonserver/data
+      - axonserver-events:/axonserver/eventdata
+      - ./axonserver_config/axonserver.properties:/axonserver/config/axonserver.properties
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+
+
   # Eureka Discovery Server
   discovery-server:
     container_name: discovery-server
@@ -35,6 +48,7 @@ services:
       - discovery-server
       - axon-server
       - postgres-order
+
 
   # Postgres for order
   postgres-order:
@@ -116,20 +130,6 @@ services:
     volumes:
       - box-db-data:/data/postgres
     restart: unless-stopped
-
-
-  # Axon Server for event store
-  axon-server:
-    image: axoniq/axonserver:latest-dev
-    hostname: axon-server
-    volumes:
-      - axonserver-data:/axonserver/data
-      - axonserver-events:/axonserver/eventdata
-      - axonserver-config:/axonserver/config
-    ports:
-      - '8024:8024'
-      - '8124:8124'
-
 
 
 # Volumes for Axon and Postgres

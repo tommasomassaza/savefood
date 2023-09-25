@@ -8,12 +8,36 @@ import { FaHome, FaCalendarCheck } from 'react-icons/fa';
 import { UserButton, useUser } from '@clerk/clerk-react';
 
 import Sidebar from '../HomePage/sidebar';
-import { globalData, globalDataBox } from '../GreetingPage/global';
+import { globalData } from '../GreetingPage/global';
+
+
+// Funzione per convertire una stringa Base64 in un oggetto Blob
+function base64ToBlob(base64String, contentType) {
+    const byteCharacters = atob(base64String);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        const slice = byteCharacters.slice(offset, offset + 512);
+
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, { type: contentType });
+}
+
 
 function ReviewsPage() {
     const { user } = useUser();
 
     const [reviewText, setReviewText] = useState('');
+    const [selectedStars, setSelectedStars] = useState(0);
+    const [imageBlob, setImageBlob] = useState(null); // Stato per l'immagine Blob
 
     const navigate = useNavigate();
 
@@ -32,11 +56,11 @@ function ReviewsPage() {
     const postReview = () => {
         // Effettua una richiesta HTTP POST al server con il testo della recensione
         const requestBody = {
-            shopId: globalData.globalShopsId,
+            shopId: globalData.getGlobalShopsId(),
             userId: userId,
             userName: userName,
             description:  reviewText,
-            stars: "1"
+            stars: selectedStars
             // Altri campi necessari, se presenti
         };
 
@@ -65,7 +89,7 @@ function ReviewsPage() {
     };
 
     let getShopReview = () => {
-        fetch('http://localhost:8080/api/reviews/' + globalData.globalShopsId)
+        fetch('http://localhost:8080/api/reviews/' + globalData.getGlobalShopsId())
             .then((res) => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -83,7 +107,7 @@ function ReviewsPage() {
     };
 
     let getShopById = () => {
-        fetch('http://localhost:8080/api/shops/getById/' + globalData.globalShopsId)
+        fetch('http://localhost:8080/api/shops/getById/' + globalData.getGlobalShopsId())
             .then((res) => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -100,10 +124,23 @@ function ReviewsPage() {
             );
     };
 
+    const handleStarClick = (star) => {
+        // Imposta il numero di stelle selezionate quando un utente clicca su una stella
+        setSelectedStars(star);
+    };
+
     useEffect(() => {
         getShopReview();
         getShopById();
     }, []);
+
+    // Effettua la conversione dell'immagine quando il componente viene montato
+    useEffect(() => {
+        if (shop.image) {
+            const blob = base64ToBlob(shop.image, "image/jpeg"); // Cambia il tipo MIME in base al tuo tipo di immagine
+            setImageBlob(URL.createObjectURL(blob));
+        }
+    }, [shop.image]);
 
     return (
         <body>
@@ -179,10 +216,10 @@ function ReviewsPage() {
                                 style={{ overflow: 'auto' }}
                             >
                                 <div className="image3">
-                                    <img
-                                        src={require('../../data/sushi2.jpg')}
-                                        alt="Listing pic"
-                                    />
+
+                                        {/* Utilizza l'URL dell'immagine Blob */}
+                                        {imageBlob && <img src={imageBlob} alt="prova" />}
+
                                 </div>
                                 <div className="text2">
                                     <div className="text-title1">
@@ -237,14 +274,14 @@ function ReviewsPage() {
                                             <span className="circle1">4.2</span>
                                         </div>
                                         <div className="info1">
-                                            <h11>11 utenti hanno recensito questo locale</h11>
+                                            <h7><strong>{shopsReviews.length}</strong> utenti hanno recensito questo locale</h7>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label class="labelp" for="inputRecensione">
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <label className="labelp" htmlFor="inputRecensione">
                                             Dacci il tuo feedback!
                                         </label>
                                         <input
@@ -259,21 +296,40 @@ function ReviewsPage() {
                                             onChange={(e) => setReviewText(e.target.value)}
                                         />
                                     </div>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary #198754 bg-success border-success"
-                                        onClick={postReview}
-                                    >
-                                        Invia
-                                    </button>
+
+                                    <div className="text2" ><div className="text-title1">
+                                    <div className="rating-container">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <FaStar
+                                                key={star}
+                                                color={star <= selectedStars ? '#4FFFB0' : '#e4e5e9'}
+                                                className="star"
+                                                onMouseEnter={() => handleStarClick(star)}
+                                                onClick={() => handleStarClick(star)}
+                                            />
+                                        ))} <br></br>
+                                            <br></br>
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary #198754 bg-success border-success"
+                                            onClick={postReview}
+                                        >
+                                            Invia
+                                        </button>
+                                    </div></div>
+                                    </div>
+
+
                                 </div>
 
                                 {shopsReviews.map((review, index) => (
                                     <div className="text2" key={index}>
                                         <div className="text-title1">
                                             <h4>
-                                                {review.userName}: {review.rating}{' '}
-                                                <FaStar color="#4FFFB0"></FaStar>
+                                                {review.userName}:{' '}
+                                                {Array.from({ length: review.stars }).map((_, starIndex) => (
+                                                    <FaStar key={starIndex} color="#4FFFB0" />
+                                                ))}
                                             </h4>
                                             <div className="info1">
                                                 <span> {review.description} </span>

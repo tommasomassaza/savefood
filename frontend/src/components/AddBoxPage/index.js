@@ -3,7 +3,7 @@ import boxes from "../../data/boxes.json";
 import {useNavigate} from "react-router-dom";
 import { globalData,globalCityShop } from "../GreetingPage/global";
 import Greeting from "../Greeting";
-import {FaArrowLeft, FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
+import {FaArrowLeft, FaCalendarCheck, FaHome} from "react-icons/fa";
 
 
 
@@ -32,13 +32,13 @@ function AddBoxPage() {
 
 
     const [formData, setFormData] = useState({
-        shopId: globalData.globalShopsId, //da passare
+        shopId: globalData.getGlobalShopsId(), //da passare
         name: "",
         description: "",
         price: "",
         size: "",
         pickUpTime: "",
-        city: globalCityShop.globalCityShop, //da passare
+        city: globalCityShop.getGlobalCityShop(), //da passare
         quantity: "",
         image: image,
         // Aggiungi altri campi del form qui se necessario
@@ -67,7 +67,7 @@ function AddBoxPage() {
             ...formData,
             [name]: value,
         });
-        console.log("l'id in addbox:"+globalData.globalShopsId);
+        console.log("l'id in addbox:"+globalData.getGlobalShopsId());
         console.log("l'id in form:"+formData.shopId);
     };
 

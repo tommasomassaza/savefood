@@ -4,12 +4,18 @@ import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import HomePage from './components/HomePage/index.js';
 import HomePage2 from './components/HomePage/index2.js';
 import HomePage3 from './components/HomePage/index3.js';
+import HomePage4 from './components/HomePage/index4.js';
+import HomePage5 from './components/HomePage/index5.js';
+import HomePage6 from './components/HomePage/index6.js';
+import HomePage7 from './components/HomePage/index7.js';
 
 import BoxPage from './components/BoxPage/index.js';
 import ReservationsPage from './components/ReservationsPage/index.js';
 import NegozioPage from './components/NegozioPage/index.js';
 import ModifyShop2 from './components/ModifyShop/index2.js';
 import ModifyShop3 from './components/ModifyShop/index3.js';
+import ModifyNegozio from "./components/ModifyNegozio";
+import ModifyBox from "./components/ModifyBox";
 import ReviewsPage from './components/ReviewsPage/index.js';
 import AddBoxPage from './components/AddBoxPage/index.js';
 import ReviewsVendors from './components/ReviewsVendors/index.js';
@@ -20,7 +26,6 @@ import {ClerkProvider, SignedIn, SignedOut,RedirectToSignIn,SignIn,SignUp} from 
 import './components/HomePage/selection.js';
 import GreetingPage from './components/GreetingPage/index.js';
 import AccessPage from './components/Access/index.js';
-import { useUser } from '@clerk/clerk-react';
 import SignUpCustom from './components/SignUp/SignUpCustom.tsx';
 
 
@@ -131,6 +136,51 @@ function App() {
           </>
           }
         />
+
+            <Route path="/4" element={ <>
+                <SignedIn>
+                    <HomePage4 />
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn />
+                </SignedOut>
+            </>
+            }
+            />
+
+            <Route path="/5" element={ <>
+                <SignedIn>
+                    <HomePage5 />
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn />
+                </SignedOut>
+            </>
+            }
+            />
+
+            <Route path="/6" element={ <>
+                <SignedIn>
+                    <HomePage6 />
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn />
+                </SignedOut>
+            </>
+            }
+            />
+
+            <Route path="/7" element={ <>
+                <SignedIn>
+                    <HomePage7 />
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn />
+                </SignedOut>
+            </>
+            }
+            />
+
                     <Route path="/reservations"  element={ <>
             <SignedIn>
               <ReservationsPage />
@@ -191,6 +241,16 @@ function App() {
           </>
           }
         />
+            <Route path="/vendors/modifybox" element={ <>
+                <SignedIn>
+                    <ModifyBox />
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn />
+                </SignedOut>
+            </>
+            }
+            />
                     <Route path="/vendors/addshop" element={ <>
             <SignedIn>
               <NegozioPage />
@@ -201,6 +261,16 @@ function App() {
           </>
           }
         />
+            <Route path="/vendors/modifyshop" element={ <>
+                <SignedIn>
+                    <ModifyNegozio />
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn />
+                </SignedOut>
+            </>
+            }
+            />
                     <Route path="/vendors/box" element={ <>
             <SignedIn>
               <BoxPageVendor />

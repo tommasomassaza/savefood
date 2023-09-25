@@ -45,7 +45,7 @@ function BoxPage() {
     }, []);
 
     const { user } = useUser();
-    console.log("questo è il nome: " + globalBoxName.globalName)
+    console.log("questo è il nome: " + globalBoxName.getGlobalName())
 
     let userId = null; // Inizializza userId come null
     let userName = null; // Inizializza userId come null
@@ -58,7 +58,7 @@ function BoxPage() {
 
 
     let getBox = () => {
-        fetch('http://localhost:8080/api/boxes/getById/'+ globalDataBox.globalBoxId)
+        fetch('http://localhost:8080/api/boxes/getById/'+ globalDataBox.getGlobalBoxId())
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -70,7 +70,7 @@ function BoxPage() {
                     setBox(result);
                     console.log(box);
                     console.log(box.price);
-                    console.log("questo è l'id della box:" + globalDataBox.globalBoxId);
+                    console.log("questo è l'id della box:" + globalDataBox.getGlobalBoxId());
                 },
                 (error) => {
                     console.log(error);
@@ -81,14 +81,14 @@ function BoxPage() {
     let postOrdine = () => {
         // Crea un oggetto con i dati da inviare
         const dataToSend = {
-            boxId: globalDataBox.globalBoxId,
-            boxName: globalBoxName.globalName,
+            boxId: globalDataBox.getGlobalBoxId(),
+            boxName: globalBoxName.getGlobalName(),
             userId: userId,
             userName: userName,
-            shopId: globalBoxShopId.globalBoxShopId,
-            quantity:globalBoxQuantity.globalBoxQuantity,
-            price: globalBoxPrice.globalPrice,
-            pickUpTime: globalBoxPickUpTime.globalPickUpTime
+            shopId: globalBoxShopId.getGlobalBoxShopId(),
+            quantity:globalBoxQuantity.getGlobalBoxQuantity(),
+            price: globalBoxPrice.getGlobalPrice(),
+            pickUpTime: globalBoxPickUpTime.getGlobalPickUpTime()
         };
 
         // Invia dataToSend al tuo backend
@@ -112,20 +112,20 @@ function BoxPage() {
 
 
     const setShopId = (shopId) => {
-        globalData.globalShopsId = shopId; // Utilizza la funzione di impostazione
+        globalData.setGlobalShopsId(shopId); // Utilizza la funzione di impostazione
     };
 
 
 
 
     const [quantity, setQuantity] = useState(1);
-    globalBoxQuantity.globalBoxQuantity = quantity
+    globalBoxQuantity.setGlobalBoxQuantity(quantity);
 
     const onMinus = () => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
-            globalBoxQuantity.globalBoxQuantity = quantity-1;
-            globalBoxPrice.globalPrice = box.price*quantity;
+            globalBoxQuantity.setGlobalBoxQuantity(quantity-1);
+            globalBoxPrice.setGlobalPrice(box.price*quantity-1);
         }
     };
 
@@ -134,8 +134,8 @@ function BoxPage() {
         console.log("sono qui:"+box.quantity);
         if(quantity < box.quantity ){
         setQuantity(quantity + 1);
-        globalBoxQuantity.globalBoxQuantity = quantity+1;
-        globalBoxPrice.globalPrice = box.price*quantity;
+            globalBoxQuantity.setGlobalBoxQuantity(quantity+1);
+            globalBoxPrice.setGlobalPrice(box.price*quantity+1);
 
         }
     };

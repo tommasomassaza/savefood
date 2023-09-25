@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom";
 import {FaPen, FaTrashAlt} from "react-icons/fa";
-import {globalDataBox} from "../GreetingPage/global";
+import {globalDataBox, globalData} from "../GreetingPage/global";
 
 
 
@@ -30,8 +30,9 @@ const BoxItemOwner = ({box}) => {
 
     const [imageBlob, setImageBlob] = useState(null); // Stato per l'immagine Blob
 
-    const setIdNew = (boxId) => {
-        globalDataBox.globalBoxId = boxId;
+    const setIdNew = (boxId, shopId) => {
+        globalDataBox.setGlobalBoxId(boxId);
+        globalData.setGlobalShopsId(shopId);
     };
 
 
@@ -73,7 +74,7 @@ const BoxItemOwner = ({box}) => {
     return (
 
         <div className="listings-grid-element1">
-            <div className="image1" onClick={() => { setIdNew(box.boxId); navigate("/vendors/box");}}>
+            <div className="image1" onClick={() => { setIdNew(box.boxId, box.shopId); navigate("/vendors/box");}}>
                 {/* Utilizza l'URL dell'immagine Blob */}
                 {imageBlob && <img src={imageBlob} alt="prova" />}
             </div>
@@ -81,9 +82,9 @@ const BoxItemOwner = ({box}) => {
                 <div className="text-title1">
                     <h3>{box.name}</h3>
 
-                    <FaTrashAlt className="icons1" color="red" margin-left="2rem" onClick={() => { deleteBox(box.boxId); navigate('/vendors/homepage2'); navigate(0)}}/>
+                    <FaTrashAlt className="icons1" color="red" margin-left="2rem" onClick={() => { deleteBox(box.boxId); navigate('/vendors/homepage2');}}/>
 
-                    <FaPen color="#034694"/>
+                    <FaPen color="#034694" onClick={() => { setIdNew(box.boxId,box.shopId); navigate('/vendors/modifybox');}}/>
 
 
                     <div className="info1">

@@ -81,7 +81,7 @@ const BoxItemOwner = ({box}) => {
                 <div className="text-title1">
                     <h3>{box.name}</h3>
 
-                    <FaTrashAlt className="icons1" color="red" margin-left="2rem" onClick={() => deleteBox(box.boxId)}/>
+                    <FaTrashAlt className="icons1" color="red" margin-left="2rem" onClick={() => { deleteBox(box.boxId); navigate('/vendors/homepage2'); navigate(0)}}/>
 
                     <FaPen color="#034694"/>
 

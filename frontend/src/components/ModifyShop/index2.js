@@ -156,6 +156,14 @@ function ModifyShop2() {
                     <i data-feather="shopping-bag"></i>
                     <span>I miei locali</span>
                 </button>
+
+                <button className="options-btn1 uno" onClick={() => {
+                    navigate("/vendors/homepage2")
+                }}>
+                    <i data-feather="shopping-bag"></i>
+                    <span>Le mie box</span>
+                </button>
+
                 <div className="searchBar2">
                     <FaSearch></FaSearch>
                     <input className="searchQueryInput2" type="text" placeholder="Cerca Box..." onChange={event => {
@@ -174,7 +182,7 @@ function ModifyShop2() {
         <div className="listings1">
             <div className="container1">
                 <div className="header1">
-                    <div className="header-title1">
+                    <div className="options-btn1 selected1 uno">
                         <h2>I miei Locali <FaPlusCircle color="green" onClick={() => {
                             navigate("/vendors/addshop");
                         }}></FaPlusCircle></h2>

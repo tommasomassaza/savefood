@@ -14,6 +14,7 @@ function ReviewsPage() {
     const { user } = useUser();
 
     const [reviewText, setReviewText] = useState('');
+    const [selectedStars, setSelectedStars] = useState(0);
 
     const navigate = useNavigate();
 
@@ -36,7 +37,7 @@ function ReviewsPage() {
             userId: userId,
             userName: userName,
             description:  reviewText,
-            stars: "1"
+            stars: selectedStars
             // Altri campi necessari, se presenti
         };
 
@@ -98,6 +99,11 @@ function ReviewsPage() {
                     console.log(error);
                 }
             );
+    };
+
+    const handleStarClick = (star) => {
+        // Imposta il numero di stelle selezionate quando un utente clicca su una stella
+        setSelectedStars(star);
     };
 
     useEffect(() => {
@@ -242,9 +248,9 @@ function ReviewsPage() {
                                     </div>
                                 </div>
 
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label class="labelp" for="inputRecensione">
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <label className="labelp" htmlFor="inputRecensione">
                                             Dacci il tuo feedback!
                                         </label>
                                         <input
@@ -259,21 +265,40 @@ function ReviewsPage() {
                                             onChange={(e) => setReviewText(e.target.value)}
                                         />
                                     </div>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary #198754 bg-success border-success"
-                                        onClick={postReview}
-                                    >
-                                        Invia
-                                    </button>
+
+                                    <div className="text2" ><div className="text-title1">
+                                    <div className="rating-container">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <FaStar
+                                                key={star}
+                                                color={star <= selectedStars ? '#4FFFB0' : '#e4e5e9'}
+                                                className="star"
+                                                onMouseEnter={() => handleStarClick(star)}
+                                                onClick={() => handleStarClick(star)}
+                                            />
+                                        ))} <br></br>
+                                            <br></br>
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary #198754 bg-success border-success"
+                                            onClick={postReview}
+                                        >
+                                            Invia
+                                        </button>
+                                    </div></div>
+                                    </div>
+
+
                                 </div>
 
                                 {shopsReviews.map((review, index) => (
                                     <div className="text2" key={index}>
                                         <div className="text-title1">
                                             <h4>
-                                                {review.userName}: {review.rating}{' '}
-                                                <FaStar color="#4FFFB0"></FaStar>
+                                                {review.userName}:{' '}
+                                                {Array.from({ length: review.stars }).map((_, starIndex) => (
+                                                    <FaStar key={starIndex} color="#4FFFB0" />
+                                                ))}
                                             </h4>
                                             <div className="info1">
                                                 <span> {review.description} </span>

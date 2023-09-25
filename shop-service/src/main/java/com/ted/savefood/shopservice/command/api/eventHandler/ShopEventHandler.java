@@ -29,7 +29,8 @@ public class ShopEventHandler {
     public void on(ShopStarsModifiedEvent shopStarsModifiedEvent) {
         Shop shop = shopRepository.findById(shopStarsModifiedEvent.getShopId()).orElse(null);
         if (shop != null) {
-            float mean = ((shop.getStars() * shop.getNumberOfReviews()) + shopStarsModifiedEvent.getStars()) / shop.getNumberOfReviews() + 1;
+            float mean = ((shop.getStars() * shop.getNumberOfReviews()) + shopStarsModifiedEvent.getStars()) / (shop.getNumberOfReviews() + 1);
+
 
             shop.setNumberOfReviews(shop.getNumberOfReviews() + 1);
             shop.setStars(mean);

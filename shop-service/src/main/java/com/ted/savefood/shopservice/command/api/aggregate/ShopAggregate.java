@@ -3,13 +3,11 @@ package com.ted.savefood.shopservice.command.api.aggregate;
 import com.ted.savefood.commonutils.commands.ModifyStarsShopCommand;
 import com.ted.savefood.commonutils.events.BoxesCancelledByShopIdEvent;
 import com.ted.savefood.commonutils.events.ShopStarsModifiedEvent;
-import com.ted.savefood.shopservice.command.api.commands.CancelBoxesByShopIdCommand;
-import com.ted.savefood.shopservice.command.api.commands.CancelShopCommand;
-import com.ted.savefood.shopservice.command.api.commands.CompleteCancelShopCommand;
-import com.ted.savefood.shopservice.command.api.commands.CreateShopCommand;
+import com.ted.savefood.shopservice.command.api.commands.*;
 import com.ted.savefood.shopservice.command.api.events.ShopCancelCompleteEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopCancelEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopCreatedEvent;
+import com.ted.savefood.shopservice.command.api.events.ShopModifiedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateCreationPolicy;
@@ -67,6 +65,21 @@ public class ShopAggregate {
     @EventSourcingHandler
     public void on(ShopCancelEvent shopCancelEvent) {
         this.shopId = shopCancelEvent.getShopId();
+    }
+
+    @CommandHandler
+    @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
+    public void handle(ModifyShopCommand modifyShopCommand) {
+        ShopModifiedEvent shopModifiedEvent
+                = new ShopModifiedEvent();
+        BeanUtils.copyProperties(modifyShopCommand, shopModifiedEvent);
+
+        AggregateLifecycle.apply(shopModifiedEvent);
+    }
+
+    @EventSourcingHandler
+    public void on(ShopModifiedEvent shopModifiedEvent) {
+        this.shopId = shopModifiedEvent.getShopId();
     }
 
     @CommandHandler

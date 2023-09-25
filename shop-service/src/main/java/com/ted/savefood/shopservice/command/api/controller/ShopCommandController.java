@@ -2,6 +2,7 @@ package com.ted.savefood.shopservice.command.api.controller;
 
 import com.ted.savefood.shopservice.command.api.commands.CancelShopCommand;
 import com.ted.savefood.shopservice.command.api.commands.CreateShopCommand;
+import com.ted.savefood.shopservice.command.api.commands.ModifyShopCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,6 +52,38 @@ public class ShopCommandController {
         }
 
         String result = commandGateway.sendAndWait(createShopCommand);
+        return result;
+    }
+
+    @PutMapping
+    public String modifyShop(
+            @RequestParam("shopId") String shopId,
+            @RequestParam("sellerId") String sellerId,
+            @RequestParam("name") String name,
+            @RequestParam("city") String city,
+            @RequestParam("address") String address,
+            @RequestParam("description") String description,
+            @RequestParam("telephonNumber") String telephonNumber,
+            @RequestParam("image") MultipartFile imageFile
+    ) {
+        ModifyShopCommand modifyShopCommand = new ModifyShopCommand();
+
+        modifyShopCommand.setShopId(shopId);
+        modifyShopCommand.setSellerId(sellerId);
+        modifyShopCommand.setName(name);
+        modifyShopCommand.setCity(city);
+        modifyShopCommand.setAddress(address);
+        modifyShopCommand.setDescription(description);
+        modifyShopCommand.setTelephoneNumber(telephonNumber);
+
+        try {
+            byte[] imageBytes = imageFile.getBytes();
+            modifyShopCommand.setImage(imageBytes);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String result = commandGateway.sendAndWait(modifyShopCommand);
         return result;
     }
 

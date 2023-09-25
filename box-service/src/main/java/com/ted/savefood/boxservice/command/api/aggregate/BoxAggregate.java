@@ -21,7 +21,6 @@ import org.springframework.beans.BeanUtils;
 public class BoxAggregate {
     @AggregateIdentifier
     private String boxId;
-
     public BoxAggregate() {}
 
     @CommandHandler
@@ -53,10 +52,9 @@ public class BoxAggregate {
 
     @CommandHandler
     @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
-    public void handle(ModifyQuantityBoxCommand modifyQuantityBoxCommand) {
+    public void handle(ModifyQuantityBoxCommand modifyQuantityBoxCommand) throws Exception {
         BoxQuantityModifiedEvent boxQuantityModifiedEvent = new BoxQuantityModifiedEvent();
         BeanUtils.copyProperties(modifyQuantityBoxCommand, boxQuantityModifiedEvent);
-
         AggregateLifecycle.apply(boxQuantityModifiedEvent);
     }
 

@@ -15,16 +15,21 @@ import org.axonframework.modelling.saga.StartSaga;
 import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+
 @Saga
 @Slf4j
 public class OrderProcessingSaga {
-
     @Autowired
     private transient CommandGateway commandGateway;
 
+    private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+    private ScheduledFuture<?> sagaTimeout;
+
     public OrderProcessingSaga() {
     }
-
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
     private void handle(OrderCreatedEvent orderCreatedEvent) {
@@ -40,7 +45,7 @@ public class OrderProcessingSaga {
             commandGateway.send(modifyQuantityBoxCommand);
 
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("Ciaooo0903894732598   " + e.getMessage());
 
             // Start the compensating transaction
             cancelOrderCommand(orderCreatedEvent.getOrderId());

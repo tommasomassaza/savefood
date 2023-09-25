@@ -3,6 +3,7 @@ package com.ted.savefood.shopservice.command.api.eventHandler;
 import com.ted.savefood.commonutils.events.ShopStarsModifiedEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopCancelCompleteEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopCreatedEvent;
+import com.ted.savefood.shopservice.command.api.events.ShopModifiedEvent;
 import com.ted.savefood.shopservice.common.model.Shop;
 import com.ted.savefood.shopservice.common.repository.ShopRepository;
 import org.axonframework.eventhandling.EventHandler;
@@ -42,5 +43,13 @@ public class ShopEventHandler {
     @EventHandler
     public void on(ShopCancelCompleteEvent shopCancelCompleteEvent) {
         shopRepository.deleteById(shopCancelCompleteEvent.getShopId());
+    }
+
+    @EventHandler
+    public void on(ShopModifiedEvent shopModifiedEvent) {
+        Shop shop = new Shop();
+        BeanUtils.copyProperties(shopModifiedEvent, shop);
+
+        shopRepository.save(shop);
     }
 }

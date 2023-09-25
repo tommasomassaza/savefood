@@ -11,34 +11,33 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButton';
 import {FaTrashAlt, FaRegCalendarAlt, FaRegCalendarCheck} from "react-icons/fa";
 
 
-const ReservationItemOwner = ({reservation}) => {
+const ReservationItemOwner = ({reservation,isLastItem}) => {
 
     const [value, setValue] = useState([1, 3]);
-
-    /*
-     * The second argument that will be passed to
-     * `handleChange` from `ToggleButtonGroup`
-     * is the SyntheticEvent object, but we are
-     * not using it in this example so we will omit it.
-     */
-    const handleChange = (val) => setValue(val);
-
-
     const navigate = useNavigate();
+    const classNames = isLastItem ? "green-reservation" : "";
+
+
 
     return (
 
 
-        <Container>
+        <Container className={classNames}>
             <Row>
                 <Col className=".bg-light.bg-gradient p-2 square border border-muted">
-                    <h4>TransactionTime</h4>{reservation.transactionTime}
+                    <h4>Cliente</h4>{reservation.userName}
                 </Col>
                 <Col className=".bg-light.bg-gradient p-2 square border border-muted">
-                    <h4>PaymentMethod</h4>{reservation.paymentMethod}
+                    <h4>Box</h4>{reservation.boxName}
                 </Col>
                 <Col className=".bg-light.bg-gradient p-2 square border border-muted">
-                    <h4>Customer</h4>{reservation.customer}
+                    <h4>Quantità</h4>{reservation.quantity}
+                </Col>
+                <Col className=".bg-light.bg-gradient p-2 square border border-muted">
+                    <h4>Ora di ritiro</h4>{reservation.pickUpTime}
+                </Col>
+                <Col className=".bg-light.bg-gradient p-2 square border border-muted">
+                    <h4>Totale</h4>{reservation.price}
                 </Col>
                 <Col
                     className=".bg-light.bg-gradient p-2 square border border-muted d-flex align-items-center justify-content-center">

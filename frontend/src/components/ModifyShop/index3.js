@@ -1,7 +1,7 @@
 import boxes from "../../data/boxes.json";
 import BoxItemOwner from '../BoxItem/indexowner.js';
 import {useNavigate} from "react-router-dom";
-import {FaAlignJustify, FaCalendarCheck, FaPlusCircle, FaSearch} from "react-icons/fa";
+import {FaAlignJustify, FaCalendarCheck, FaHome, FaPlusCircle, FaSearch} from "react-icons/fa";
 import { globalData } from "../GreetingPage/global";
 import React, {useEffect, useState} from "react";
 import '../HomePage/HomePage.scss';
@@ -101,6 +101,11 @@ function ModifyShop3() {
                 </div>
 
                 <div className="currentDetails1">
+                    <div className="header-option1"onClick={() => {
+                        navigate("/vendors/homepage");
+                    }}>
+                        <span>Home <FaHome></FaHome></span>
+                    </div>
                     <div className="header-option1" onClick={() => {
                         navigate("/ordini");
                     }}>

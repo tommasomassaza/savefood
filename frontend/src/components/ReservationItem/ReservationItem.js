@@ -14,6 +14,24 @@ const ReservationItem = ({ reservation, isLastItem }) => {
     const navigate = useNavigate();
     const classNames = isLastItem ? "green-reservation" : "";
 
+    const deleteReservation = (reservationId) => {
+        fetch('http://localhost:8080/api/orders/'+reservationId, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+            },
+        })
+            .then((res) => {
+                console.log(res.status);
+                console.log(res.headers);
+            })
+            .catch((error) => {
+                console.error({
+                    error,
+                });
+            });
+    };
+
     return (
 
 
@@ -33,7 +51,7 @@ const ReservationItem = ({ reservation, isLastItem }) => {
                 </Col>
                 <Col
                     className=".bg-light.bg-gradient p-2 square border border-muted d-flex align-items-center justify-content-center">
-                    <Button className="w-100 h-100 p-3 mb-2 bg-dark text-white border-dark"> <FaTrashAlt></FaTrashAlt>
+                    <Button className="w-100 h-100 p-3 mb-2 bg-dark text-white border-dark" onClick={() => { deleteReservation(reservation.orderId); navigate("/reservations"); navigate(0);}}> <FaTrashAlt></FaTrashAlt>
                     </Button>
                 </Col>
 

@@ -39,12 +39,12 @@ const BoxItem = ({box}) => {
     const [grandezzaStringa, setGrandezzaStringa] = useState(null); // Stringa di grandezza della box
 
     const setIdNew = (boxId, boxname, boxprice, boxpickuptime, boxshopId) => {
-        globalDataBox.globalBoxId = boxId;
-        globalBoxName.globalName = boxname;
-        globalBoxPrice.globalPrice = boxprice;
-        globalBoxPickUpTime.globalPickUpTime = boxpickuptime;
-        globalBoxShopId.globalBoxShopId = boxshopId
-        console.log("eccola la box: " + globalBoxName.globalName);
+        globalDataBox.setGlobalBoxId(boxId);
+        globalBoxName.setGlobalName(boxname);
+        globalBoxPrice.setGlobalPrice(boxprice);
+        globalBoxPickUpTime.setGlobalPickUpTime(boxpickuptime);
+        globalBoxShopId.setGlobalBoxShopId(boxshopId);
+        console.log("eccola la box: " + globalBoxName.getGlobalName());
     };
 
     const setBoxSize = (size) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaPen, FaTrashAlt } from "react-icons/fa";
+import { FaPen, FaTrashAlt, FaStar } from "react-icons/fa";
 
 import { globalData,globalCityShop } from "../GreetingPage/global";
 
@@ -31,11 +31,11 @@ const ShoptItemOwner = ({ shop }) => {
     const navigate = useNavigate();
 
     const setIdNew = (shopId, city) => {
-        globalData.globalShopsId = shopId; // Utilizza la funzione di impostazione
-        globalCityShop.globalCityShop = city;
-        console.log("eccolooooo: " + globalData.globalShopsId)
+        globalData.setGlobalShopsId(shopId);
+        globalCityShop.setGlobalCityShop(city);
+        console.log("eccolooooo: " + globalData.getGlobalShopsId())
         console.log("è la cittadine: " + city)
-        console.log("è la cite: " + globalCityShop.globalCityShop)
+        console.log("è la cite: " + globalCityShop.getGlobalCityShop())
     };
 
     const deleteshop = (shopId) => {
@@ -66,7 +66,7 @@ const ShoptItemOwner = ({ shop }) => {
 
     return (
         <div className="listings-grid-element1">
-            <div className="image1" onClick={() => { setIdNew(shop.shopId, shop.city); navigate("/vendors/homepage2"); navigate(0);}}>
+            <div className="image1" onClick={() => { setIdNew(shop.shopId, shop.city); navigate("/vendors/homepage2"); }}>
                 {/* Utilizza l'URL dell'immagine Blob */}
                 {imageBlob && <img src={imageBlob} alt="prova" />}
             </div>
@@ -87,8 +87,9 @@ const ShoptItemOwner = ({ shop }) => {
                     </div>
                 </div>
                 <div className="rating2">
-                    <span className="circle1">{shop.stars}</span>
+                    <FaStar></FaStar>
                 </div>
+
             </div>
             <div className="text-lower1">
                 <span className="smallText1">| Descrizione: {shop.description} |</span>

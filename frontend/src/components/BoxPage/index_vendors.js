@@ -8,7 +8,7 @@ import {MdLocalDining} from "react-icons/md";
 import {FaArrowLeft, FaSearch, FaMapMarkerAlt, FaCalendarCheck, FaUserAlt} from "react-icons/fa";
 
 import {UserButton, useUser} from "@clerk/clerk-react";
-import {globalDataBox} from "../GreetingPage/global";
+import {globalData, globalDataBox} from "../GreetingPage/global";
 
 
 function BoxPageVendor() {
@@ -22,6 +22,10 @@ function BoxPageVendor() {
         getBox();
     }, []);
 
+    const setShopId = (shopId) => {
+        globalData.setGlobalShopsId(shopId); // Utilizza la funzione di impostazione
+    };
+
     let userId = null; // Inizializza userId come null
     let userName = null; // Inizializza userId come null
     if (user) {
@@ -33,7 +37,7 @@ function BoxPageVendor() {
 
 
     let getBox = () => {
-        fetch('http://localhost:8080/api/boxes/getById/'+ globalDataBox.globalBoxId)
+        fetch('http://localhost:8080/api/boxes/getById/'+ globalDataBox.getGlobalBoxId())
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -45,7 +49,7 @@ function BoxPageVendor() {
                     setBox(result);
                     console.log(box);
                     console.log(box.price);
-                    console.log("questo è l'id della box:" + globalDataBox.globalBoxId);
+                    console.log("questo è l'id della box:" + globalDataBox.getGlobalBoxId());
                 },
                 (error) => {
                     console.log(error);
@@ -145,9 +149,10 @@ function BoxPageVendor() {
                                 </div>
                                 <div className="text1">
                                     <div className="info1" onClick={() => {
-                                        navigate("/reviews");
+                                        setShopId(box.shopId);
+                                        navigate("/reviewsvendors");
                                     }}>
-                                        <h6> Espandi tutto <FaEye color="green"></FaEye></h6>
+                                        <h6> Recensione locale <FaEye color="green"></FaEye></h6>
                                     </div>
                                 </div>
 

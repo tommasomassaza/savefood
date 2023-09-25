@@ -2,40 +2,85 @@
 
 //globali Negozio
 export const globalData = {
-    globalShopsId: null,
+    setGlobalShopsId: (value) => {
+        localStorage.setItem('globalShopsId', value);
+    },
+    getGlobalShopsId: () => {
+        return localStorage.getItem('globalShopsId');
+    },
 };
 
 export const globalCityShop = {
-    globalCityShop: null,
+    setGlobalCityShop: (value) => {
+        localStorage.setItem('globalCityShop', value);
+    },
+    getGlobalCityShop: () => {
+        return localStorage.getItem('globalCityShop');
+    },
 };
 
 //globali Box
 export const globalDataBox = {
-    globalBoxId: null,
+    setGlobalBoxId: (value) => {
+        localStorage.setItem('globalBoxId', value);
+    },
+    getGlobalBoxId: () => {
+        return localStorage.getItem('globalBoxId');
+    },
 };
 
 export const globalDataRole = {
-    globalRole: null,
+    setGlobalRole: (value) => {
+        localStorage.setItem('globalRole', value);
+    },
+    getGlobalRole: () => {
+        return localStorage.getItem('globalRole');
+    },
 };
 
 //da passare al payment
 
 export const globalBoxName = {
-    globalName: null,
+    setGlobalName: (value) => {
+        localStorage.setItem('globalName', value);
+    },
+    getGlobalName: () => {
+        return localStorage.getItem('globalName');
+    },
 };
 
 export const globalBoxPrice = {
-    globalPrice: null,
+    setGlobalPrice: (value) => {
+        localStorage.setItem('globalPrice', value);
+    },
+    getGlobalPrice: () => {
+        return localStorage.getItem('globalPrice');
+    },
 };
 
 export const globalBoxPickUpTime = {
-    globalPickUpTime: null,
+    setGlobalPickUpTime: (value) => {
+        localStorage.setItem('globalPickUpTime', value);
+    },
+    getGlobalPickUpTime: () => {
+        return localStorage.getItem('globalPickUpTime');
+    },
 };
 
 export const globalBoxQuantity = {
-    globalBoxQuantity: null,
+    setGlobalBoxQuantity: (value) => {
+        localStorage.setItem('globalBoxQuantity', value);
+    },
+    getGlobalBoxQuantity: () => {
+        return localStorage.getItem('globalBoxQuantity');
+    },
 };
 
 export const globalBoxShopId = {
-    globalBoxShopId: null,
+    setGlobalBoxShopId: (value) => {
+        localStorage.setItem('globalBoxShopId', value);
+    },
+    getGlobalBoxShopId: () => {
+        return localStorage.getItem('globalBoxShopId');
+    },
 };

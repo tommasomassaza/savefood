@@ -8,7 +8,7 @@ import { FaHome, FaCalendarCheck } from 'react-icons/fa';
 import { UserButton, useUser } from '@clerk/clerk-react';
 
 import Sidebar from '../HomePage/sidebar';
-import { globalData, globalDataBox } from '../GreetingPage/global';
+import { globalData } from '../GreetingPage/global';
 
 function ReviewsPage() {
     const { user } = useUser();
@@ -33,7 +33,7 @@ function ReviewsPage() {
     const postReview = () => {
         // Effettua una richiesta HTTP POST al server con il testo della recensione
         const requestBody = {
-            shopId: globalData.globalShopsId,
+            shopId: globalData.getGlobalShopsId(),
             userId: userId,
             userName: userName,
             description:  reviewText,
@@ -66,7 +66,7 @@ function ReviewsPage() {
     };
 
     let getShopReview = () => {
-        fetch('http://localhost:8080/api/reviews/' + globalData.globalShopsId)
+        fetch('http://localhost:8080/api/reviews/' + globalData.getGlobalShopsId())
             .then((res) => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -84,7 +84,7 @@ function ReviewsPage() {
     };
 
     let getShopById = () => {
-        fetch('http://localhost:8080/api/shops/getById/' + globalData.globalShopsId)
+        fetch('http://localhost:8080/api/shops/getById/' + globalData.getGlobalShopsId())
             .then((res) => {
                 console.log(res.status);
                 console.log(res.headers);

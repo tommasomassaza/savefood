@@ -12,7 +12,7 @@ import Sidebar from "./sidebar";
 function ModifyShop3() {
 
 
-    console.log("il globalshopid è: " + globalData.globalShopsId)
+    console.log("il globalshopid è: " + globalData.getGlobalShopsId())
 
 
     //per navigare tra i link
@@ -29,11 +29,11 @@ function ModifyShop3() {
     const [boxes, setBoxes] = useState([]);
 
     let getBoxes = () => {
-        fetch('http://localhost:8080/api/boxes/getByShopId/'+globalData.globalShopsId)
+        fetch('http://localhost:8080/api/boxes/getByShopId/'+globalData.getGlobalShopsId())
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
-                console.log("questo è lo shopId:"+globalData.globalShopsId);
+                console.log("questo è lo shopId:"+globalData.getGlobalShopsId());
                 return res.json();
 
             })

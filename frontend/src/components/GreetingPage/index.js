@@ -12,7 +12,7 @@ const GreetingPage = () => {
     const {user} = useUser();
     const handleSignUp = async (role) => {
 
-        globalDataRole.globalRole = role; // Utilizza la funzione di impostazione
+        globalDataRole.setGlobalRole(role); // Utilizza la funzione di impostazione
         if(role === "cliente") {
             navigate("/");
         } else if(role === "venditore") {

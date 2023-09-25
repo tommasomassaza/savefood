@@ -44,7 +44,7 @@ function HomePage6() {
             .then((result) => {
                     console.log(result);
                     setBoxes(result);
-                    setAllProducts(result);
+
                 },
                 (error) => {
                     console.log(error);

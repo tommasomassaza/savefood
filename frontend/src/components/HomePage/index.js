@@ -47,7 +47,7 @@ function HomePage() {
             .then((result) => {
                     console.log(result);
                     setBoxes(result);
-                    setAllProducts(result);
+
                 },
                 (error) => {
                     console.log(error);
@@ -66,7 +66,7 @@ function HomePage() {
 
 
     //gestione dei filtri
-    const [category, setCategory] = useState("Oggi");
+    const [category, setCategory] = useState("Tutti");
     const [allProducts, setAllProducts] = useState([]);
 
 

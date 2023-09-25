@@ -1,5 +1,6 @@
 package com.ted.savefood.shopservice.query.api.projection;
 
+import com.ted.savefood.commonutils.query.GetShopIdsBySellerId;
 import com.ted.savefood.shopservice.common.model.Shop;
 import com.ted.savefood.shopservice.common.modelDto.ShopDto;
 import com.ted.savefood.shopservice.common.repository.ShopRepository;
@@ -53,6 +54,17 @@ public class ShopProjection {
         } else {
             return null;
         }
+    }
+
+    @QueryHandler
+    public List<String> handle(GetShopIdsBySellerId getShopIdsBySellerId) {
+        List<Shop> shops = shopRepository.findAllBySellerId(getShopIdsBySellerId.getSellerId());
+
+        List<String> shopIds = shops.stream()
+                .map(Shop::getShopId)
+                .collect(Collectors.toList());
+
+        return shopIds;
     }
 
     private ShopDto toDto(Shop shop) {

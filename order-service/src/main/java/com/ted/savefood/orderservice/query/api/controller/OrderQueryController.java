@@ -1,8 +1,10 @@
 package com.ted.savefood.orderservice.query.api.controller;
 
+import com.ted.savefood.commonutils.query.GetShopIdsBySellerId;
 import com.ted.savefood.orderservice.common.modelDto.OrderDto;
 import com.ted.savefood.orderservice.query.api.queries.GetOrdersByShopIds;
 import com.ted.savefood.orderservice.query.api.queries.GetOrdersQuery;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/orders")
+@Slf4j
 public class OrderQueryController {
 
     private final QueryGateway queryGateway;
@@ -32,8 +35,23 @@ public class OrderQueryController {
                 .join();
     }
 
-    @GetMapping("/getByShopIds/{shopIds}")
-    public List<OrderDto> getOrdersByShopId(@PathVariable List<String> shopIds) {
+    @GetMapping("/getBySellerId/{sellerId}")
+    public List<OrderDto> getOrdersByShopId(@PathVariable String sellerId) {
+        GetShopIdsBySellerId getShopIdsBySellerId
+                = new GetShopIdsBySellerId(sellerId);
+
+        List<String> shopIds = null;
+
+        try {
+            shopIds = queryGateway.query(
+                    getShopIdsBySellerId,
+                    ResponseTypes.multipleInstancesOf(String.class)
+            ).join();
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
         GetOrdersByShopIds getOrdersByShopIds = new GetOrdersByShopIds(shopIds);
 
         return queryGateway.query(
@@ -41,4 +59,5 @@ public class OrderQueryController {
                         ResponseTypes.multipleInstancesOf(OrderDto.class))
                 .join();
     }
+
 }

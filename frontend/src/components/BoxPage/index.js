@@ -12,7 +12,7 @@ import {
     globalBoxName,
     globalBoxPickUpTime,
     globalBoxPrice,
-    globalBoxShopId,
+    globalBoxShopId, globalData,
     globalDataBox
 } from "../GreetingPage/global";
 
@@ -111,7 +111,9 @@ function BoxPage() {
     };
 
 
-
+    const setShopId = (shopId) => {
+        globalData.globalShopsId = shopId; // Utilizza la funzione di impostazione
+    };
 
 
 
@@ -235,9 +237,10 @@ function BoxPage() {
                                 </div>
                                 <div className="text1">
                                     <div className="info1" onClick={() => {
+                                        setShopId(box.shopId)
                                         navigate("/reviews");
                                     }}>
-                                        <h6> Espandi tutto <FaEye color="green"></FaEye></h6>
+                                        <h6> Recensioni del locale <FaEye color="green"></FaEye></h6>
                                     </div>
                                 </div>
 

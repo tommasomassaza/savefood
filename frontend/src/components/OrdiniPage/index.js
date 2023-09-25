@@ -31,7 +31,7 @@ const OrdiniPage = () => {
         userId = user.id; // Assegna il valore solo se user è definito
     }
     let getReservations = () => {
-        fetch('http://localhost:8080/api/orders/getByUserId/'+ userId)
+        fetch('http://localhost:8080/api/orders/getBySellerId/'+ userId)
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);

@@ -57,6 +57,7 @@ const ReservationsPage = () => {
             )
     };
 
+
     useEffect(() => {
         getReservations();
     }, []);

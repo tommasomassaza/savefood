@@ -1,35 +1,56 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom";
-
-
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
-
-
 import {
-    FaArrowLeft,
-    FaSearch,
     FaMapMarkerAlt,
-    FaCalendarCheck,
-    FaUserAlt,
-    FaArrowRight,
-    FaArrowUp,
-    FaArrowDown
+    FaCalendarCheck, FaHome,
 } from "react-icons/fa";
-import {UserButton} from "@clerk/clerk-react";
-
-
+import {UserButton, useUser} from "@clerk/clerk-react";
 import ReservationItemOwner from '../ReservationItem/ReservationItemOwner.js';
-import reservations from "../../data/reservations.json";
+import ReservationItem from "../ReservationItem/ReservationItem";
+
 
 
 const OrdiniPage = () => {
+    const { user } = useUser();
 
 
     const navigate = useNavigate();
 
+
+    //console.log(posts)
+    const [reservations, setReservations] = useState([]);
+
+
+    let userId = null; // Inizializza userId come null
+
+    if (user) {
+        userId = user.id; // Assegna il valore solo se user è definito
+    }
+    let getReservations = () => {
+        fetch('http://localhost:8080/api/orders/getByUserId/'+ userId)
+            .then(res => {
+                console.log(res.status);
+                console.log(res.headers);
+                return res.json();
+
+            })
+            .then((result) => {
+                    console.log("ecco la fetch:"+result);
+                    setReservations(result);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
+    };
+
+    useEffect(() => {
+        getReservations();
+    }, []);
 
     return (
         <body>
@@ -37,14 +58,15 @@ const OrdiniPage = () => {
         <header>
             <div className="container1">
                 <div className="logo1" onClick={() => {
-                    navigate("/vendors/homepage");
+                    navigate("/greeting_page");
                 }}>
                     <h1>Save<span>Food</span></h1>
                 </div>
                 <div className="currentDetails1">
-                    <div className="header-option1">
-                        <i data-feather="map-pin"></i>
-                        <span>Google Maps <FaMapMarkerAlt></FaMapMarkerAlt></span>
+                    <div className="header-option1"onClick={() => {
+                        navigate("/vendors/homepage");
+                    }}>
+                        <span>Home <FaHome></FaHome></span>
                     </div>
                     <div className="header-option1" onClick={() => {
                         navigate("/reservations");
@@ -106,10 +128,13 @@ const OrdiniPage = () => {
             </Container>
 
 
-            <Container style={{maxHeight: 500, overflow: 'scroll'}}>
-                {reservations.map(item => (
-                    <ReservationItemOwner reservation={item}></ReservationItemOwner>
-
+            <Container style={{ maxHeight: 500, overflow: 'scroll' }}>
+                {[...reservations].reverse().map((item, index) => (
+                    <ReservationItemOwner
+                        reservation={item}
+                        key={item.id}
+                        isLastItem={index === 0} // Cambiato da 'reservations.length - 1' a '0'
+                    ></ReservationItemOwner>
                 ))}
             </Container>
         </div>

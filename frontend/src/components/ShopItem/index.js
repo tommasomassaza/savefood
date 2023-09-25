@@ -39,7 +39,7 @@ const ShoptItemOwner = ({ shop }) => {
     };
 
     const deleteshop = (shopId) => {
-        fetch('http://localhost:8080/api/shops/'+shop.shopId, {
+        fetch('http://localhost:8080/api/shops/'+shopId, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",
@@ -66,7 +66,7 @@ const ShoptItemOwner = ({ shop }) => {
 
     return (
         <div className="listings-grid-element1">
-            <div className="image1" onClick={() => { setIdNew(shop.shopId, shop.city); navigate("/vendors/homepage2"); }}>
+            <div className="image1" onClick={() => { setIdNew(shop.shopId, shop.city); navigate("/vendors/homepage2"); navigate(0);}}>
                 {/* Utilizza l'URL dell'immagine Blob */}
                 {imageBlob && <img src={imageBlob} alt="prova" />}
             </div>

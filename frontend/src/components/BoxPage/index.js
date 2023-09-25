@@ -125,7 +125,7 @@ function BoxPage() {
         if (quantity > 1) {
             setQuantity(quantity - 1);
             globalBoxQuantity.setGlobalBoxQuantity(quantity-1);
-            globalBoxPrice.setGlobalPrice(box.price*quantity);
+            globalBoxPrice.setGlobalPrice(box.price*quantity-1);
         }
     };
 
@@ -135,7 +135,7 @@ function BoxPage() {
         if(quantity < box.quantity ){
         setQuantity(quantity + 1);
             globalBoxQuantity.setGlobalBoxQuantity(quantity+1);
-            globalBoxPrice.setGlobalPrice(box.price*quantity);
+            globalBoxPrice.setGlobalPrice(box.price*quantity+1);
 
         }
     };

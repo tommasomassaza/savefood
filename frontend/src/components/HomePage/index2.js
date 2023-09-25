@@ -71,30 +71,42 @@ function HomePage2() {
     useEffect(() => {
         if (category === "Tutti") {
             setAllProducts(boxes);
-        }
-
-        if (category === "Piccole") {
-            const filteredProducts = boxes.filter(
-                (item) => item.size === parseInt(searchTerm, 2)
-            );
+        } else if (category === "Piccole") {
+            const filteredProducts = boxes.filter(item => item.size === 1);
             setAllProducts(filteredProducts);
-        }
+        } else if (category === "Medie") {
+            const filteredProducts = boxes.filter(item => item.size === 2);
+            setAllProducts(filteredProducts);
+        } else if (category === "Grandi") {
+            const filteredProducts = boxes.filter(item => item.size === 3);
+            setAllProducts(filteredProducts);
+        } else if (category === "Mattina" || category === "Pomeriggio" || category === "Sera") {
+            const filteredProducts = boxes.filter(item => {
+                const timeParts = item.pickUpTime.split(":");
+                const hour = parseInt(timeParts[0]);
 
+                if (category === "Mattina" && hour >= 0 && hour < 12) {
+                    return true;
+                } else if (category === "Pomeriggio" && hour >= 12 && hour < 18) {
+                    return true;
+                } else if (category === "Sera" && hour >= 18 && hour <= 23) {
+                    return true;
+                }
 
-        if (category === "Searched") {
-            console.log(category);
+                return false;
+            });
+            setAllProducts(filteredProducts);
+        } else if (category === "Searched") {
             if (searchTerm === "") {
                 setAllProducts(boxes);
             } else {
                 const filteredProducts = boxes.filter(
-                    (item) => item.name.toLowerCase().includes(searchTerm.toLowerCase())
+                    item => item.name.toLowerCase().includes(searchTerm.toLowerCase())
                 );
                 setAllProducts(filteredProducts);
             }
-
         }
-
-    }, [category, searchTerm]);
+    }, [category, searchTerm, boxes]);
 
 
     return (
@@ -158,15 +170,41 @@ function HomePage2() {
                     <i data-feather="shopping-bag"></i>
                     <span>Tutte</span>
                 </button>
-                <button className="options-btn1 selected1 due">
+                <button className="options-btn1 selected1 due" onClick={() => {
+                    navigate("/2");
+                }}>
                     <i data-feather="watch"></i>
                     <span>Piccole</span>
                 </button>
-                <button className="options-btn1 tre" onClick={() => {
+                <button className="options-btn1 tre"onClick={() => {
                     navigate("/3");
                 }}>
                     <i data-feather="watch"></i>
-                    <span>Più vendute</span>
+                    <span>Medie</span>
+                </button>
+                <button className="options-btn1 quattro"onClick={() => {
+                    navigate("/4");
+                }}>
+                    <i data-feather="watch"></i>
+                    <span>Grandi</span>
+                </button>
+                <button className="options-btn1 cinque"onClick={() => {
+                    navigate("/5");
+                }}>
+                    <i data-feather="watch"></i>
+                    <span>Mattina</span>
+                </button>
+                <button className="options-btn1 sei"onClick={() => {
+                    navigate("/6");
+                }}>
+                    <i data-feather="watch"></i>
+                    <span>Pomeriggio</span>
+                </button>
+                <button className="options-btn1 sette"onClick={() => {
+                    navigate("/7");
+                }}>
+                    <i data-feather="watch"></i>
+                    <span>Sera</span>
                 </button>
 
             </div>

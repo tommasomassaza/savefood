@@ -4,6 +4,10 @@ import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import HomePage from './components/HomePage/index.js';
 import HomePage2 from './components/HomePage/index2.js';
 import HomePage3 from './components/HomePage/index3.js';
+import HomePage4 from './components/HomePage/index4.js';
+import HomePage5 from './components/HomePage/index5.js';
+import HomePage6 from './components/HomePage/index6.js';
+import HomePage7 from './components/HomePage/index7.js';
 
 import BoxPage from './components/BoxPage/index.js';
 import ReservationsPage from './components/ReservationsPage/index.js';
@@ -131,6 +135,51 @@ function App() {
           </>
           }
         />
+
+            <Route path="/4" element={ <>
+                <SignedIn>
+                    <HomePage4 />
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn />
+                </SignedOut>
+            </>
+            }
+            />
+
+            <Route path="/5" element={ <>
+                <SignedIn>
+                    <HomePage5 />
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn />
+                </SignedOut>
+            </>
+            }
+            />
+
+            <Route path="/6" element={ <>
+                <SignedIn>
+                    <HomePage6 />
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn />
+                </SignedOut>
+            </>
+            }
+            />
+
+            <Route path="/7" element={ <>
+                <SignedIn>
+                    <HomePage7 />
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn />
+                </SignedOut>
+            </>
+            }
+            />
+
                     <Route path="/reservations"  element={ <>
             <SignedIn>
               <ReservationsPage />

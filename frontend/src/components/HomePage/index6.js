@@ -1,27 +1,26 @@
 import BoxItem from '../BoxItem/index.js';
 import {useNavigate} from "react-router-dom";
-import {FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
+import { FaHome} from "react-icons/fa";
+import {
+    FaSearch,
+    FaCalendarCheck
+} from "react-icons/fa";
 import './slider.js';
 import './selection.js';
-import Greeting from "../Greeting";
 import Sidebar from "./sidebar";
-import boxes from "../../data/boxes.json"
 
 
-import React, {useEffect, useState} from "react";
+import React, {useState, useEffect} from "react";
 import './HomePage.scss';
-import {UserButton, useUser} from "@clerk/clerk-react";
+import {UserButton} from "@clerk/clerk-react";
 
-function HomePage() {
+import { useUser } from '@clerk/clerk-react';
 
 
-    const w3_close = () => {
-        document.getElementById("mySidebar").style.display = "none";
-    }
+function HomePage6() {
 
-    const w3_open = () => {
-        document.getElementById("mySidebar").style.display = "block";
-    }
+    const { user } = useUser();
+
 
     //per navigare tra i link
     const navigate = useNavigate();
@@ -31,11 +30,9 @@ function HomePage() {
         document.getElementById("options-btn1").style.backgroundColor = '#911';
     }
 
-
     //console.log(posts)
     const [boxes, setBoxes] = useState([]);
 
-    const {user} = useUser();
     let getBoxes = () => {
         fetch('http://localhost:8080/api/boxes')
             .then(res => {
@@ -55,7 +52,6 @@ function HomePage() {
             )
     };
 
-
     useEffect(() => {
         getBoxes();
     }, []);
@@ -66,7 +62,7 @@ function HomePage() {
 
 
     //gestione dei filtri
-    const [category, setCategory] = useState("Oggi");
+    const [category, setCategory] = useState("Pomeriggio");
     const [allProducts, setAllProducts] = useState([]);
 
 
@@ -110,10 +106,6 @@ function HomePage() {
         }
     }, [category, searchTerm, boxes]);
 
-    if (user) {
-        const userId = user.id;
-        console.log(userId); // Pu
-    }
 
 
     return (
@@ -121,20 +113,16 @@ function HomePage() {
 
         <body>
 
-
         <header>
-
             <div className="container1">
-                <Greeting></Greeting>
-                <div className="logo1" onClick={() => {
-                    navigate("/greeting_page");}}>
-                    <h1>Save<span>Food </span></h1>
+                <div className="logo1">
+                    <h1>Save<span>Food</span></h1>
                 </div>
-
                 <div className="currentDetails1">
-                    <div className="header-option1" onClick={() => {
+                    <div className="header-option1"onClick={() => {
                         navigate("/");}}>
-                    <span>Home <FaHome></FaHome></span>
+
+                        <span>Home <FaHome></FaHome></span>
                     </div>
                     <div className="header-option1" onClick={() => {
                         navigate("/reservations");
@@ -148,46 +136,32 @@ function HomePage() {
                 <div className="searchBar1">
                     <div className="header-option1">
                         <FaSearch></FaSearch>
-                        <input className="searchQueryInput" type="text" placeholder="Cerca..." onChange={event => {
+                        <input className="searchQueryInput" type="text" placeholder="Cerca Box..." onChange={event => {
                             setSearchTerm(event.target.value);
                             setCategory("Searched");
                         }}/>
+
+
                     </div>
-
-
-                    
-
-
                     <div className="header-option1">
-
-                        
-        
-         <UserButton show={true} />
-    
-     
+                        {user ? (
+                            <UserButton show={true} />
+                        ) : (
+                            <button onClick={() => {
+                                navigate("/sign-in");
+                            }}>Accedi</button>
+                        )}
                     </div>
-
-
-
-
-
-
-
                 </div>
-
             </div>
-
-
         </header>
 
 
         <div className="options1">
+
             <Sidebar className="barra"></Sidebar>
-
             <div className="container1">
-
-
-                <button className="options-btn1 selected1 uno" onClick={() => {
+                <button className="options-btn1 uno" onClick={() => {
                     navigate("/");
                 }}>
                     <i data-feather="shopping-bag"></i>
@@ -217,7 +191,7 @@ function HomePage() {
                     <i data-feather="watch"></i>
                     <span>Mattina</span>
                 </button>
-                <button className="options-btn1 sei"onClick={() => {
+                <button className="options-btn1 selected1 sei"onClick={() => {
                     navigate("/6");
                 }}>
                     <i data-feather="watch"></i>
@@ -240,7 +214,6 @@ function HomePage() {
                 </div>
 
             </div>
-
         </div>
 
 
@@ -248,14 +221,13 @@ function HomePage() {
             <div className="container1">
                 <div className="header1">
                     <div className="header-title1">
-                        <h2>Tutte</h2>
-                        <span>Box in scadenza</span>
+                        <h2>Più vendute</h2>
+                        <span>Box più vendute</span>
                     </div>
                     <div className="header-viewOptions1">
 
                     </div>
                 </div>
-
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
                         {allProducts.map(item => (
@@ -265,13 +237,18 @@ function HomePage() {
                     </div>
                 </div>
             </div>
-
         </div>
 
+
+        {/* <script src="/scripts/main.js"></script>*/}
+        <script src="https://unpkg.com/feather-icons"></script>
+        <script>
+            feather.replace()
+        </script>
         </body>
 
 
     );
 }
 
-export default HomePage;
+export default HomePage6;

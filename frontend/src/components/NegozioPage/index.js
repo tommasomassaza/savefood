@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import boxes from '../../data/boxes.json';
-import {useUser} from "@clerk/clerk-react";
-import {FaArrowLeft, FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
+import { useUser } from "@clerk/clerk-react";
+import { FaArrowLeft, FaCalendarCheck, FaHome, FaSearch } from "react-icons/fa";
 import Greeting from "../Greeting";
 
 function NegozioPage() {
@@ -12,7 +12,6 @@ function NegozioPage() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [imagePreview, setImagePreview] = useState('');
-
 
     let userId = null; // Inizializza userId come null
 
@@ -29,6 +28,14 @@ function NegozioPage() {
         description: '', // Corretto il nome del campo 'description'
         telephonNumber: '', // Corretto il nome del campo 'telephonNumber'
         image: image
+    });
+
+    const [dirtyFields, setDirtyFields] = useState({
+        name: false,
+        city: false,
+        address: false,
+        description: false,
+        telephonNumber: false
     });
 
     const navigate = useNavigate();
@@ -49,8 +56,6 @@ function NegozioPage() {
         reader.readAsArrayBuffer(file);
     };
 
-
-
     const handleConfirmation = () => {
         setShowConfirmation(true);
         setTimeout(() => {
@@ -59,13 +64,17 @@ function NegozioPage() {
         }, 1500); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
     };
 
-
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value,
+        });
+
+        // Imposta il campo come "dirty" quando l'utente inizia a scrivere
+        setDirtyFields({
+            ...dirtyFields,
+            [name]: true,
         });
     };
 
@@ -156,10 +165,10 @@ function NegozioPage() {
                                         className="form-control"
                                         id="inputNome"
                                         placeholder="Nome..."
-                                        name="name"
+                                        name="name" // Assicurati che il nome del campo corrisponda a formData.name
                                         value={formData.name}
-                                        minlength="5"
-                                        maxlength="50"
+                                        minLength="5"
+                                        maxLength="50"
                                         required
                                         onChange={handleInputChange}
                                     />
@@ -171,9 +180,10 @@ function NegozioPage() {
                                         className="form-control"
                                         id="inputCittà"
                                         placeholder="Città..."
-                                        name="city"
+                                        name="city" // Assicurati che il nome del campo corrisponda a formData.city
                                         value={formData.city}
-                                        maxlength="20"
+                                        minLength="5"
+                                        maxLength="50"
                                         required
                                         onChange={handleInputChange}
                                     />
@@ -189,8 +199,8 @@ function NegozioPage() {
                                     placeholder="Indirizzo..."
                                     name="address"
                                     value={formData.address}
-                                    minlength="5"
-                                    maxlength="60"
+                                    minLength="5"
+                                    maxLength="60"
                                     required
                                     onChange={handleInputChange}
                                 />
@@ -204,8 +214,8 @@ function NegozioPage() {
                                     placeholder="Descrizione..."
                                     name="description"
                                     value={formData.description}
-                                    minlength="20"
-                                    maxlength="300"
+                                    minLength="20"
+                                    maxLength="300"
                                     required
                                     onChange={handleInputChange}
                                 />

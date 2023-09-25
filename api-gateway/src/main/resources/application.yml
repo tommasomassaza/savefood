@@ -10,4 +10,5 @@ spring:
               - GET
               - POST
               - DELETE
+              - PUT
 

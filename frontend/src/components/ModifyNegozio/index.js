@@ -1,19 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import boxes from '../../data/boxes.json';
-import {useUser} from "@clerk/clerk-react";
-import {FaArrowLeft, FaCalendarCheck, FaHome, FaSearch} from "react-icons/fa";
+import React, { useState, useEffect } from 'react';
+import boxes from "../../data/boxes.json";
+import { useNavigate } from "react-router-dom";
+import { globalData, globalCityShop, globalDataBox } from "../GreetingPage/global";
 import Greeting from "../Greeting";
-import {globalData} from "../GreetingPage/global";
+import { FaArrowLeft, FaCalendarCheck, FaHome } from "react-icons/fa";
+import {useUser} from "@clerk/clerk-react";
 
-function ModifyNegozio() {
-    const { user } = useUser();
-    const [image, setImage] = useState('');
+function ModifyBox() {
+    const [image, setImage] = useState("");
+    const [imageVisualize, setImageVisualize] = useState("");
     const [allImage, setAllImage] = useState([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const [shop, setShop] = useState([]);
     const [imagePreview, setImagePreview] = useState('');
+    const { user } = useUser();
 
+    const handleConfirmation = () => {
+        setShowConfirmation(true);
+        setTimeout(() => {
+            setShowConfirmation(false);
+            navigate('/vendors/homepage2');
+        }, 1500); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
+    };
+
+    const navigate = useNavigate();
 
     let userId = null; // Inizializza userId come null
 
@@ -22,10 +33,7 @@ function ModifyNegozio() {
         console.log(userId);
     }
 
-    const [shop, setShop] = useState([]);
-
     const [formData, setFormData] = useState({
-        shopId: globalData.getGlobalShopsId(), // Passo lo shopId
         sellerId: userId, // Utilizza userId qui
         name: '',
         city: '',
@@ -33,10 +41,8 @@ function ModifyNegozio() {
         description: '', // Corretto il nome del campo 'description'
         telephonNumber: '', // Corretto il nome del campo 'telephonNumber'
         image: image
+        // Aggiungi altri campi del form qui se necessario
     });
-
-    const navigate = useNavigate();
-    const box = boxes[window.id];
 
     const convertToByteArray = (e) => {
         const file = e.target.files[0];
@@ -53,16 +59,6 @@ function ModifyNegozio() {
         reader.readAsArrayBuffer(file);
     };
 
-    const handleConfirmation = () => {
-        setShowConfirmation(true);
-        setTimeout(() => {
-            setShowConfirmation(false);
-            navigate('/vendors/homepage');
-        }, 1500); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
-    };
-
-
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -73,10 +69,8 @@ function ModifyNegozio() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         // Crea un nuovo oggetto formData solo con i dati necessari
         const formDataToSend = new FormData();
-        formDataToSend.append('shopId', formData.shopId);
         formDataToSend.append('sellerId', formData.sellerId);
         formDataToSend.append('name', formData.name);
         formDataToSend.append('city', formData.city);
@@ -86,36 +80,46 @@ function ModifyNegozio() {
         formDataToSend.append('image', new Blob([image], { type: 'image/jpeg' })); // Usa 'image/jpeg' o il tipo di immagine corretto
 
         // Invia formDataToSend al tuo backend
-        fetch('http://localhost:8080/api/shops', {
+        fetch('http://localhost:8080/api/shops/'+globalData.getGlobalShopsId(), {
             method: 'PUT',
             body: formDataToSend,
         })
             .then((res) => {
                 console.log(res.status);
                 console.log(res.headers);
+                setIsSubmitted(true);
             })
             .catch((error) => {
                 console.error({
                     error,
                 });
             });
-
-        handleConfirmation(); // Chiamiamo handleConfirmation dopo aver eseguito l'azione desiderata
+        handleConfirmation();
     };
 
-
     let getShop = () => {
-        fetch('http://localhost:8080/api/shops/getById/'+globalData.getGlobalShopsId())
+        fetch('http://localhost:8080/api/shops/getById/' + globalData.getGlobalShopsId())
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
                 return res.json();
-
             })
             .then((result) => {
                     console.log(result);
                     setShop(result);
-
+                    // Aggiorna i campi del form con i dati della box
+                    setFormData({
+                        ...formData,
+                        name: result.name || "",
+                        city: result.city || "",
+                        address: result.address || "",
+                        description: result.description || "",
+                        telephonNumber: result.telephonNumber || "",
+                    });
+                    // Aggiorna l'anteprima dell'immagine se c'è una immagine nella box
+                    if (result.image) {
+                        setImageVisualize(result.image);
+                    }
                 },
                 (error) => {
                     console.log(error);
@@ -123,10 +127,10 @@ function ModifyNegozio() {
             )
     };
 
-
     useEffect(() => {
         getShop();
     }, []);
+
 
 
     return (
@@ -162,16 +166,16 @@ function ModifyNegozio() {
             <div className="options1">
                 <div className="container1">
                     <div className="header-title1">
-                        <h2>Modifica un negozio:</h2>
-                    </div>
-                    <div className="header-viewOptions1">
-                        <div className="viewAll1" onClick={() => {
-                            navigate("/vendors/homepage");
+                        <h2>Modifica il negozio:</h2>
+                        <div className="header-viewOptions1">
+                            <div className="viewAll1" onClick={() => {
+                                navigate("/vendors/homepage2");
 
-                        }}>
-                            <span><FaArrowLeft/> Torna Indietro</span>
+                            }}>
+                                <span><FaArrowLeft/> Torna Indietro</span>
+                            </div>
+
                         </div>
-
                     </div>
 
                     <div className="listings-grid-element1">
@@ -185,29 +189,27 @@ function ModifyNegozio() {
                                         id="inputNome"
                                         placeholder={shop.name}
                                         name="name"
-                                        value={formData.name || shop.name} // Imposta il valore del campo a formData.name se è definito, altrimenti usa il valore di shop.name
+                                        value={formData.name}
                                         minLength="5"
                                         maxLength="50"
                                         required
                                         onChange={handleInputChange}
                                     />
-
                                 </div>
                                 <div className="form-group col-md-6">
-                                    <label htmlFor="inputCittà">Città</label>
+                                    <label htmlFor="inputCity">Città</label>
                                     <input
                                         type="text"
                                         className="form-control"
-                                        id="inputNome"
+                                        id="inputCity"
                                         placeholder={shop.city}
-                                        name="name"
-                                        value={formData.city || shop.city} // Imposta il valore del campo a formData.name se è definito, altrimenti usa il valore di shop.name
-                                        minLength="5"
-                                        maxLength="50"
+                                        name="city"
+                                        value={formData.city}
+                                        minLength="20"
+                                        maxLength="300"
                                         required
                                         onChange={handleInputChange}
                                     />
-
                                 </div>
                             </div>
 
@@ -216,48 +218,47 @@ function ModifyNegozio() {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    id="inputNome"
+                                    id="inputAddress"
                                     placeholder={shop.address}
-                                    name="name"
-                                    value={formData.address || shop.address} // Imposta il valore del campo a formData.name se è definito, altrimenti usa il valore di shop.name
-                                    minLength="5"
-                                    maxLength="50"
+                                    name="address"
+                                    value={formData.address}
+                                    min="1.00"
+                                    max="50"
+                                    step="0.5"
                                     required
                                     onChange={handleInputChange}
                                 />
-
                             </div>
                             <div className="form-group col-md-6">
                                 <label htmlFor="inputDescription">Descrizione</label>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    id="inputNome"
+                                    id="inputDescription"
                                     placeholder={shop.description}
-                                    name="name"
-                                    value={formData.description || shop.description} // Imposta il valore del campo a formData.name se è definito, altrimenti usa il valore di shop.name
-                                    minLength="5"
-                                    maxLength="50"
+                                    name="description"
+                                    value={formData.description}
+                                    min="1"
+                                    max="3"
+                                    step="1"
                                     required
                                     onChange={handleInputChange}
                                 />
-
                             </div>
                             <div className="form-group col-md-6">
-                                <label htmlFor="inputtelephonNumber">Numero di telefono</label>
+                                <label htmlFor="inputTelephoneNumber">Numero di telefono</label>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    id="inputNome"
+                                    id="inputTelephoneNumber"
                                     placeholder={shop.telephoneNumber}
-                                    name="name"
-                                    value={formData.telephoneNumber || shop.telephoneNumber} // Imposta il valore del campo a formData.name se è definito, altrimenti usa il valore di shop.name
-                                    minLength="5"
-                                    maxLength="50"
+                                    name="telephoneNumber"
+                                    value={formData.telephoneNumber}
+                                    min="10"
+                                    max="10"
                                     required
                                     onChange={handleInputChange}
                                 />
-
                             </div>
 
                             <div className="auth-wrapper">
@@ -276,19 +277,6 @@ function ModifyNegozio() {
                                     ) : null}
                                 </div>
                                 <br />
-
-                                {allImage.map((data) => (
-                                    <img
-                                        key={data.id}
-                                        width={100}
-                                        height={100}
-                                        src={data.image}
-                                        alt="Uploaded"
-                                    />
-                                ))}
-
-
-                            <br />
                                 <button
                                     type="submit"
                                     className="btn btn-primary #198754 bg-primary border-primary"
@@ -309,7 +297,7 @@ function ModifyNegozio() {
 
                             {showConfirmation && (
                                 <div className="confirmation-message">
-                                    Il locale è stato modificato con successo
+                                    Il negozio è stata modificato con successo
                                 </div>
                             )}
 
@@ -322,4 +310,4 @@ function ModifyNegozio() {
     );
 }
 
-export default ModifyNegozio;
+export default ModifyBox;

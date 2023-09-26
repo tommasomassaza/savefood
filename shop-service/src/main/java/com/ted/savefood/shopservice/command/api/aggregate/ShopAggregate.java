@@ -8,6 +8,7 @@ import com.ted.savefood.shopservice.command.api.events.ShopCancelCompleteEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopCancelEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopCreatedEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopModifiedEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateCreationPolicy;
@@ -18,6 +19,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
 
 @Aggregate
+@Slf4j
 public class ShopAggregate {
     @AggregateIdentifier
     private String shopId;
@@ -29,7 +31,6 @@ public class ShopAggregate {
     public ShopAggregate(CreateShopCommand createShopCommand) {
         ShopCreatedEvent shopCreatedEvent = new ShopCreatedEvent();
         BeanUtils.copyProperties(createShopCommand, shopCreatedEvent);
-
         AggregateLifecycle.apply(shopCreatedEvent);
     }
 

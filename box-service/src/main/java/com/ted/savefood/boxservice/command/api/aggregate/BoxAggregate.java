@@ -52,7 +52,7 @@ public class BoxAggregate {
 
     @CommandHandler
     @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
-    public void handle(ModifyQuantityBoxCommand modifyQuantityBoxCommand) throws Exception {
+    public void handle(ModifyQuantityBoxCommand modifyQuantityBoxCommand) {
         BoxQuantityModifiedEvent boxQuantityModifiedEvent = new BoxQuantityModifiedEvent();
         BeanUtils.copyProperties(modifyQuantityBoxCommand, boxQuantityModifiedEvent);
         AggregateLifecycle.apply(boxQuantityModifiedEvent);

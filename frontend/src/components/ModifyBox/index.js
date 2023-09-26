@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { globalData, globalCityShop, globalDataBox } from "../GreetingPage/global";
 import Greeting from "../Greeting";
 import { FaArrowLeft, FaCalendarCheck, FaHome } from "react-icons/fa";
+import Sidebar from "../HomePage/sidebar";
 
 function ModifyBox() {
     const [image, setImage] = useState("");
@@ -160,6 +161,7 @@ function ModifyBox() {
             </header>
 
             <div className="options1">
+                <Sidebar className="barra"></Sidebar>
                 <div className="container1">
                     <div className="header-title1">
                         <h2>Modifica una box:</h2>

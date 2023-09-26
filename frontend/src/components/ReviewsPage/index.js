@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaStar } from 'react-icons/fa';
+import {FaArrowLeft, FaStar} from 'react-icons/fa';
 
 import { FaHome, FaCalendarCheck } from 'react-icons/fa';
 
@@ -148,9 +148,7 @@ function ReviewsPage() {
         <body>
         <header>
             <div className="container1">
-                <div
-                    className="logo1"
-                    onClick={() => {
+                <div className="logo1" onClick={() => {
                         navigate('/');
                     }}
                 >
@@ -205,6 +203,15 @@ function ReviewsPage() {
 
             <div className="listings1">
                 <div className="container1">
+                    <div className="header-viewOptions1">
+                        <div className="viewAll1" onClick={() => {
+                            navigate("/box");
+
+                        }}>
+                            <span><FaArrowLeft/> Torna Indietro</span>
+                        </div>
+
+                    </div>
                     <div className="header1">
                         <div className="header-title1">
                             <h2>Locale: "{shop.name}"</h2>

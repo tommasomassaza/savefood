@@ -9,6 +9,7 @@ import {FaArrowLeft, FaSearch, FaMapMarkerAlt, FaCalendarCheck, FaUserAlt} from 
 
 import {UserButton, useUser} from "@clerk/clerk-react";
 import {globalData, globalDataBox} from "../GreetingPage/global";
+import Sidebar from "../HomePage/sidebar";
 
 
 function BoxPageVendor() {
@@ -71,10 +72,6 @@ function BoxPageVendor() {
                     <h1>Save<span>Food</span></h1>
                 </div>
                 <div className="currentDetails1">
-                    <div className="header-option1">
-                        <i data-feather="map-pin"></i>
-                        <span>Google Maps <FaMapMarkerAlt></FaMapMarkerAlt></span>
-                    </div>
                     <div className="header-option1" onClick={() => {
                         navigate("/reservations");
                     }}>
@@ -103,23 +100,16 @@ function BoxPageVendor() {
         </header>
 
         <div className="options1">
-
+            <Sidebar className="barra"></Sidebar>
 
             <div className="listings1">
                 <div className="container1">
-                    <div className="header1">
-                        <div className="header-title1">
-                            <h2>Visualizza la tua Box</h2>
-                        </div>
-                        <div className="header-viewOptions1">
-                            <div className="viewAll1" onClick={() => {
-                                navigate("/modifyshop2");
-                                navigate(0);
-                            }}>
-                                <span> <FaArrowLeft/> Torna alla Home</span>
-                            </div>
+                    <div className="header-viewOptions1">
+                        <div className="viewAll1" onClick={() => {
+                            navigate("/vendors/homepage");
 
-
+                        }}>
+                            <span><FaArrowLeft/> Torna alla Home</span>
                         </div>
                     </div>
                     <div className="listings-grid1">

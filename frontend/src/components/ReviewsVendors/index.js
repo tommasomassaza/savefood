@@ -10,6 +10,7 @@ import {FaArrowLeft, FaSearch, FaMapMarkerAlt, FaCalendarCheck, FaUserAlt} from 
 
 import {UserButton, useUser} from "@clerk/clerk-react";
 import {globalData} from "../GreetingPage/global";
+import Sidebar from "../HomePage/sidebar";
 
 
 // Funzione per convertire una stringa Base64 in un oggetto Blob
@@ -121,12 +122,6 @@ function ReviewsVendors() {
 
 
                 <div className="searchBar1">
-                    <div className="header-option2">
-                        <FaSearch></FaSearch>
-                        <input className="searchQueryInput" type="text" placeholder="Cerca Box..." color="blue"/>
-
-
-                    </div>
                     <div className="header-option1">
                         <UserButton></UserButton>
                     </div>
@@ -136,10 +131,10 @@ function ReviewsVendors() {
 
         <div className="options1">
 
-
+            <Sidebar className="barra"></Sidebar>
             <div className="listings1">
                 <div className="container1">
-                    <div className="header1">
+                    <div className="header-viewOptions1">
                         <div className="header-title1">
                             <h2>Locale: "{shop.name}"</h2>
                         </div>

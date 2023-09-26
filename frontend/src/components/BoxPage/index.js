@@ -193,7 +193,7 @@ function BoxPage() {
 
             <div className="listings1">
                 <div className="container1">
-                    <div className="header1">
+                    <div className="header-viewOptions1">
                         <div className="header-title1">
                             <h2>Prenota Box</h2>
                         </div>

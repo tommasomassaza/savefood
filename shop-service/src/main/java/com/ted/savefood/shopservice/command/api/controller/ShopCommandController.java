@@ -26,7 +26,7 @@ public class ShopCommandController {
             @RequestParam("city") String city,
             @RequestParam("address") String address,
             @RequestParam("description") String description,
-            @RequestParam("telephonNumber") String telephonNumber,
+            @RequestParam("telephoneNumber") String telephoneNumber,
             @RequestParam("image") MultipartFile imageFile
     ) {
         String shopId = UUID.randomUUID().toString();
@@ -38,7 +38,7 @@ public class ShopCommandController {
         createShopCommand.setCity(city);
         createShopCommand.setAddress(address);
         createShopCommand.setDescription(description);
-        createShopCommand.setTelephoneNumber(telephonNumber);
+        createShopCommand.setTelephoneNumber(telephoneNumber);
         createShopCommand.setNumberOfReviews(0);
         createShopCommand.setStars(0);
 
@@ -63,7 +63,7 @@ public class ShopCommandController {
             @RequestParam("city") String city,
             @RequestParam("address") String address,
             @RequestParam("description") String description,
-            @RequestParam("telephonNumber") String telephonNumber,
+            @RequestParam("telephoneNumber") String telephoneNumber,
             @RequestParam("image") MultipartFile imageFile
     ) {
         ModifyShopCommand modifyShopCommand = new ModifyShopCommand();
@@ -74,7 +74,7 @@ public class ShopCommandController {
         modifyShopCommand.setCity(city);
         modifyShopCommand.setAddress(address);
         modifyShopCommand.setDescription(description);
-        modifyShopCommand.setTelephoneNumber(telephonNumber);
+        modifyShopCommand.setTelephoneNumber(telephoneNumber);
 
         try {
             byte[] imageBytes = imageFile.getBytes();

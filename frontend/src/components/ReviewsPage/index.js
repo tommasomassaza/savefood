@@ -36,7 +36,7 @@ function ReviewsPage() {
     const { user } = useUser();
 
     const [reviewText, setReviewText] = useState('');
-    const [selectedStars, setSelectedStars] = useState(0);
+    const [selectedStars, setSelectedStars] = useState(1);
     const [imageBlob, setImageBlob] = useState(null); // Stato per l'immagine Blob
 
     const navigate = useNavigate();
@@ -125,9 +125,11 @@ function ReviewsPage() {
     };
 
     const handleStarClick = (star) => {
-        // Imposta il numero di stelle selezionate quando un utente clicca su una stella
-        setSelectedStars(star);
+        // Impedisci di scendere al di sotto di 1 nella valutazione
+        const newSelectedStars = Math.max(1, star);
+        setSelectedStars(newSelectedStars);
     };
+
 
     useEffect(() => {
         getShopReview();

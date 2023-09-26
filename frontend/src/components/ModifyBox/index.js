@@ -75,7 +75,7 @@ function ModifyBox() {
         formDataToSend.append('image', new Blob([image], { type: 'image/jpeg' }));
 
         // Invia formDataToSend al tuo backend
-        fetch('http://localhost:8080/api/boxes', {
+        fetch('http://localhost:8080/api/boxes/'+globalDataBox.getGlobalBoxId(), {
             method: 'PUT',
             body: formDataToSend,
         })

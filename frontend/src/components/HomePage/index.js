@@ -5,7 +5,7 @@ import './slider.js';
 import './selection.js';
 import Greeting from "../Greeting";
 import Sidebar from "./sidebar";
-import boxes from "../../data/boxes.json"
+import Coordinates from "../GoogleMaps/coordinates.js"
 
 
 import React, {useEffect, useState} from "react";
@@ -58,7 +58,8 @@ function HomePage() {
 
     useEffect(() => {
         getBoxes();
-    }, []);
+
+        }, []);
 
 
     //barra di ricerca, non ancora implementata
@@ -110,6 +111,7 @@ function HomePage() {
         }
     }, [category, searchTerm, boxes]);
 
+
     if (user) {
         const userId = user.id;
         console.log(userId); // Pu
@@ -120,8 +122,7 @@ function HomePage() {
 
 
         <body>
-
-
+        <Coordinates />
         <header>
 
             <div className="container1">
@@ -242,6 +243,7 @@ function HomePage() {
             </div>
 
         </div>
+
 
 
         <div className="listings1">

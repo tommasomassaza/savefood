@@ -6,11 +6,13 @@ import com.ted.savefood.shopservice.command.api.events.ShopCreatedEvent;
 import com.ted.savefood.shopservice.command.api.events.ShopModifiedEvent;
 import com.ted.savefood.shopservice.common.model.Shop;
 import com.ted.savefood.shopservice.common.repository.ShopRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class ShopEventHandler {
     private final ShopRepository shopRepository;
 
@@ -31,7 +33,6 @@ public class ShopEventHandler {
         Shop shop = shopRepository.findById(shopStarsModifiedEvent.getShopId()).orElse(null);
         if (shop != null) {
             float mean = ((shop.getStars() * shop.getNumberOfReviews()) + shopStarsModifiedEvent.getStars()) / (shop.getNumberOfReviews() + 1);
-
 
             shop.setNumberOfReviews(shop.getNumberOfReviews() + 1);
             shop.setStars(mean);

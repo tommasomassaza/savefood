@@ -56,12 +56,19 @@ public class ReviewProcessingSaga {
     public void handle(ShopStarsModifiedEvent shopStarsModifiedEvent) {
         log.info("ShopStarsModifiedEvent in Saga for Shop Id : {}", shopStarsModifiedEvent.getShopId());
 
-        CompleteReviewCommand completeReviewCommand
-                = CompleteReviewCommand.builder()
-                .reviewId(shopStarsModifiedEvent.getReviewId())
-                .build();
+        try {
+            CompleteReviewCommand completeReviewCommand
+                    = CompleteReviewCommand.builder()
+                    .reviewId(shopStarsModifiedEvent.getReviewId())
+                    .build();
 
-        commandGateway.sendAndWait(completeReviewCommand);
+            commandGateway.sendAndWait(completeReviewCommand);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+
+            // Start the compensating transaction
+            cancelReviewCommand(shopStarsModifiedEvent.getReviewId());
+        }
     }
 
     @SagaEventHandler(associationProperty = "reviewId")

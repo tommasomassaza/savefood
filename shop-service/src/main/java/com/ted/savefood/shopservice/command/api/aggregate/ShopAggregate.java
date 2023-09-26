@@ -4,10 +4,7 @@ import com.ted.savefood.commonutils.commands.ModifyStarsShopCommand;
 import com.ted.savefood.commonutils.events.BoxesCancelledByShopIdEvent;
 import com.ted.savefood.commonutils.events.ShopStarsModifiedEvent;
 import com.ted.savefood.shopservice.command.api.commands.*;
-import com.ted.savefood.shopservice.command.api.events.ShopCancelCompleteEvent;
-import com.ted.savefood.shopservice.command.api.events.ShopCancelEvent;
-import com.ted.savefood.shopservice.command.api.events.ShopCreatedEvent;
-import com.ted.savefood.shopservice.command.api.events.ShopModifiedEvent;
+import com.ted.savefood.shopservice.command.api.events.*;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -99,5 +96,13 @@ public class ShopAggregate {
         BeanUtils.copyProperties(cancelBoxesByShopIdCommand, boxesCancelledByShopIdEvent);
 
         AggregateLifecycle.apply(boxesCancelledByShopIdEvent);
+    }
+
+    @CommandHandler
+    public void handle(AnnulCancelShopCommand annulCancelShopCommand) {
+        ShopCancelAnnulEvent shopCancelAnnulEvent = new ShopCancelAnnulEvent();
+        BeanUtils.copyProperties(annulCancelShopCommand, shopCancelAnnulEvent);
+
+        AggregateLifecycle.apply(shopCancelAnnulEvent);
     }
 }

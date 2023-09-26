@@ -54,12 +54,20 @@ public class ShopProcessingSaga {
     public void handle(BoxesCancelledByShopIdEvent boxesCancelledByShopIdEvent) {
         log.info("BoxesCancelledByShopIdEvent in Saga for Shop Id : {}", boxesCancelledByShopIdEvent.getShopId());
 
-        CompleteCancelShopCommand completeCancelShopCommand
-                = CompleteCancelShopCommand.builder()
-                .shopId(boxesCancelledByShopIdEvent.getShopId())
-                .build();
 
-        commandGateway.sendAndWait(completeCancelShopCommand);
+        try {
+            CompleteCancelShopCommand completeCancelShopCommand
+                    = CompleteCancelShopCommand.builder()
+                    .shopId(boxesCancelledByShopIdEvent.getShopId())
+                    .build();
+
+            commandGateway.sendAndWait(completeCancelShopCommand);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+
+            // Start the compensating transaction
+            annulCancelShopCommand(boxesCancelledByShopIdEvent.getShopId());
+        }
     }
 
     @SagaEventHandler(associationProperty = "shopId")

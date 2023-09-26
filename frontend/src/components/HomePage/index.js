@@ -5,7 +5,7 @@ import './slider.js';
 import './selection.js';
 import Greeting from "../Greeting";
 import Sidebar from "./sidebar";
-import boxes from "../../data/boxes.json"
+import Coordinates from "../Google Maps/coordinates.js"
 
 
 import React, {useEffect, useState} from "react";
@@ -58,7 +58,8 @@ function HomePage() {
 
     useEffect(() => {
         getBoxes();
-    }, []);
+        <Coordinates/>
+        }, []);
 
 
     //barra di ricerca, non ancora implementata
@@ -108,18 +109,6 @@ function HomePage() {
                 setAllProducts(filteredProducts);
             }
         }
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                console.log(`Coordinate: Latitudine ${latitude}, Longitudine ${longitude}`);
-            }, (error) => {
-                console.error("Errore nell'ottenere la posizione:", error.message);
-            });
-        } else {
-            console.error("Geolocalizzazione non supportata dal tuo browser.");
-        }
-
     }, [category, searchTerm, boxes]);
 
 

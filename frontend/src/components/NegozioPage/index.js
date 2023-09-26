@@ -31,7 +31,7 @@ function NegozioPage() {
         city: '',
         address: '',
         description: '', // Corretto il nome del campo 'description'
-        telephonNumber: '', // Corretto il nome del campo 'telephonNumber'
+        telephoneNumber: '', // Corretto il nome del campo 'telephoneNumber'
         image: image
     });
 
@@ -40,7 +40,7 @@ function NegozioPage() {
         city: false,
         address: false,
         description: false,
-        telephonNumber: false
+        telephoneNumber: false
     });
 
     const navigate = useNavigate();
@@ -93,7 +93,7 @@ function NegozioPage() {
         formDataToSend.append('city', formData.city);
         formDataToSend.append('address', formData.address);
         formDataToSend.append('description', formData.description);
-        formDataToSend.append('telephonNumber', formData.telephonNumber);
+        formDataToSend.append('telephoneNumber', formData.telephoneNumber);
         formDataToSend.append('image', new Blob([image], { type: 'image/jpeg' })); // Usa 'image/jpeg' o il tipo di immagine corretto
 
         // Invia formDataToSend al tuo backend
@@ -172,7 +172,7 @@ function NegozioPage() {
                                         placeholder="Nome..."
                                         name="name" // Assicurati che il nome del campo corrisponda a formData.name
                                         value={formData.name}
-                                        minLength="5"
+                                        minLength="3"
                                         maxLength="50"
                                         required
                                         onChange={handleInputChange}
@@ -226,14 +226,14 @@ function NegozioPage() {
                                 />
                             </div>
                             <div className="form-group col-md-6">
-                                <label htmlFor="inputtelephonNumber">Numero di telefono</label>
+                                <label htmlFor="inputtelephoneNumber">Numero di telefono</label>
                                 <input
                                     type="tel"
                                     className="form-control"
-                                    id="inputtelephonNumber"
+                                    id="inputtelephoneNumber"
                                     placeholder="Numero di telefono..."
-                                    name="telephonNumber"
-                                    value={formData.telephonNumber}
+                                    name="telephoneNumber"
+                                    value={formData.telephoneNumber}
                                     pattern="[0-9]{10}"
                                     required
                                     onChange={handleInputChange}

@@ -5,7 +5,7 @@ import './slider.js';
 import './selection.js';
 import Greeting from "../Greeting";
 import Sidebar from "./sidebar";
-import Coordinates from "../Google Maps/coordinates.js"
+import Coordinates from "../GoogleMaps/coordinates.js"
 
 
 import React, {useEffect, useState} from "react";
@@ -58,7 +58,7 @@ function HomePage() {
 
     useEffect(() => {
         getBoxes();
-        <Coordinates/>
+
         }, []);
 
 
@@ -122,7 +122,7 @@ function HomePage() {
 
 
         <body>
-
+        <Coordinates />
         <header>
 
             <div className="container1">

@@ -80,8 +80,7 @@ function App() {
           </>
           }
         />
-                    
-                    
+
                     <Route path="/box" element={ <>
             <SignedIn>
               <BoxPage />

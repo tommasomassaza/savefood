@@ -1,5 +1,5 @@
 const getCityFromCoordinates = (latitude, longitude) => {
-    const apiKey = 'AIzaSyBQB5aIi5u1iUMCW-iWGumBFxo7jrB_r-k';
+    const apiKey = process.env.GOOGLE_MAPS_KEY;
     const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
 
     return fetch(apiUrl)

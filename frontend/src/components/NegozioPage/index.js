@@ -4,6 +4,8 @@ import boxes from '../../data/boxes.json';
 import { useUser } from "@clerk/clerk-react";
 import { FaArrowLeft, FaCalendarCheck, FaHome, FaSearch } from "react-icons/fa";
 import Greeting from "../Greeting";
+import Autosuggest from 'react-autosuggest';
+
 
 function NegozioPage() {
     const { user } = useUser();
@@ -12,6 +14,9 @@ function NegozioPage() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [imagePreview, setImagePreview] = useState('');
+    const [citySuggestions, setCitySuggestions] = useState([]);
+    const [cityValue, setCityValue] = useState('');
+
 
     let userId = null; // Inizializza userId come null
 

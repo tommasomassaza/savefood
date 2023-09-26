@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 
 import HomePage from './components/HomePage/index.js';
 import HomePage2 from './components/HomePage/index2.js';
@@ -22,7 +22,7 @@ import ReviewsVendors from './components/ReviewsVendors/index.js';
 import BoxPageVendor from './components/BoxPage/index_vendors.js';
 import OrdiniPage from './components/OrdiniPage/index.js';
 import PaymentPage from './components/PaymentPage/index.js';
-import {ClerkProvider, SignedIn, SignedOut,RedirectToSignIn,SignIn,SignUp} from '@clerk/clerk-react';
+import {ClerkProvider, SignedIn, SignedOut,RedirectToSignIn,SignIn} from '@clerk/clerk-react';
 import './components/HomePage/selection.js';
 import GreetingPage from './components/GreetingPage/index.js';
 import AccessPage from './components/Access/index.js';

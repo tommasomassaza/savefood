@@ -64,20 +64,25 @@ const ShoptItemOwner = ({ shop }) => {
         }
     }, [shop.image]);
 
+    // Genera un array di FaStar in base al valore di shop.stars
+    const starIcons = Array.from({ length: shop.stars }, (_, index) => (
+        <FaStar key={index} style={{ color: '#4FFFB0' }} />
+    ));
+
     return (
         <div className="listings-grid-element1">
-            <div className="image1" onClick={() => { setIdNew(shop.shopId, shop.city); navigate("/vendors/homepage2"); }}>
+            <div className="image1" onClick={() => { setIdNew(shop.shopId, shop.city); navigate("/vendors/homepage2");}}>
                 {/* Utilizza l'URL dell'immagine Blob */}
                 {imageBlob && <img src={imageBlob} alt="prova" />}
             </div>
             <div className="text1">
                 <div className="text-title1">
-                    <h3>{shop.name}</h3>
+                    <h3>{shop.name} </h3>
                     <FaTrashAlt
                         className="icons1"
                         color="red"
                         margin-left="2rem"
-                        onClick={() => deleteshop(shop.shopId)}
+                        onClick={() => { deleteshop(shop.shopId); navigate("/vendors/homepage"); navigate(0);}}
                     />
                     <FaPen color="#034694" onClick={() => { setIdNew(shop.shopId,shop.city); navigate("/vendors/modifyshop"); }}/>
                     <div className="info1">
@@ -87,7 +92,7 @@ const ShoptItemOwner = ({ shop }) => {
                     </div>
                 </div>
                 <div className="rating2">
-                    <FaStar></FaStar>
+                    {starIcons}
                 </div>
 
             </div>

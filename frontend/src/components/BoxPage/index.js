@@ -99,9 +99,7 @@ function BoxPage() {
             .then(
                 (result) => {
                     console.log(result);
-                    console.log("questo è review.username:" + result[0].userName);
                     setShopReviews(result);
-                    console.log("il nomignolo pauroso:"+result[0].userName);
                 },
                 (error) => {
                     console.log(error);
@@ -258,15 +256,15 @@ function BoxPage() {
 
                                 <div className="text1">
                                     <div className="info1">
-                                        {firstReview && (
-                                            <span>{firstReview.userName}: {truncateText(firstReview.description, 50)}</span>
+                                        {firstReview && firstReview.userName && firstReview.description && (
+                                            <span>{firstReview.userName}: {truncateText(firstReview.description, 30)}</span>
                                         )}
                                     </div>
                                 </div>
                                 <div className="text1">
                                     <div className="info1">
-                                        {secondReview && (
-                                            <span>{secondReview.userName}: {truncateText(secondReview.description, 50)}</span>
+                                        {secondReview && secondReview.userName && firstReview.description &&(
+                                            <span>{secondReview.userName}: {truncateText(secondReview.description, 30)}</span>
                                         )}
                                     </div>
                                 </div>

@@ -208,7 +208,7 @@ function ReviewsVendors() {
                                         <h3>Media recensioni:</h3>
                                         <br></br>
                                         <div className="rating2">
-                                            <span className="circle1">4.2</span></div>
+                                            <span className="circle1">{shop.stars}</span></div>
                                         <br></br>
                                         <div className="info1">
                                             <h7><strong>{shopsReviews.length}</strong> utenti hanno recensito questo locale</h7>

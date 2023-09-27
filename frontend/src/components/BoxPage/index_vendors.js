@@ -16,11 +16,15 @@ function BoxPageVendor() {
     const { user } = useUser();
 
     const [box, setBox] = useState([]);
+    const [shopsReviews, setShopReviews] = useState([]);
+    const firstReview = shopsReviews[0];
+    const secondReview = shopsReviews[1];
 
     const navigate = useNavigate();
 
     useEffect(() => {
         getBox();
+        getShopReview();
     }, []);
 
     const setShopId = (shopId) => {
@@ -56,6 +60,32 @@ function BoxPageVendor() {
                     console.log(error);
                 }
             )
+    };
+
+    let getShopReview = () => {
+        fetch('http://localhost:8080/api/reviews/' + globalData.getGlobalShopsId())
+            .then((res) => {
+                console.log(res.status);
+                console.log(res.headers);
+                return res.json();
+            })
+            .then(
+                (result) => {
+                    console.log(result);
+                    setShopReviews(result);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+    };
+
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.slice(0, maxLength) + '...';
+        }
+
+        return text;
     };
 
 
@@ -123,20 +153,25 @@ function BoxPageVendor() {
                                     <div className="text-title1" onClick={() => {
                                         navigate("/reviews");
                                     }}>
-                                        <h3 class="reviews">La pizzera <MdLocalDining color="gold"></MdLocalDining></h3>
+                                        <h3 class="reviews">{box.name} <MdLocalDining color="gold"></MdLocalDining></h3>
                                     </div>
                                 </div>
 
                                 <div className="text1">
                                     <div className="info1">
-                                        <span> Matteo Rossi: recensione...</span>
+                                        {firstReview && firstReview.userName && firstReview.description && (
+                                            <span>{firstReview.userName}: {truncateText(firstReview.description, 30)}</span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="text1">
                                     <div className="info1">
-                                        <span> Mirco Bianchi: recensione...</span>
+                                        {secondReview && secondReview.userName && firstReview.description &&(
+                                            <span>{secondReview.userName}: {truncateText(secondReview.description, 30)}</span>
+                                        )}
                                     </div>
                                 </div>
+
                                 <div className="text1">
                                     <div className="info1" onClick={() => {
                                         setShopId(box.shopId);

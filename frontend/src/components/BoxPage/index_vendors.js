@@ -16,15 +16,14 @@ function BoxPageVendor() {
     const { user } = useUser();
 
     const [box, setBox] = useState([]);
-    const [shopsReviews, setShopReviews] = useState([]);
-    const firstReview = shopsReviews[0];
-    const secondReview = shopsReviews[1];
+    const [shop, setShop] = useState([]);
+
 
     const navigate = useNavigate();
 
     useEffect(() => {
         getBox();
-        getShopReview();
+        getShop();
     }, []);
 
     const setShopId = (shopId) => {
@@ -62,8 +61,8 @@ function BoxPageVendor() {
             )
     };
 
-    let getShopReview = () => {
-        fetch('http://localhost:8080/api/reviews/' + globalData.getGlobalShopsId())
+    let getShop = () => {
+        fetch('http://localhost:8080/api/shops/getById/' + globalData.getGlobalShopsId())
             .then((res) => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -72,7 +71,7 @@ function BoxPageVendor() {
             .then(
                 (result) => {
                     console.log(result);
-                    setShopReviews(result);
+                    setShop(result);
                 },
                 (error) => {
                     console.log(error);
@@ -159,15 +158,15 @@ function BoxPageVendor() {
 
                                 <div className="text1">
                                     <div className="info1">
-                                        {firstReview && firstReview.userName && firstReview.description && (
-                                            <span>{firstReview.userName}: {truncateText(firstReview.description, 30)}</span>
+                                        {shop && shop.address && (
+                                            <span>Indirizzo: {truncateText(shop.address, 30)}</span>
                                         )}
                                     </div>
                                 </div>
                                 <div className="text1">
                                     <div className="info1">
-                                        {secondReview && secondReview.userName && firstReview.description &&(
-                                            <span>{secondReview.userName}: {truncateText(secondReview.description, 30)}</span>
+                                        {shop && shop.telephoneNumber &&(
+                                            <span>Telefono: {truncateText(shop.telephoneNumber, 30)}</span>
                                         )}
                                     </div>
                                 </div>

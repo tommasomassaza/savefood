@@ -41,7 +41,7 @@ function ModifyNegozio() {
         setShowConfirmation(true);
         setTimeout(() => {
             setShowConfirmation(false);
-            navigate('/vendors/homepage2');
+            navigate('/vendors/homepage');
         }, 1500); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
     };
 

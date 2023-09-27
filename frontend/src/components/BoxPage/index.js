@@ -30,6 +30,9 @@ function BoxPage() {
     //console.log(posts)
     const [box, setBox] = useState([]);
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const [shopsReviews, setShopReviews] = useState([]);
+    const firstReview = shopsReviews[0];
+    const secondReview = shopsReviews[1];
 
     const handleConfirmation = () => {
         setShowConfirmation(true);
@@ -45,7 +48,6 @@ function BoxPage() {
     }, []);
 
     const { user } = useUser();
-    console.log("questo è il nome: " + globalBoxName.getGlobalName())
 
     let userId = null; // Inizializza userId come null
     let userName = null; // Inizializza userId come null
@@ -68,14 +70,32 @@ function BoxPage() {
             .then((result) => {
                     console.log(result);
                     setBox(result);
-                    console.log(box);
-                    console.log(box.price);
-                    console.log("questo è l'id della box:" + globalDataBox.getGlobalBoxId());
+                    setShopId(result.shopId);
+                    getShopReview();
                 },
                 (error) => {
                     console.log(error);
                 }
             )
+    };
+
+    let getShopReview = () => {
+        fetch('http://localhost:8080/api/reviews/' + globalData.getGlobalShopsId())
+            .then((res) => {
+                console.log(res.status);
+                console.log(res.headers);
+                return res.json();
+            })
+            .then(
+                (result) => {
+                    console.log(result);
+                    console.log("questo è l'id del negozio:" + globalData.getGlobalShopsId());
+                    setShopReviews(result);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
     };
 
     let postOrdine = () => {
@@ -227,12 +247,12 @@ function BoxPage() {
 
                                 <div className="text1">
                                     <div className="info1">
-                                        <span> Matteo Rossi: recensione...</span>
+                                        <span>{firstReview.userName}: {firstReview.description}</span>
                                     </div>
                                 </div>
                                 <div className="text1">
                                     <div className="info1">
-                                        <span> Mirco Bianchi: recensione...</span>
+                                        <span>{secondReview.userName}: {secondReview.description}</span>
                                     </div>
                                 </div>
                                 <div className="text1">

@@ -43,6 +43,14 @@ function BoxPage() {
 
     };
 
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.slice(0, maxLength) + '...';
+        }
+
+        return text;
+    };
+
     useEffect(() => {
         getBox();
     }, []);
@@ -247,12 +255,12 @@ function BoxPage() {
 
                                 <div className="text1">
                                     <div className="info1">
-                                        <span>{firstReview.userName}: {firstReview.description}</span>
+                                        <span>{firstReview.userName}: {truncateText(firstReview.description, 30)}</span>
                                     </div>
                                 </div>
                                 <div className="text1">
                                     <div className="info1">
-                                        <span>{secondReview.userName}: {secondReview.description}</span>
+                                        <span>{secondReview.userName}: {truncateText(secondReview.description, 30)}</span>
                                     </div>
                                 </div>
                                 <div className="text1">

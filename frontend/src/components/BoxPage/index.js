@@ -34,6 +34,7 @@ function BoxPage() {
     const firstReview = shopsReviews[0];
     const secondReview = shopsReviews[1];
 
+
     const handleConfirmation = () => {
         setShowConfirmation(true);
         setTimeout(() => {
@@ -53,6 +54,7 @@ function BoxPage() {
 
     useEffect(() => {
         getBox();
+        getShopReview();
     }, []);
 
     const { user } = useUser();
@@ -79,7 +81,7 @@ function BoxPage() {
                     console.log(result);
                     setBox(result);
                     setShopId(result.shopId);
-                    getShopReview();
+
                 },
                 (error) => {
                     console.log(error);
@@ -97,8 +99,9 @@ function BoxPage() {
             .then(
                 (result) => {
                     console.log(result);
-                    console.log("questo è l'id del negozio:" + globalData.getGlobalShopsId());
+                    console.log("questo è review.username:" + result[0].userName);
                     setShopReviews(result);
+                    console.log("il nomignolo pauroso:"+result[0].userName);
                 },
                 (error) => {
                     console.log(error);
@@ -255,14 +258,20 @@ function BoxPage() {
 
                                 <div className="text1">
                                     <div className="info1">
-                                        <span>{firstReview.userName}: {truncateText(firstReview.description, 30)}</span>
+                                        {firstReview && (
+                                            <span>{firstReview.userName}: {truncateText(firstReview.description, 50)}</span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="text1">
                                     <div className="info1">
-                                        <span>{secondReview.userName}: {truncateText(secondReview.description, 30)}</span>
+                                        {secondReview && (
+                                            <span>{secondReview.userName}: {truncateText(secondReview.description, 50)}</span>
+                                        )}
                                     </div>
                                 </div>
+
+
                                 <div className="text1">
                                     <div className="info1" onClick={() => {
                                         setShopId(box.shopId)

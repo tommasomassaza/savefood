@@ -299,6 +299,7 @@ function ModifyNegozio() {
                                         accept="image/*"
                                         type="file"
                                         onChange={convertToByteArray}
+                                        required
                                     />
                                     {imagePreview ? ( // Se c'è un'anteprima, mostrala
                                         <img width={100} height={100} src={imagePreview} alt="Preview" />

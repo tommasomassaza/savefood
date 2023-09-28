@@ -99,8 +99,6 @@ function ReviewsVendors() {
     return (
 
         <body>
-
-
         <header>
             <div className="container1">
                 <div className="logo1" onClick={() => {
@@ -150,7 +148,9 @@ function ReviewsVendors() {
                     </div>
                     <div className="listings-grid1">
                         <div className="listings-col1">
-                            <div className="listings-grid-element2">
+                            <div className="listings-grid-element2"
+                                 style={{ overflow: 'auto' }}
+                            >
 
                                 <div className="image3">
                                     {/* Utilizza l'URL dell'immagine Blob */}
@@ -199,14 +199,16 @@ function ReviewsVendors() {
                             </div>
 
 
-                            <div className="listings-grid-element4">
+                            <div className="listings-grid-element4"
+                                 style={{ maxHeight: 700, overflow: 'auto' }}
+                            >
 
                                 <div className="text2">
                                     <div className="text-title1">
                                         <h3>Media recensioni:</h3>
                                         <br></br>
                                         <div className="rating2">
-                                            <span className="circle1">4.2</span></div>
+                                            <span className="circle1">{shop.stars}</span></div>
                                         <br></br>
                                         <div className="info1">
                                             <h7><strong>{shopsReviews.length}</strong> utenti hanno recensito questo locale</h7>

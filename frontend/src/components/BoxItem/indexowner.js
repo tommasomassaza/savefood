@@ -92,7 +92,7 @@ const BoxItemOwner = ({box}) => {
                     </div>
                 </div>
                 <div className="rating2">
-                    <span className="circle1">4.2</span>
+                    <span className="circle1">{box.quantity}</span>
                 </div>
             </div>
             <div className="text-lower1">

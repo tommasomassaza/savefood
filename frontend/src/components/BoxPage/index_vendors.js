@@ -16,11 +16,14 @@ function BoxPageVendor() {
     const { user } = useUser();
 
     const [box, setBox] = useState([]);
+    const [shop, setShop] = useState([]);
+
 
     const navigate = useNavigate();
 
     useEffect(() => {
         getBox();
+        getShop();
     }, []);
 
     const setShopId = (shopId) => {
@@ -56,6 +59,32 @@ function BoxPageVendor() {
                     console.log(error);
                 }
             )
+    };
+
+    let getShop = () => {
+        fetch('http://localhost:8080/api/shops/getById/' + globalData.getGlobalShopsId())
+            .then((res) => {
+                console.log(res.status);
+                console.log(res.headers);
+                return res.json();
+            })
+            .then(
+                (result) => {
+                    console.log(result);
+                    setShop(result);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+    };
+
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.slice(0, maxLength) + '...';
+        }
+
+        return text;
     };
 
 
@@ -123,20 +152,25 @@ function BoxPageVendor() {
                                     <div className="text-title1" onClick={() => {
                                         navigate("/reviews");
                                     }}>
-                                        <h3 class="reviews">La pizzera <MdLocalDining color="gold"></MdLocalDining></h3>
+                                        <h3 class="reviews">{box.name} <MdLocalDining color="gold"></MdLocalDining></h3>
                                     </div>
                                 </div>
 
                                 <div className="text1">
                                     <div className="info1">
-                                        <span> Matteo Rossi: recensione...</span>
+                                        {shop && shop.address && (
+                                            <span>Indirizzo: {truncateText(shop.address, 30)}</span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="text1">
                                     <div className="info1">
-                                        <span> Mirco Bianchi: recensione...</span>
+                                        {shop && shop.telephoneNumber &&(
+                                            <span>Telefono: {truncateText(shop.telephoneNumber, 30)}</span>
+                                        )}
                                     </div>
                                 </div>
+
                                 <div className="text1">
                                     <div className="info1" onClick={() => {
                                         setShopId(box.shopId);

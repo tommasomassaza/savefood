@@ -41,7 +41,7 @@ function ModifyNegozio() {
         setShowConfirmation(true);
         setTimeout(() => {
             setShowConfirmation(false);
-            navigate('/vendors/homepage2');
+            navigate('/vendors/homepage');
         }, 1500); // Il messaggio scomparirà dopo 4 secondi (4000 millisecondi)
     };
 
@@ -299,6 +299,7 @@ function ModifyNegozio() {
                                         accept="image/*"
                                         type="file"
                                         onChange={convertToByteArray}
+                                        required
                                     />
                                     {imagePreview ? ( // Se c'è un'anteprima, mostrala
                                         <img width={100} height={100} src={imagePreview} alt="Preview" />

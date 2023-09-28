@@ -280,7 +280,7 @@ function ReviewsPage() {
                                     <div className="text-title1">
                                         <h3>Media recensioni:</h3>
                                         <div className="rating2">
-                                            <span className="circle1">4.2</span>
+                                            <span className="circle1">{shop.stars}</span>
                                         </div>
                                         <div className="info1">
                                             <h7><strong>{shopsReviews.length}</strong> utenti hanno recensito questo locale</h7>

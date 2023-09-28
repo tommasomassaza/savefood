@@ -4,7 +4,28 @@ import { useNavigate } from "react-router-dom";
 import { globalData, globalCityShop, globalDataBox } from "../GreetingPage/global";
 import Greeting from "../Greeting";
 import { FaArrowLeft, FaCalendarCheck, FaHome } from "react-icons/fa";
-import Sidebar from "../HomePage/sidebar";
+import {useUser} from "@clerk/clerk-react";
+
+
+// Funzione per convertire una stringa Base64 in un oggetto Blob
+function base64ToBlob(base64String, contentType) {
+    const byteCharacters = atob(base64String);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        const slice = byteCharacters.slice(offset, offset + 512);
+
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, { type: contentType });
+}
 
 function ModifyBox() {
     const [image, setImage] = useState("");
@@ -14,6 +35,7 @@ function ModifyBox() {
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [box, setBox] = useState([]);
     const [imagePreview, setImagePreview] = useState('');
+    const { user } = useUser();
 
     const handleConfirmation = () => {
         setShowConfirmation(true);
@@ -25,16 +47,24 @@ function ModifyBox() {
 
     const navigate = useNavigate();
 
+    let userId = null; // Inizializza userId come null
+
+    if (user) {
+        userId = user.id; // Assegna il valore solo se user è definito
+        console.log(userId);
+    }
+
     const [formData, setFormData] = useState({
-        shopId: globalData.getGlobalShopsId(),
+        boxId: globalDataBox.getGlobalBoxId(),
+        shopId: globalData.getGlobalShopsId(), //da passare
         name: "",
         description: "",
         price: "",
         size: "",
         pickUpTime: "",
-        city: globalCityShop.getGlobalCityShop(),
+        city: globalCityShop.getGlobalCityShop(), //da passare
         quantity: "",
-        image: "", // Inizialmente vuoto, verrà aggiornato con l'anteprima
+        image: image,
         // Aggiungi altri campi del form qui se necessario
     });
 
@@ -63,8 +93,10 @@ function ModifyBox() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         // Crea un nuovo oggetto formData solo con i dati necessari
         const formDataToSend = new FormData();
+        formDataToSend.append("boxId", formData.boxId);
         formDataToSend.append('shopId', formData.shopId);
         formDataToSend.append('name', formData.name);
         formDataToSend.append('description', formData.description);
@@ -73,11 +105,16 @@ function ModifyBox() {
         formDataToSend.append('pickUpTime', formData.pickUpTime);
         formDataToSend.append('city', formData.city);
         formDataToSend.append('quantity', formData.quantity);
-        formDataToSend.append('image', new Blob([image], { type: 'image/jpeg' }));
+        formDataToSend.append('image', new Blob([image], { type: 'image/jpeg' })); // Usa 'image/jpeg' o il tipo di immagine corretto
+
+        // Verifica se è stata selezionata una nuova immagine
+        if (image !== box.image) {
+            formDataToSend.append("image", new Blob([image], { type: "image/jpeg" }));
+        }
 
         // Invia formDataToSend al tuo backend
-        fetch('http://localhost:8080/api/boxes/'+globalDataBox.getGlobalBoxId(), {
-            method: 'PUT',
+        fetch("http://localhost:8080/api/boxes", {
+            method: "PUT",
             body: formDataToSend,
         })
             .then((res) => {
@@ -92,6 +129,7 @@ function ModifyBox() {
             });
         handleConfirmation();
     };
+
 
     let getBox = () => {
         fetch('http://localhost:8080/api/boxes/getById/' + globalDataBox.getGlobalBoxId())
@@ -111,11 +149,14 @@ function ModifyBox() {
                         price: result.price || "",
                         size: result.size || "",
                         pickUpTime: result.pickUpTime || "",
+                        city: result.city || "",
                         quantity: result.quantity || "",
                     });
                     // Aggiorna l'anteprima dell'immagine se c'è una immagine nella box
+
                     if (result.image) {
-                        setImageVisualize(result.image);
+                        const blob = base64ToBlob(result.image, "image/jpeg"); // Cambia il tipo MIME in base al tuo tipo di immagine
+                        setImageVisualize(URL.createObjectURL(blob));
                     }
                 },
                 (error) => {
@@ -126,8 +167,8 @@ function ModifyBox() {
 
     useEffect(() => {
         getBox();
-    }, []);
 
+    }, []);
 
 
     return (
@@ -161,13 +202,12 @@ function ModifyBox() {
             </header>
 
             <div className="options1">
-                <Sidebar className="barra"></Sidebar>
                 <div className="container1">
                     <div className="header-title1">
-                        <h2>Modifica una box:</h2>
+                        <h2>Modifica la box:</h2>
                         <div className="header-viewOptions1">
                             <div className="viewAll1" onClick={() => {
-                                navigate("/vendors/homepage2");
+                                navigate("/vendors/homepage");
 
                             }}>
                                 <span><FaArrowLeft/> Torna Indietro</span>
@@ -217,9 +257,9 @@ function ModifyBox() {
                                     type="number"
                                     className="form-control"
                                     id="inputPrezzo"
-                                    placeholder={box.price}
+                                    placeholder="Prezzo..."
                                     name="price"
-                                    value={formData.price}
+                                    value={box.price}
                                     min="1.00"
                                     max="50"
                                     step="0.5"
@@ -275,7 +315,6 @@ function ModifyBox() {
                                     onChange={handleInputChange}
                                 />
                             </div>
-
                             <div className="auth-wrapper">
                                 <div className="auth-inner" style={{ width: 'auto' }}>
                                     Carica un'immagine<br />
@@ -287,8 +326,8 @@ function ModifyBox() {
                                     />
                                     {imagePreview ? ( // Se c'è un'anteprima, mostrala
                                         <img width={100} height={100} src={imagePreview} alt="Preview" />
-                                    ) : image ? ( // Se c'è un'immagine ma non c'è anteprima, mostra l'immagine attuale
-                                        <img width={100} height={100} src={box.image} alt="Current" />
+                                    ) : imageVisualize ? ( // Mostra l'immagine esistente, se disponibile
+                                        <img width={100} height={100} src={imageVisualize} alt="Existing" />
                                     ) : null}
                                 </div>
                                 <br />

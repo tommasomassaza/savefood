@@ -30,6 +30,9 @@ function BoxPage() {
     //console.log(posts)
     const [box, setBox] = useState([]);
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const [shop, setShop] = useState([]);
+
+
 
     const handleConfirmation = () => {
         setShowConfirmation(true);
@@ -40,12 +43,20 @@ function BoxPage() {
 
     };
 
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.slice(0, maxLength) + '...';
+        }
+
+        return text;
+    };
+
     useEffect(() => {
         getBox();
+        getShop();
     }, []);
 
     const { user } = useUser();
-    console.log("questo è il nome: " + globalBoxName.getGlobalName())
 
     let userId = null; // Inizializza userId come null
     let userName = null; // Inizializza userId come null
@@ -68,14 +79,31 @@ function BoxPage() {
             .then((result) => {
                     console.log(result);
                     setBox(result);
-                    console.log(box);
-                    console.log(box.price);
-                    console.log("questo è l'id della box:" + globalDataBox.getGlobalBoxId());
+                    setShopId(result.shopId);
+
                 },
                 (error) => {
                     console.log(error);
                 }
             )
+    };
+
+    let getShop = () => {
+        fetch('http://localhost:8080/api/shops/getById/' + globalData.getGlobalShopsId())
+            .then((res) => {
+                console.log(res.status);
+                console.log(res.headers);
+                return res.json();
+            })
+            .then(
+                (result) => {
+                    console.log(result);
+                    setShop(result);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
     };
 
     let postOrdine = () => {
@@ -227,14 +255,20 @@ function BoxPage() {
 
                                 <div className="text1">
                                     <div className="info1">
-                                        <span> Matteo Rossi: recensione...</span>
+                                        {shop && shop.address && (
+                                            <span>Indirizzo: {truncateText(shop.address, 30)}</span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="text1">
                                     <div className="info1">
-                                        <span> Mirco Bianchi: recensione...</span>
+                                        {shop && shop.telephoneNumber &&(
+                                            <span>Telefono: {truncateText(shop.telephoneNumber, 30)}</span>
+                                        )}
                                     </div>
                                 </div>
+
+
                                 <div className="text1">
                                     <div className="info1" onClick={() => {
                                         setShopId(box.shopId)

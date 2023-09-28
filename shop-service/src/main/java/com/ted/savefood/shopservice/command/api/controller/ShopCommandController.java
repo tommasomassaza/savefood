@@ -46,7 +46,6 @@ public class ShopCommandController {
         try {
             byte[] imageBytes = imageFile.getBytes();
             createShopCommand.setImage(imageBytes);
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,8 +1,7 @@
 import BoxItem from '../BoxItem/index.js';
 import {useNavigate} from "react-router-dom";
-import {FaArrowRight} from "react-icons/fa";
+import {globalCityCoordinates} from "../GreetingPage/global";
 import {
-
     FaSearch,
     FaHome,
     FaCalendarCheck,
@@ -36,7 +35,7 @@ function HomePage2() {
     const [boxes, setBoxes] = useState([]);
 
     let getBoxes = () => {
-        fetch('http://localhost:8080/api/boxes')
+        fetch('http://localhost:8080/api/boxes/'+globalCityCoordinates.getGlobalCityCoordinates())
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);

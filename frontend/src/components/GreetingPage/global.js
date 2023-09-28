@@ -84,3 +84,12 @@ export const globalBoxShopId = {
         return localStorage.getItem('globalBoxShopId');
     },
 };
+
+export const globalCityCoordinates = {
+    setGlobalCityCoordinates: (value) => {
+        localStorage.setItem('globalCityCoordinates', value);
+    },
+    getGlobalCityCoordinates: () => {
+        return localStorage.getItem('globalCityCoordinates');
+    },
+};

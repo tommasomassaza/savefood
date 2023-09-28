@@ -15,6 +15,7 @@ import './HomePage.scss';
 import {UserButton} from "@clerk/clerk-react";
 
 import { useUser } from '@clerk/clerk-react';
+import {globalCityCoordinates} from "../GreetingPage/global";
 
 
 function HomePage4() {
@@ -34,7 +35,7 @@ function HomePage4() {
     const [boxes, setBoxes] = useState([]);
 
     let getBoxes = () => {
-        fetch('http://localhost:8080/api/boxes')
+        fetch('http://localhost:8080/api/boxes/'+globalCityCoordinates.getGlobalCityCoordinates())
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);

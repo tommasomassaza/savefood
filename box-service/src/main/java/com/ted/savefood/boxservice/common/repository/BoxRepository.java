@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BoxRepository extends CrudRepository<Box,String> {
     List<Box> findAllByShopId(String shopId);
+
+    List<Box> findAllByCity(String city);
 }

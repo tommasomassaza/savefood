@@ -23,9 +23,9 @@ public class BoxQueryController {
         this.queryGateway = queryGateway;
     }
 
-    @GetMapping
-    public List<BoxDto> getAllBoxes(){
-        GetBoxesQuery getBoxesQuery = new GetBoxesQuery();
+    @GetMapping("/{city}")
+    public List<BoxDto> getAllBoxes(@PathVariable String city) {
+        GetBoxesQuery getBoxesQuery = new GetBoxesQuery(city);
 
         return queryGateway.query(
                 getBoxesQuery,
@@ -34,7 +34,7 @@ public class BoxQueryController {
     }
 
     @GetMapping("/getByShopId/{shopId}")
-    public List<BoxDto> getAllBoxes(@PathVariable String shopId) {
+    public List<BoxDto> getAllBoxesByShopId(@PathVariable String shopId) {
         GetBoxesByShopQuery getBoxesByShopQuery = new GetBoxesByShopQuery(shopId);
 
         return queryGateway.query(

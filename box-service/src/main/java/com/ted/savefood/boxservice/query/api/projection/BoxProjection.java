@@ -26,7 +26,7 @@ public class BoxProjection {
     @QueryHandler
     public List<BoxDto> handle(GetBoxesQuery getBoxesQuery){
         List<Box> boxes = new LinkedList<>();
-        boxRepository.findAll().forEach(boxes::add);
+        boxRepository.findAllByCity(getBoxesQuery.getCity()).forEach(boxes::add);
 
         return boxes.stream()
                 .map(this::toDto)

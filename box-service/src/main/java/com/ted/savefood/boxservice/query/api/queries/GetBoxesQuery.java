@@ -1,5 +1,8 @@
 package com.ted.savefood.boxservice.query.api.queries;
 
-public class GetBoxesQuery {
+import lombok.Value;
 
+@Value
+public class GetBoxesQuery {
+    private String city;
 }

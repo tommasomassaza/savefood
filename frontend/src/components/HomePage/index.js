@@ -130,13 +130,13 @@ function HomePage() {
             <div className="container1">
                 <Greeting></Greeting>
                 <div className="logo1" onClick={() => {
-                    navigate("/greeting_page");}}>
+                    navigate("/");}}>
                     <h1>Save<span>Food </span></h1>
                 </div>
 
                 <div className="currentDetails1">
                     <div className="header-option1" onClick={() => {
-                        navigate("/");}}>
+                        navigate("/home");}}>
                     <span>Home <FaHome></FaHome></span>
                     </div>
                     <div className="header-option1" onClick={() => {

@@ -122,7 +122,7 @@ function HomePage7() {
                 </div>
                 <div className="currentDetails1">
                     <div className="header-option1"onClick={() => {
-                        navigate("/");}}>
+                        navigate("/home");}}>
 
                         <span>Home <FaHome></FaHome></span>
                     </div>

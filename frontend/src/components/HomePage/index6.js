@@ -121,7 +121,7 @@ function HomePage6() {
                 </div>
                 <div className="currentDetails1">
                     <div className="header-option1"onClick={() => {
-                        navigate("/");}}>
+                        navigate("/home");}}>
 
                         <span>Home <FaHome></FaHome></span>
                     </div>
@@ -163,7 +163,7 @@ function HomePage6() {
             <Sidebar className="barra"></Sidebar>
             <div className="container1">
                 <button className="options-btn1 uno" onClick={() => {
-                    navigate("/");
+                    navigate("/home");
                 }}>
                     <i data-feather="shopping-bag"></i>
                     <span>Tutte</span>

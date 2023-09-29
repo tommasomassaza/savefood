@@ -184,7 +184,7 @@ function BoxPage() {
                 </div>
                 <div className="currentDetails1">
                     <div className="header-option1"onClick={() => {
-                        navigate("/");
+                        navigate("/home");
                     }}>
                         <span>Home <FaHome></FaHome></span>
                     </div>
@@ -227,7 +227,7 @@ function BoxPage() {
                         </div>
                         <div className="header-viewOptions1">
                             <div className="viewAll1" onClick={() => {
-                                navigate("/");
+                                navigate("/home");
                                 navigate(0);
                             }}>
                                 <span> <FaArrowLeft/> Torna alla Home</span>

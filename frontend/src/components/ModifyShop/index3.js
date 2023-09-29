@@ -95,7 +95,7 @@ function ModifyShop3() {
             <div className="container1">
 
                 <div className="logo1" onClick={() => {
-                    navigate("/greeting_page");
+                    navigate("/");
                 }}>
                     <h1>Save<span>Food </span></h1>
                 </div>

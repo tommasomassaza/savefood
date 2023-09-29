@@ -14,7 +14,7 @@ const GreetingPage = () => {
 
         globalDataRole.setGlobalRole(role); // Utilizza la funzione di impostazione
         if(role === "cliente") {
-            navigate("/");
+            navigate("/home");
         } else if(role === "venditore") {
             navigate("/vendors/homepage");
         }
@@ -41,7 +41,7 @@ const GreetingPage = () => {
                     <button type="button" class="btn btn-success btn-sq-responsive text-light"
                             onClick={() => {
                                 handleSignUp("cliente");
-                                navigate("/");
+                                navigate("/home");
                             }}> <div className="logo1">
                             <h1>Customer</h1>
                         </div></button>

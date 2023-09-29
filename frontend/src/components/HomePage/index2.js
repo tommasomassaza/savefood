@@ -223,10 +223,14 @@ function HomePage2() {
                 </div>
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {allProducts.map(item => (
-                            <BoxItem box={item}></BoxItem>
-
-                        ))}
+                        {Array.isArray(allProducts) ? (
+                            allProducts.map(item => (
+                                <BoxItem box={item}></BoxItem>
+                            ))
+                        ) : (
+                            // Gestione quando allProducts non è un array
+                            console.log("allProducts non è ancora stato ricevuto")
+                        )}
                     </div>
                 </div>
             </div>

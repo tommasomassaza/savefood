@@ -1,7 +1,7 @@
 package com.ted.savefood.reviewservice.query.api.controller;
 
 import com.ted.savefood.reviewservice.common.modelDto.ReviewDto;
-import com.ted.savefood.reviewservice.query.api.queries.GetReviewsByShopId;
+import com.ted.savefood.reviewservice.query.api.queries.GetReviewsByShopIdQuery;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +23,10 @@ public class ReviewQueryController {
 
     @GetMapping("/{shopId}")
     public List<ReviewDto> getReviewsByShopId(@PathVariable String shopId) {
-        GetReviewsByShopId getReviewsByShopId = new GetReviewsByShopId(shopId);
+        GetReviewsByShopIdQuery getReviewsByShopIdQuery = new GetReviewsByShopIdQuery(shopId);
 
         return queryGateway.query(
-                        getReviewsByShopId,
+                        getReviewsByShopIdQuery,
                         ResponseTypes.multipleInstancesOf(ReviewDto.class))
                 .join();
     }

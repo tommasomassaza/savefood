@@ -3,7 +3,7 @@ package com.ted.savefood.reviewservice.query.api.projection;
 import com.ted.savefood.reviewservice.common.model.Review;
 import com.ted.savefood.reviewservice.common.modelDto.ReviewDto;
 import com.ted.savefood.reviewservice.common.repository.ReviewRepository;
-import com.ted.savefood.reviewservice.query.api.queries.GetReviewsByShopId;
+import com.ted.savefood.reviewservice.query.api.queries.GetReviewsByShopIdQuery;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -21,9 +21,9 @@ public class ReviewProjection {
     }
 
     @QueryHandler
-    public List<ReviewDto> handle(GetReviewsByShopId getReviewsByShopId) {
+    public List<ReviewDto> handle(GetReviewsByShopIdQuery getReviewsByShopIdQuery) {
         List<Review> reviews = new LinkedList<>();
-        reviewRepository.findAllByShopId(getReviewsByShopId.getShopId()).forEach(reviews::add);
+        reviewRepository.findAllByShopId(getReviewsByShopIdQuery.getShopId()).forEach(reviews::add);
 
         return reviews.stream()
                 .map(this::toDto)

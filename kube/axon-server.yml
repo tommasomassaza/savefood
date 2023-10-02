@@ -45,6 +45,13 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 5
             timeoutSeconds: 1
+          resources:
+            requests:
+              memory: "4Gi"  # Imposta la quantità di memoria richiesta a 4 gigabyte
+              cpu: "1"       # Imposta la quantità di CPU richiesta a 1 core
+            limits:
+              memory: "8Gi"  # Imposta il limite di memoria a 8 gigabyte (opzionale)
+              cpu: "2"       # Imposta il limite di CPU a 2 core (opzionale)
   volumeClaimTemplates:
     - metadata:
         name: eventstore
@@ -60,6 +67,7 @@ spec:
         resources:
           requests:
             storage: 1Gi
+
 
 ---
 apiVersion: v1

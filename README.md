@@ -43,5 +43,5 @@ Esegui l'accesso tramite Clerk.
 1. Accedi come Customer selezionando questa opzione dalla schermata iniziale.
 2. Verrai indirizzato a una pagina che elenca tutte le box disponibili.
 3. Per prenotare una box, fai clic su quella desiderata e inserisci la quantità desiderata.
-4. L'ordine verrà registrato
+4. L'ordine verrà registrato.
 5. Puoi accedere alla pagina "I Miei Ordini" per visualizzare lo stato delle tue prenotazioni.

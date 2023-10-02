@@ -6,6 +6,7 @@ import './selection.js';
 import Greeting from "../Greeting";
 import Sidebar from "./sidebar";
 import Coordinates from "../GoogleMaps/coordinates.js"
+import {globalCityCoordinates} from "../GreetingPage/global";
 
 
 import React, {useEffect, useState} from "react";
@@ -37,7 +38,7 @@ function HomePage() {
 
     const {user} = useUser();
     let getBoxes = () => {
-        fetch('http://localhost:8080/api/boxes')
+        fetch('http://localhost:8080/api/boxes/'+ globalCityCoordinates.getGlobalCityCoordinates())
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -46,6 +47,7 @@ function HomePage() {
             })
             .then((result) => {
                     console.log(result);
+                    console.log("la città globale è: "+globalCityCoordinates.getGlobalCityCoordinates())
                     setBoxes(result);
 
                 },
@@ -57,6 +59,7 @@ function HomePage() {
 
 
     useEffect(() => {
+        <Coordinates />
         getBoxes();
 
         }, []);
@@ -122,19 +125,18 @@ function HomePage() {
 
 
         <body>
-        <Coordinates />
         <header>
 
             <div className="container1">
                 <Greeting></Greeting>
                 <div className="logo1" onClick={() => {
-                    navigate("/greeting_page");}}>
+                    navigate("/");}}>
                     <h1>Save<span>Food </span></h1>
                 </div>
 
                 <div className="currentDetails1">
                     <div className="header-option1" onClick={() => {
-                        navigate("/");}}>
+                        navigate("/home");}}>
                     <span>Home <FaHome></FaHome></span>
                     </div>
                     <div className="header-option1" onClick={() => {
@@ -260,10 +262,15 @@ function HomePage() {
 
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {allProducts.map(item => (
-                            <BoxItem box={item}></BoxItem>
+                        {Array.isArray(allProducts) ? (
+                            allProducts.map(item => (
+                                <BoxItem box={item}></BoxItem>
+                            ))
+                        ) : (
+                            // Gestione quando allProducts non è un array
+                            console.log("allProducts non è ancora stato ricevuto")
+                        )}
 
-                        ))}
                     </div>
                 </div>
             </div>

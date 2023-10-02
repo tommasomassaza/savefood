@@ -160,7 +160,7 @@ function ReviewsPage() {
                     <div
                         className="header-option1"
                         onClick={() => {
-                            navigate('/');
+                            navigate('/home');
                         }}
                     >
               <span>

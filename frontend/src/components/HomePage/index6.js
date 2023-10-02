@@ -15,6 +15,7 @@ import './HomePage.scss';
 import {UserButton} from "@clerk/clerk-react";
 
 import { useUser } from '@clerk/clerk-react';
+import {globalCityCoordinates} from "../GreetingPage/global";
 
 
 function HomePage6() {
@@ -34,7 +35,7 @@ function HomePage6() {
     const [boxes, setBoxes] = useState([]);
 
     let getBoxes = () => {
-        fetch('http://localhost:8080/api/boxes')
+        fetch('http://localhost:8080/api/boxes/'+globalCityCoordinates.getGlobalCityCoordinates())
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -120,7 +121,7 @@ function HomePage6() {
                 </div>
                 <div className="currentDetails1">
                     <div className="header-option1"onClick={() => {
-                        navigate("/");}}>
+                        navigate("/home");}}>
 
                         <span>Home <FaHome></FaHome></span>
                     </div>
@@ -162,7 +163,7 @@ function HomePage6() {
             <Sidebar className="barra"></Sidebar>
             <div className="container1">
                 <button className="options-btn1 uno" onClick={() => {
-                    navigate("/");
+                    navigate("/home");
                 }}>
                     <i data-feather="shopping-bag"></i>
                     <span>Tutte</span>
@@ -230,10 +231,14 @@ function HomePage6() {
                 </div>
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {allProducts.map(item => (
-                            <BoxItem box={item}></BoxItem>
-
-                        ))}
+                        {Array.isArray(allProducts) ? (
+                            allProducts.map(item => (
+                                <BoxItem box={item}></BoxItem>
+                            ))
+                        ) : (
+                            // Gestione quando allProducts non è un array
+                            console.log("allProducts non è ancora stato ricevuto")
+                        )}
                     </div>
                 </div>
             </div>

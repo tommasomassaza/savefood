@@ -75,7 +75,7 @@ const ReservationsPage = () => {
                 </div>
                 <div className="currentDetails1">
                     <div className="header-option1"onClick={() => {
-                        navigate("/");
+                        navigate("/home");
                     }}>
                         <span>Home <FaHome></FaHome></span>
                     </div>
@@ -117,7 +117,7 @@ const ReservationsPage = () => {
 
                         <div className="header-viewOptions1">
                             <div className="viewAll1" onClick={() => {
-                                navigate("/");
+                                navigate("/home");
                                 navigate(0);
                             }}>
                                 <span> <FaArrowLeft/> Torna alla Home</span>

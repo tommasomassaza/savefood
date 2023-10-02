@@ -1,8 +1,7 @@
 import BoxItem from '../BoxItem/index.js';
 import {useNavigate} from "react-router-dom";
-import {FaArrowRight} from "react-icons/fa";
+import {globalCityCoordinates} from "../GreetingPage/global";
 import {
-
     FaSearch,
     FaHome,
     FaCalendarCheck,
@@ -36,7 +35,7 @@ function HomePage2() {
     const [boxes, setBoxes] = useState([]);
 
     let getBoxes = () => {
-        fetch('http://localhost:8080/api/boxes')
+        fetch('http://localhost:8080/api/boxes/'+globalCityCoordinates.getGlobalCityCoordinates())
             .then(res => {
                 console.log(res.status);
                 console.log(res.headers);
@@ -121,7 +120,7 @@ function HomePage2() {
                 </div>
                 <div className="currentDetails1">
                     <div className="header-option1"onClick={() => {
-                        navigate("/");}}>
+                        navigate("/home");}}>
 
                         <span>Home <FaHome></FaHome></span>
                     </div>
@@ -224,10 +223,14 @@ function HomePage2() {
                 </div>
                 <div className="listings-grid1">
                     <div className="listings-col1" style={{maxHeight: 700, overflow: 'scroll'}}>
-                        {allProducts.map(item => (
-                            <BoxItem box={item}></BoxItem>
-
-                        ))}
+                        {Array.isArray(allProducts) ? (
+                            allProducts.map(item => (
+                                <BoxItem box={item}></BoxItem>
+                            ))
+                        ) : (
+                            // Gestione quando allProducts non è un array
+                            console.log("allProducts non è ancora stato ricevuto")
+                        )}
                     </div>
                 </div>
             </div>

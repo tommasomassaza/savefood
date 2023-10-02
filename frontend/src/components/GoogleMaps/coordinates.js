@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import getCityFromCoordinates from './index.js'; // Assicurati di importare la funzione
+import {globalCityCoordinates} from "../GreetingPage/global";
 
 const Coordinates = () => {
     useEffect(() => {
@@ -13,6 +14,7 @@ const Coordinates = () => {
                         .then((city) => {
                             console.log(`Coordinate: Latitudine ${latitude}, Longitudine ${longitude}`);
                             console.log(`Nome della città: ${city}`);
+                            globalCityCoordinates.setGlobalCityCoordinates(city);
                         })
                         .catch((error) => {
                             console.error('Errore nell\'ottenere il nome della città:', error);

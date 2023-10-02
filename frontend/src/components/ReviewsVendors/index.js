@@ -102,7 +102,7 @@ function ReviewsVendors() {
         <header>
             <div className="container1">
                 <div className="logo1" onClick={() => {
-                    navigate("/greeting_page");}}>
+                    navigate("/");}}>
                     <h1>Save<span>Food</span></h1>
                 </div>
                 <div className="currentDetails1">
@@ -138,7 +138,7 @@ function ReviewsVendors() {
                         </div>
                         <div className="header-viewOptions1">
                             <div className="viewAll1" onClick={() => {
-                                navigate("/modifyshop2");
+                                navigate("/vendors/homepage");
                             }}>
                                 <span><FaArrowLeft/> Torna alla Home</span>
                             </div>

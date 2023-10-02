@@ -5,6 +5,7 @@
 Piattaforma per prenotare e acquistare cibo avanzato dai locali sotto forma di launch box
 
 ## Requisiti
+
 - Java 17
 
 ## Installazione
